@@ -1,0 +1,22 @@
+[
+  {
+    "id": "equilibra",
+    "order": 1,
+    "role": "Ingeniero TI / Service Desk",
+    "company": "Equilibra S.A. de C.V.",
+    "location": "Naucalpan de Juárez, Estado de México",
+    "description": "Líder del Departamento TI.",
+    "start": "2021",
+    "end": "2025"
+  },
+  {
+    "id": "america-movil",
+    "order": 2,
+    "role": "Becario de Transformación Tecnológica",
+    "company": "América Móvil",
+    "location": "Miguel Hidalgo, Ciudad de México",
+    "description": "Probando e implementando nuevas tecnologías en entornos empresariales.",
+    "start": "2025",
+    "end": "2026"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "github-foundations",
+    "order": 1,
+    "title": "GitHub Foundations",
+    "issuer": "GitHub",
+    "validity": "2024 – 2027",
+    "url": "https://www.credly.com/go/Y4p4notf"
+  },
+  {
+    "id": "it-support",
+    "order": 2,
+    "title": "Certificado de Soporte de TI",
+    "issuer": "Google y Coursera",
+    "validity": "2023 – 2027",
+    "url": "https://www.credly.com/badges/a6f886c3-b2d1-4a6c-ab0b-d3578db18227/"
+  },
+  {
+    "id": "cambridge-c1",
+    "order": 3,
+    "title": "Certificación de Dominio de Inglés, nivel C1 (Grade C, 191)",
+    "issuer": "Cambridge Assessment English",
+    "validity": "2019, permanente",
+    "url": "https://drive.google.com/file/d/1pDNjm2h3-yXO11oesCaM0wAAg5Erv5Ci/view?usp=sharing"
+  },
+  {
+    "id": "docker",
+    "order": 4,
+    "title": "Curso Profesional de Docker (completitud)",
+    "issuer": "códigofacilito",
+    "validity": "2025",
+    "url": "https://drive.google.com/file/d/1amtRMmr5U-8PSYKZIZDFtkYgBEyyarAl/view"
+  },
+  {
+    "id": "aws-ccp",
+    "order": 5,
+    "title": "AWS Certified Cloud Practitioner",
+    "issuer": "Amazon Web Services",
+    "validity": "2026 – 2029",
+    "url": "https://www.credly.com/badges/eee16d24-391a-4b67-918e-eeb58c566ddd/public_url"
+  }
+]

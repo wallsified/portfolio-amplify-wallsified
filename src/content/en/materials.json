@@ -1,0 +1,45 @@
+[
+  {
+    "id": "notebooklm-guide",
+    "order": 1,
+    "title": "NotebookLM: The Tool for the Busy Student",
+    "type": "guide",
+    "description": "User Guide for NotebookLM, used at DevFest CDMX 2025.",
+    "url": "https://sudo-fciencias.notion.site/NotebookLM-La-herramienta-del-estudiante-apurado-2ab80dc6122980d8997ada7029acf66b",
+    "inSpanish": true
+  },
+  {
+    "id": "github-foundations-guide",
+    "order": 2,
+    "title": "GitHub Foundations in 5 Hours or Less",
+    "type": "guide",
+    "description": "Study guide in Spanish for the GitHub Foundations certification.",
+    "url": "https://sudo-fciencias.notion.site/github-foundations-en-5-horas-o-menos",
+    "inSpanish": true
+  },
+  {
+    "id": "aws-ccp-guide",
+    "order": 3,
+    "title": "AWS CCP - Study Guide",
+    "type": "guide",
+    "description": "Study guide in Spanish for the AWS Cloud Practitioner certification.",
+    "url": "https://sudo-fciencias.notion.site/aws-cloud-practitioner",
+    "inSpanish": true
+  },
+  {
+    "id": "python-360",
+    "order": 4,
+    "title": "Python 360°: From the Web to Data Science",
+    "type": "talk",
+    "description": "Webinar @ EBAC LATAM on how Python powers full-stack web applications.",
+    "url": "https://www.youtube.com/watch?v=64-vRtGD_js"
+  },
+  {
+    "id": "notion-templates",
+    "order": 5,
+    "title": "Creator Profile @ Notion Marketplace",
+    "type": "templates",
+    "description": "Notion templates for student organizations and software development.",
+    "url": "https://www.notion.so/@wallsified"
+  }
+]

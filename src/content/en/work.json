@@ -1,0 +1,22 @@
+[
+  {
+    "id": "equilibra",
+    "order": 1,
+    "role": "IT Engineer / Service Desk",
+    "company": "Equilibra S.A. de C.V.",
+    "location": "Naucalpan de Juárez, State of Mexico",
+    "description": "IT Department Leader.",
+    "start": "2021",
+    "end": "2025"
+  },
+  {
+    "id": "america-movil",
+    "order": 2,
+    "role": "Technology Transformation Intern",
+    "company": "América Móvil",
+    "location": "Miguel Hidalgo, Mexico City",
+    "description": "Testing and implementing new technologies in business environments.",
+    "start": "2025",
+    "end": "2026"
+  }
+]

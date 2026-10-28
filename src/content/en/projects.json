@@ -1,0 +1,44 @@
+[
+  {
+    "id": "city-lens",
+    "order": 1,
+    "title": "City Lens (API)",
+    "description": "Web application for reporting urban incidents (accidents, emergencies, etc.) in Mexico City.",
+    "tech": ["Kotlin", "PostgreSQL"],
+    "url": "https://github.com/wallsified/city-lens-api",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/citylens.png",
+      "alt": "Map of the City Lens application with markers for urban incidents in Mexico City."
+    }
+  },
+  {
+    "id": "posadas-de-codigo",
+    "order": 2,
+    "title": "Posadas de Código",
+    "description": "An initiative to promote programming and problem-solving through the Advent of Code holiday challenges.",
+    "tech": ["Python", "Reflex", "Tailwind CSS", "Vercel"],
+    "url": "https://github.com/wallsified/aoc-mx-2025",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/posadasdecodigo.png",
+      "alt": "Posadas de Código logo: code braces and snowflakes on a green background."
+    }
+  },
+  {
+    "id": "k-coloring",
+    "order": 3,
+    "title": "K-Coloring of a Graph",
+    "description": "Implementation of the k-coloring problem for a simple, connected graph using a SAT solver.",
+    "tech": ["Haskell"],
+    "url": "https://github.com/wallsified/graph-sat-coloring"
+  },
+  {
+    "id": "python-portfolio",
+    "order": 4,
+    "title": "Python Portfolio",
+    "description": "A web portfolio template created in an unorthodox way, designed for quick adjustments and rapid deployment.",
+    "tech": ["Python", "Reflex", "Tailwind CSS", "Vercel"],
+    "url": "https://github.com/Sudo-FCiencias/pythonic-portfolio"
+  }
+]

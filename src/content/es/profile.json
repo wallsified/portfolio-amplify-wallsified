@@ -1,0 +1,19 @@
+[
+  {
+    "id": "profile",
+    "name": "Daniel Paredes",
+    "handle": "@wallsified",
+    "title": "Computólogo / Desarrollador",
+    "location": "Ciudad de México, México",
+    "greeting": "¡Hola! Yo soy",
+    "bio": "Actualmente estudiando Ciencias de la Computación @ Facultad de Ciencias, UNAM. Soy co-fundador de Sudo FCiencias, Líder @ AWS Student Builder Group UNAM y Staff @ PythonCDMX. Creo firmemente que facilitando el acceso al conocimiento tecnológico nos acercará a un mejor futuro para todxs.",
+    "avatar": "/images/avatar.jpg",
+    "email": "wallsified@gmail.com",
+    "links": {
+      "github": "https://github.com/wallsified",
+      "linkedin": "https://www.linkedin.com/in/wallsified/",
+      "aws": "https://builder.aws.com/community/@wallsified",
+      "cv": "/documents/CV_DanielParedes.pdf"
+    }
+  }
+]

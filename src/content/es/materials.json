@@ -1,0 +1,42 @@
+[
+  {
+    "id": "notebooklm-guide",
+    "order": 1,
+    "title": "NotebookLM: La Herramienta del Estudiante Apurado",
+    "type": "guide",
+    "description": "Guía de uso para NotebookLM, usada en el DevFest CDMX 2025.",
+    "url": "https://sudo-fciencias.notion.site/NotebookLM-La-herramienta-del-estudiante-apurado-2ab80dc6122980d8997ada7029acf66b"
+  },
+  {
+    "id": "github-foundations-guide",
+    "order": 2,
+    "title": "GitHub Foundations en 5 Horas o Menos",
+    "type": "guide",
+    "description": "Guía de estudio en español para la certificación GitHub Foundations.",
+    "url": "https://sudo-fciencias.notion.site/github-foundations-en-5-horas-o-menos"
+  },
+  {
+    "id": "aws-ccp-guide",
+    "order": 3,
+    "title": "AWS CCP - Guía de Estudio",
+    "type": "guide",
+    "description": "Guía de estudio en español para la certificación AWS Cloud Practitioner.",
+    "url": "https://sudo-fciencias.notion.site/aws-cloud-practitioner"
+  },
+  {
+    "id": "python-360",
+    "order": 4,
+    "title": "Python 360°: De la Web a la Ciencia de Datos",
+    "type": "talk",
+    "description": "Webinar @ EBAC LATAM sobre cómo Python impulsa aplicaciones web completas.",
+    "url": "https://www.youtube.com/watch?v=64-vRtGD_js"
+  },
+  {
+    "id": "notion-templates",
+    "order": 5,
+    "title": "Perfil de Creador @ Notion Marketplace",
+    "type": "templates",
+    "description": "Plantillas de Notion para organización estudiantil y desarrollo de software.",
+    "url": "https://www.notion.so/@wallsified"
+  }
+]

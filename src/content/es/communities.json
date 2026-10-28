@@ -1,0 +1,29 @@
+[
+  {
+    "id": "sudo-fciencias",
+    "order": 1,
+    "name": "Sudo FCiencias",
+    "role": "co-fundador",
+    "description": "Comunidad estudiantil que busca hacer el conocimiento tecnológico más accesible para todxs.",
+    "url": "https://linktr.ee/Sudo_FCiencias",
+    "emoji": "💻"
+  },
+  {
+    "id": "aws-sbg-unam",
+    "order": 2,
+    "name": "AWS Student Builder Group UNAM",
+    "role": "líder",
+    "description": "Grupo de usuarios liderado por estudiantes con el objetivo de enseñar sobre AWS.",
+    "url": "https://linktr.ee/aws_unam",
+    "emoji": "☁️"
+  },
+  {
+    "id": "pythoncdmx",
+    "order": 3,
+    "name": "PythonCDMX",
+    "role": "staff",
+    "description": "Grupo de personas interesadas en aprender y compartir su conocimiento sobre Python.",
+    "url": "https://pythoncdmx.org/",
+    "emoji": "🐍"
+  }
+]

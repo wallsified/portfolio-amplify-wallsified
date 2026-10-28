@@ -1,0 +1,15 @@
+.DS_Store
+*/references/*
+
+# Dependencias y build
+node_modules/
+dist/
+.astro/
+
+# Variables de entorno
+.env
+.env.*
+
+# Editor
+.vscode/
+.idea/

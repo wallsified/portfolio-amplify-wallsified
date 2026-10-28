@@ -7,7 +7,7 @@ interface Props {
   locale: Locale;
   email: string;
   name: string;
-  links: { github: string; linkedin: string; aws: string };
+  links: { github: string; linkedin: string; aws: string; cv: string };
 }
 
 const { locale, email, name, links } = Astro.props;
@@ -18,24 +18,26 @@ const socials = [
   { href: links.github, label: "GitHub" },
   { href: links.linkedin, label: "LinkedIn" },
   { href: links.aws, label: dict.socialLabels.aws },
+  { href: links.cv, label: dict.cvLabel },
 ];
 ---
 
-<footer class="mt-24 border-t border-line">
-  <!-- Contact band -->
-  <div class="mx-auto max-w-[1000px] px-5 py-16 text-center sm:px-6 md:py-24">
-    <h3 class="text-[clamp(24px,3vw,32px)]">{dict.footer.heading}</h3>
-    <p class="mx-auto mt-4 max-w-[46ch] text-text-secondary">{dict.footer.text}</p>
-    <a href={`mailto:${email}`} class="btn-outline mt-8">{dict.footer.cta}</a>
+<footer class="mt-16 border-t border-line md:mt-20">
+  <!-- Contact band (compact: the footer closes the page, it is not a hero) -->
+  <div class="mx-auto max-w-250 px-5 py-10 text-center sm:px-6 md:py-14">
+    <h3 class="text-[clamp(22px,2.5vw,26px)]">{dict.footer.heading}</h3>
+    <p class="mx-auto mt-2 max-w-[46ch] text-[15px] text-text-secondary">{dict.footer.text}</p>
+    <a href={`mailto:${email}`} class="btn-outline mt-6">{dict.footer.cta}</a>
   </div>
 
-  <!-- © year and social links -->
+  <!-- © year and links. Socials live in the side rails on wide screens,
+       so they only appear here when the rails are hidden (<1080px). -->
   <div class="border-t border-line px-5 py-6 sm:px-6">
     <div
-      class="mx-auto flex max-w-[1000px] flex-col items-center gap-4 sm:flex-row sm:justify-between"
+      class="mx-auto flex max-w-250 flex-col items-center gap-4 sm:flex-row sm:justify-between"
     >
       <p class="font-mono text-xs text-text-secondary">© {year} {name}</p>
-      <ul class="flex items-center gap-5">
+      <ul class="flex items-center gap-5 min-[1080px]:hidden">
         {
           socials.map((social) => (
             <li>

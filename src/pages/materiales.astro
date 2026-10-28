@@ -5,7 +5,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getDict } from "../i18n";
 import { getSorted, getSingle } from "../lib/content";
 
-// Materiales (DESIGN.md §5): a list of material rows.
 const locale = "es";
 const dict = getDict(locale);
 const profile = await getSingle("profile", locale);

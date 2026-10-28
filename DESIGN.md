@@ -77,9 +77,9 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 - **Page title:** mono accent number (`01.`) + Fraunces H2 + a 1px `line` rule filling the remaining width. Numbers mirror the fixed nav order and appear only here and in the nav.
 - **Primary button:** 48px high, 4px radius, 0/28px padding, JetBrains Mono 14px, transparent fill, 1px accent border, accent text. Hover: `accent-wash` fill. Never a solid-filled CTA.
-- **Top nav:** 72px, transparent, backdrop blur after scroll, hides on scroll-down and returns on scroll-up. Five links, mono 13px: `01. Sobre mí · 02. Experiencia · 03. Proyectos · 04. Comunidades · 05. Materiales`. The current page is accent with `aria-current="page"`. Right side: language switch, then a "CV" outline button linking to `/documents/CV_DanielParedes.pdf`.
+- **Top nav:** floating bar (12px margin from the top edge, `surface-primary` at 70% with backdrop blur, 1px `line` border, 8px radius, 64px tall), always blurred; hides on scroll-down and returns on scroll-up. Five links, mono 13px: `01. Sobre mí · 02. Experiencia · 03. Proyectos · 04. Comunidades · 05. Materiales`. The current page is accent with `aria-current="page"`. Right side: language switch only — the CV lives in the side rail (≥1080px), the footer links (<1080px) and the mobile sheet, never as a nav button.
 - **Language switch:** two mono buttons `ES | EN`, active one in accent, inactive in text-secondary, 44px minimum touch area. See section 10.
-- **Side rails (≥1080px only):** left, vertical `@wallsified` with a 90px `line` rule below; right, vertical icons (GitHub, LinkedIn, AWS Builder Center, CV) with the same rule. Bottom-anchored.
+- **Side rails (≥1080px only):** left, vertical `@wallsified` rotated so it reads bottom-to-top, with a 90px `line` rule below; right, vertical icons (GitHub, LinkedIn, AWS Builder Center, CV) with the same rule. Bottom-anchored.
 - **Education / Certification row:** full-width list row, 1px `line` divider. Title (text-primary) with issuer or institution below (text-secondary); right side mono dates (`2024 – 2027`, `en curso`) and, for certifications, an external "verify" icon link. Not cards: these are records, not highlights.
 - **Work tabs (Experiencia laboral):** tab list on the left (mono 13px, 2px left border `line`, active border accent + `surface-elevated` fill) with the company name; panel on the right: role as H3, company in accent, mono dates, location in text-secondary, one short description. Two entries today. On mobile the tabs become a horizontally scrolling row with a bottom border.
 - **Featured project row:** the first two projects (flag `featured: true`) use alternating image/text rows. Image has an `accent-wash` tint (30%) that fades on hover; the description card (`surface-secondary`, 4px radius, 28px padding) overlaps the image by 40px; tech list in mono 13px text-secondary, then GitHub icon. Projects without an image become **project cards**: `surface-secondary`, 8px radius, 28px padding, folder icon in accent, title, 3-line description, mono tech list; hover translateY(-4px).
@@ -95,16 +95,15 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 | # | ES (default, no prefix) | EN | Content |
 |---|---|---|---|
-| 01 | `/` | `/en/` | Hero + Sobre mí / About |
+| 01 | `/` | `/en/` | Hero that is also Sobre mí / About |
 | 02 | `/experiencia` | `/en/experience` | Educación, Experiencia laboral, Certificaciones |
 | 03 | `/proyectos` | `/en/projects` | Projects (2 featured + cards) |
 | 04 | `/comunidades` | `/en/communities` | Community cards |
 | 05 | `/materiales` | `/en/resources` | Material rows |
 
 - Do not reorder, merge or add pages. On Experiencia, the three blocks are separated by H3 titles without numbers.
-- **Hero (on `/`):** mono accent greeting, H1 name (cream, serif), tagline in text-secondary (serif), mono location line, one short paragraph (≤ 3 lines), one outline CTA ("Ver proyectos" / "See projects"). Left-aligned. A single emoji in a 40px sage wash circle may precede the greeting.
-- **Sobre mí:** 60/40 split. Bio text left; the existing avatar right with 15% accent tint, 4px radius, tint fades on hover. Names of the communities mentioned in the bio link to their cards on `/comunidades`.
-- **Footer on every page:** a contact band (serif H3 "Hablemos" / "Get in touch", one sentence, outline button `mailto:wallsified@gmail.com`), then © year (build-time), and the social links. No separate contact page.
+- **Hero (on `/`):** the hero **is** the "Sobre mí" section — no separate block below it. Left column (60%): mono accent greeting, H1 name (cream, serif), tagline in text-secondary (serif), mono location line, the short paragraph (≤ 3 lines) with community names linking to their cards on `/comunidades`, and one outline CTA ("Ver proyectos" / "See projects"). Right column (40%): the existing avatar with 15% accent tint, 4px radius, tint fades on hover. Lines appear one after another over 600ms total, once on load.
+- **Footer contact band:** compact — it closes the page, it is not a hero. Serif H3, one sentence, outline `mailto:` button, modest vertical padding. Below 1080px the © line also carries the social + CV links (≥1080px the side rails already show them; never both).
 
 ## 6. Depth & Elevation
 

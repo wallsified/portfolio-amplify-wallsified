@@ -1,11 +1,11 @@
 ---
-import PageTitle from "../components/PageTitle.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getDict, getPath } from "../i18n";
 import { getSorted, getSingle } from "../lib/content";
 
-// Home (DESIGN.md §5): hero (greeting, name, tagline, location, CTA) and
-// "Sobre mí" as a 60/40 split: bio left, avatar right with a 15% accent
+// Home (DESIGN.md §5): the hero *is* the "Sobre mí" section — bio and avatar
+// are the first thing visitors see. Left column: greeting, name, tagline,
+// location, short paragraph and CTA. Right column: avatar with a 15% accent
 // tint that fades on hover. Community names in the bio link to their cards.
 const locale = "es";
 const dict = getDict(locale);
@@ -32,36 +32,31 @@ for (const community of communities) {
 ---
 
 <BaseLayout locale={locale} pageKey="home" profile={profile.data}>
-  <!-- Hero (≥88vh, one orchestrated entrance ≤600ms total) -->
-  <section class="flex min-h-[88vh] flex-col justify-center pt-[72px]">
-    <p class="hero-line font-mono text-base text-accent" style="--d: 0ms">
-      {profile.data.greeting}
-    </p>
-    <h1
-      class="hero-line mt-4 text-[clamp(44px,8vw,80px)] leading-[1.05] tracking-[-0.02em]"
-      style="--d: 120ms"
-    >
-      {profile.data.name}
-    </h1>
-    <p
-      class="hero-line mt-2 text-[clamp(28px,5vw,56px)] leading-[1.15] text-text-secondary"
-      style="--d: 240ms"
-    >
-      {profile.data.title}
-    </p>
-    <p class="hero-line mt-5 font-mono text-sm text-text-secondary" style="--d: 360ms">
-      {profile.data.location}
-    </p>
-    <div class="hero-line mt-8" style="--d: 480ms">
-      <a href={getPath(locale, "projects")} class="btn-outline">{dict.heroCta}</a>
-    </div>
-  </section>
-
-  <!-- Sobre mí: 60/40 split -->
-  <section class="mt-8">
-    <PageTitle locale={locale} pageKey="home" as="h2" />
-    <div class="mt-10 grid items-start gap-10 md:grid-cols-[3fr_2fr]">
-      <p class="max-w-[62ch] text-[17px] leading-[1.8] text-text-secondary">
+  <section class="grid min-h-[88vh] items-center gap-10 md:grid-cols-[3fr_2fr] md:gap-12">
+    <!-- Text column -->
+    <div>
+      <p class="hero-line font-mono text-base text-accent" style="--d: 0ms">
+        {profile.data.greeting}
+      </p>
+      <h1
+        class="hero-line mt-4 text-[clamp(44px,8vw,80px)] leading-[1.05] tracking-[-0.02em]"
+        style="--d: 120ms"
+      >
+        {profile.data.name}
+      </h1>
+      <p
+        class="hero-line mt-2 text-[clamp(28px,5vw,56px)] leading-[1.15] text-text-secondary"
+        style="--d: 240ms"
+      >
+        {profile.data.title}
+      </p>
+      <p class="hero-line mt-5 font-mono text-sm text-text-secondary" style="--d: 360ms">
+        {profile.data.location}
+      </p>
+      <p
+        class="hero-line mt-6 max-w-[54ch] text-[17px] leading-[1.8] text-text-secondary"
+        style="--d: 420ms"
+      >
         {
           parts.map((part) =>
             part.href ? (
@@ -77,21 +72,24 @@ for (const community of communities) {
           )
         }
       </p>
-
-      <div class="group relative mx-auto w-full max-w-[300px]">
-        <img
-          src={profile.data.avatar}
-          alt={profile.data.name}
-          width="480"
-          height="480"
-          loading="lazy"
-          decoding="async"
-          class="aspect-square w-full rounded-sm object-cover"
-        />
-        <span
-          class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-15 transition-opacity duration-base group-hover:opacity-0"
-          aria-hidden="true"></span>
+      <div class="hero-line mt-8" style="--d: 540ms">
+        <a href={getPath(locale, "projects")} class="btn-outline">{dict.heroCta}</a>
       </div>
+    </div>
+
+    <!-- Avatar column -->
+    <div class="group hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
+      <img
+        src={profile.data.avatar}
+        alt={profile.data.name}
+        width="480"
+        height="480"
+        decoding="async"
+        class="aspect-square w-full rounded-sm object-cover"
+      />
+      <span
+        class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-15 transition-opacity duration-base group-hover:opacity-0"
+        aria-hidden="true"></span>
     </div>
   </section>
 </BaseLayout>

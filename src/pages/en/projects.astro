@@ -1,0 +1,30 @@
+---
+import FeaturedProject from "../../components/FeaturedProject.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+
+// English twin of `/proyectos`. Drafted from the Spanish page; hidden from
+// search until the owner reviews it (see src/config.ts).
+const locale = "en";
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const projects = await getSorted("projects", locale);
+const featured = projects.filter((entry) => entry.data.featured);
+const rest = projects.filter((entry) => !entry.data.featured);
+---
+
+<BaseLayout locale={locale} pageKey="projects" profile={profile.data}>
+  <PageTitle locale={locale} pageKey="projects" />
+  <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.projects}</p>
+
+  <div class="mt-14 space-y-16 md:space-y-24">
+    {featured.map((entry, i) => <FeaturedProject entry={entry} flip={i % 2 === 1} />)}
+  </div>
+
+  <div class="mt-16 grid gap-6 md:grid-cols-2">
+    {rest.map((entry) => <ProjectCard entry={entry} />)}
+  </div>
+</BaseLayout>

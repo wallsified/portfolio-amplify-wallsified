@@ -1,0 +1,23 @@
+---
+import MaterialRow from "../../components/MaterialRow.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+
+// English twin of `/materiales`. Drafted from the Spanish page; hidden from
+// search until the owner reviews it (see src/config.ts).
+const locale = "en";
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const materials = await getSorted("materials", locale);
+---
+
+<BaseLayout locale={locale} pageKey="resources" profile={profile.data}>
+  <PageTitle locale={locale} pageKey="resources" />
+  <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.materials}</p>
+
+  <div class="mt-10">
+    {materials.map((entry) => <MaterialRow locale={locale} entry={entry} />)}
+  </div>
+</BaseLayout>

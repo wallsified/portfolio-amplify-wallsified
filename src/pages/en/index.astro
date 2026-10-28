@@ -1,0 +1,96 @@
+---
+import PageTitle from "../../components/PageTitle.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict, getPath } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+
+// English twin of `/` (DESIGN.md §5). Drafted from the Spanish page; hidden
+// from search until the owner reviews it (see src/config.ts).
+const locale = "en";
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const communities = await getSorted("communities", locale);
+
+// Split the bio into parts, turning each community name into a link to its card.
+type Part = { text: string; href?: string };
+let parts: Part[] = [{ text: profile.data.bio }];
+for (const community of communities) {
+  const next: Part[] = [];
+  for (const part of parts) {
+    if (part.href || !part.text.includes(community.data.name)) {
+      next.push(part);
+      continue;
+    }
+    const [before, ...rest] = part.text.split(community.data.name);
+    if (before) next.push({ text: before });
+    next.push({ text: community.data.name, href: `${getPath(locale, "communities")}#${community.id}` });
+    if (rest.length > 0) next.push({ text: rest.join(community.data.name) });
+  }
+  parts = next;
+}
+---
+
+<BaseLayout locale={locale} pageKey="home" profile={profile.data}>
+  <!-- Hero (≥88vh, one orchestrated entrance ≤600ms total) -->
+  <section class="flex min-h-[88vh] flex-col justify-center pt-[72px]">
+    <p class="hero-line font-mono text-base text-accent" style="--d: 0ms">
+      {profile.data.greeting}
+    </p>
+    <h1
+      class="hero-line mt-4 text-[clamp(44px,8vw,80px)] leading-[1.05] tracking-[-0.02em]"
+      style="--d: 120ms"
+    >
+      {profile.data.name}
+    </h1>
+    <p
+      class="hero-line mt-2 text-[clamp(28px,5vw,56px)] leading-[1.15] text-text-secondary"
+      style="--d: 240ms"
+    >
+      {profile.data.title}
+    </p>
+    <p class="hero-line mt-5 font-mono text-sm text-text-secondary" style="--d: 360ms">
+      {profile.data.location}
+    </p>
+    <div class="hero-line mt-8" style="--d: 480ms">
+      <a href={getPath(locale, "projects")} class="btn-outline">{dict.heroCta}</a>
+    </div>
+  </section>
+
+  <!-- About: 60/40 split -->
+  <section class="mt-8">
+    <PageTitle locale={locale} pageKey="home" as="h2" />
+    <div class="mt-10 grid items-start gap-10 md:grid-cols-[3fr_2fr]">
+      <p class="max-w-[62ch] text-[17px] leading-[1.8] text-text-secondary">
+        {
+          parts.map((part) =>
+            part.href ? (
+              <a
+                href={part.href}
+                class="text-text-primary underline decoration-line underline-offset-4 transition-colors duration-fast hover:text-accent"
+              >
+                {part.text}
+              </a>
+            ) : (
+              part.text
+            ),
+          )
+        }
+      </p>
+
+      <div class="group relative mx-auto w-full max-w-[300px]">
+        <img
+          src={profile.data.avatar}
+          alt={profile.data.name}
+          width="480"
+          height="480"
+          loading="lazy"
+          decoding="async"
+          class="aspect-square w-full rounded-sm object-cover"
+        />
+        <span
+          class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-15 transition-opacity duration-base group-hover:opacity-0"
+          aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

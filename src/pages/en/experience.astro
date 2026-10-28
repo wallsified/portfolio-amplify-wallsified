@@ -1,0 +1,51 @@
+---
+import CertificationRow from "../../components/CertificationRow.astro";
+import EducationRow from "../../components/EducationRow.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import WorkTabs from "../../components/WorkTabs.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+
+// English twin of `/experiencia`. Drafted from the Spanish page; hidden from
+// search until the owner reviews it (see src/config.ts).
+const locale = "en";
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const education = await getSorted("education", locale);
+const work = await getSorted("work", locale);
+const certifications = await getSorted("certifications", locale);
+---
+
+<BaseLayout locale={locale} pageKey="experience" profile={profile.data}>
+  <PageTitle locale={locale} pageKey="experience" />
+
+  <div class="mt-14 space-y-16 md:space-y-20">
+    <!-- Education -->
+    <section aria-labelledby="education-title">
+      <h3 id="education-title" class="text-[24px]">{dict.sections.education}</h3>
+      <p class="mt-2 text-text-secondary">{dict.intros.education}</p>
+      <div class="mt-6">
+        {education.map((entry) => <EducationRow locale={locale} entry={entry} />)}
+      </div>
+    </section>
+
+    <!-- Work experience -->
+    <section aria-labelledby="work-title">
+      <h3 id="work-title" class="text-[24px]">{dict.sections.work}</h3>
+      <p class="mt-2 text-text-secondary">{dict.intros.work}</p>
+      <div class="mt-6">
+        <WorkTabs locale={locale} entries={work} />
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section aria-labelledby="certifications-title">
+      <h3 id="certifications-title" class="text-[24px]">{dict.sections.certifications}</h3>
+      <p class="mt-2 text-text-secondary">{dict.intros.certifications}</p>
+      <div class="mt-6">
+        {certifications.map((entry) => <CertificationRow entry={entry} verifyLabel={dict.verify} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

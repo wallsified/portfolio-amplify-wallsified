@@ -1,0 +1,23 @@
+---
+import CommunityCard from "../../components/CommunityCard.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+
+// English twin of `/comunidades`. Drafted from the Spanish page; hidden from
+// search until the owner reviews it (see src/config.ts).
+const locale = "en";
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const communities = await getSorted("communities", locale);
+---
+
+<BaseLayout locale={locale} pageKey="communities" profile={profile.data}>
+  <PageTitle locale={locale} pageKey="communities" />
+  <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.communities}</p>
+
+  <div class="mt-14 grid gap-6 md:grid-cols-3">
+    {communities.map((entry) => <CommunityCard entry={entry} />)}
+  </div>
+</BaseLayout>

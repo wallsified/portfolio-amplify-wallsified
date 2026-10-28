@@ -1,0 +1,30 @@
+---
+import { getDict, type Locale } from "../i18n";
+import type { getSorted } from "../lib/content";
+
+// Education / Certification row (DESIGN.md §4): full-width list row, 1px line
+// divider. Title (text-primary) with issuer or institution below
+// (text-secondary); right side mono dates and, for certifications, an external
+// "verify" icon link. Records, not cards.
+type EducationEntry = Awaited<ReturnType<typeof getSorted<"education">>>[number];
+
+interface Props {
+  locale: Locale;
+  entry: EducationEntry;
+}
+
+const { locale, entry } = Astro.props;
+const dict = getDict(locale);
+const { degree, institution, location, status } = entry.data;
+---
+
+<div class="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-line py-5">
+  <div class="min-w-0">
+    <p class="text-[17px] text-text-primary">{degree}</p>
+    <p class="mt-0.5 text-[15px] text-text-secondary">{institution}</p>
+  </div>
+  <div class="flex items-baseline gap-4 font-mono text-xs text-text-secondary">
+    <span>{location}</span>
+    {status === "in-progress" && <span class="text-accent">{dict.educationStatus}</span>}
+  </div>
+</div>

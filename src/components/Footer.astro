@@ -1,0 +1,55 @@
+---
+import { getDict, type Locale } from "../i18n";
+
+// Footer on every page (DESIGN.md §5): a contact band (serif H3, one
+// sentence, outline mailto button), then © year (build-time) and social links.
+interface Props {
+  locale: Locale;
+  email: string;
+  name: string;
+  links: { github: string; linkedin: string; aws: string };
+}
+
+const { locale, email, name, links } = Astro.props;
+const dict = getDict(locale);
+const year = new Date().getFullYear();
+
+const socials = [
+  { href: links.github, label: "GitHub" },
+  { href: links.linkedin, label: "LinkedIn" },
+  { href: links.aws, label: dict.socialLabels.aws },
+];
+---
+
+<footer class="mt-24 border-t border-line">
+  <!-- Contact band -->
+  <div class="mx-auto max-w-[1000px] px-5 py-16 text-center sm:px-6 md:py-24">
+    <h3 class="text-[clamp(24px,3vw,32px)]">{dict.footer.heading}</h3>
+    <p class="mx-auto mt-4 max-w-[46ch] text-text-secondary">{dict.footer.text}</p>
+    <a href={`mailto:${email}`} class="btn-outline mt-8">{dict.footer.cta}</a>
+  </div>
+
+  <!-- © year and social links -->
+  <div class="border-t border-line px-5 py-6 sm:px-6">
+    <div
+      class="mx-auto flex max-w-[1000px] flex-col items-center gap-4 sm:flex-row sm:justify-between"
+    >
+      <p class="font-mono text-xs text-text-secondary">© {year} {name}</p>
+      <ul class="flex items-center gap-5">
+        {
+          socials.map((social) => (
+            <li>
+              <a
+                href={social.href}
+                class="flex h-11 items-center font-mono text-xs text-text-secondary transition-colors duration-fast hover:text-accent"
+                rel="noopener"
+              >
+                {social.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -8,6 +8,12 @@ export const es = {
   ogLocale: "es_MX",
   skipToContent: "Saltar al contenido",
   cvLabel: "CV",
+  langLabel: "Idioma",
+  navAriaLabel: "Navegación principal",
+  openMenu: "Abrir menú",
+  closeMenu: "Cerrar menú",
+  verify: "Verificar credencial",
+  socialLabels: { aws: "AWS Builder Center" },
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home" as PageKey, label: "Sobre mí" },

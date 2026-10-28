@@ -1,0 +1,42 @@
+---
+import { getDict, getPath, type Locale, type PageKey } from "../i18n";
+
+// Two mono links "ES | EN" separated by a 1px line bar (DESIGN.md §9).
+// Each links to the equivalent page in the other language, never to home.
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  class?: string;
+}
+
+const { locale, pageKey, class: className = "" } = Astro.props;
+const dict = getDict(locale);
+const isEs = locale === "es";
+const esHref = getPath("es", pageKey);
+const enHref = getPath("en", pageKey);
+
+const linkBase =
+  "flex h-11 items-center px-3 font-mono text-[13px] transition-colors duration-fast";
+const active = "text-accent";
+const inactive = "text-text-secondary hover:text-text-primary";
+---
+
+<div class:list={["flex h-11 items-center", className]} role="group" aria-label={dict.langLabel}>
+  <a
+    href={esHref}
+    lang="es"
+    hreflang="es"
+    aria-label="Español"
+    aria-current={isEs ? "true" : undefined}
+    class:list={[linkBase, isEs ? active : inactive]}
+  >ES</a>
+  <span class="h-4 w-px bg-line" aria-hidden="true"></span>
+  <a
+    href={enHref}
+    lang="en"
+    hreflang="en"
+    aria-label="English"
+    aria-current={!isEs ? "true" : undefined}
+    class:list={[linkBase, !isEs ? active : inactive]}
+  >EN</a>
+</div>

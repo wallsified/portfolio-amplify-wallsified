@@ -1,0 +1,106 @@
+---
+import { getDict, type Locale } from "../i18n";
+import type { getSorted } from "../lib/content";
+
+// Work tabs (DESIGN.md §4): tab list on the left (mono 13px, 2px left border
+// line, active border accent + surface-elevated fill) with the company name;
+// panel on the right: role as H3, company in accent, mono dates, location in
+// text-secondary, one short description. On mobile the tabs become a
+// horizontally scrolling row with a bottom border. ARIA tabs pattern with
+// arrow keys.
+type WorkEntry = Awaited<ReturnType<typeof getSorted<"work">>>[number];
+
+interface Props {
+  locale: Locale;
+  entries: WorkEntry[];
+}
+
+const { locale, entries } = Astro.props;
+const dict = getDict(locale);
+const formatDate = (entry: WorkEntry) =>
+  entry.data.end ? `${entry.data.start} – ${entry.data.end}` : `${entry.data.start} – …`;
+---
+
+<div class="flex flex-col gap-8 md:grid md:grid-cols-[220px_1fr] md:gap-10">
+  <!-- Tab list -->
+  <div
+    role="tablist"
+    aria-label={dict.sections.work}
+    class="flex overflow-x-auto border-b border-line md:flex-col md:gap-1 md:overflow-visible md:border-b-0"
+    data-tablist
+  >
+    {
+      entries.map((entry, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${entry.id}`}
+          aria-controls={`panel-${entry.id}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          tabindex={i === 0 ? 0 : -1}
+          class="shrink-0 border-b-2 border-line px-4 py-3 text-left font-mono text-[13px] text-text-secondary transition-colors duration-fast selected:border-accent selected:bg-surface-elevated selected:text-accent hover:text-text-primary md:border-b-0 md:border-l-2"
+          data-tab
+        >
+          {entry.data.company}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Panels -->
+  {
+    entries.map((entry, i) => (
+      <div
+        role="tabpanel"
+        id={`panel-${entry.id}`}
+        aria-labelledby={`tab-${entry.id}`}
+        tabindex={0}
+        hidden={i !== 0}
+        data-panel
+      >
+        <h3 class="text-[22px] leading-snug">{entry.data.role}</h3>
+        <p class="mt-1 font-mono text-sm text-accent">{entry.data.company}</p>
+        <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-text-secondary">
+          <span>{formatDate(entry)}</span>
+          <span aria-hidden="true">·</span>
+          <span>{entry.data.location}</span>
+        </p>
+        <p class="mt-4 max-w-[62ch] text-text-secondary">{entry.data.description}</p>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  // ARIA tabs pattern: arrow keys move selection (DESIGN.md §11).
+  document.querySelectorAll<HTMLElement>("[data-tablist]").forEach((tablist) => {
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>("[data-tab]"));
+    if (tabs.length === 0) return;
+
+    const select = (index: number) => {
+      tabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        const panel = document.getElementById(tab.getAttribute("aria-controls") ?? "");
+        if (panel) panel.hidden = !selected;
+      });
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(i));
+      tab.addEventListener("keydown", (e) => {
+        const key = e.key;
+        let next: number | null = null;
+        if (key === "ArrowDown" || key === "ArrowRight") next = (i + 1) % tabs.length;
+        else if (key === "ArrowUp" || key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+        else if (key === "Home") next = 0;
+        else if (key === "End") next = tabs.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        select(next);
+        tabs[next]?.focus();
+      });
+    });
+  });
+</script>

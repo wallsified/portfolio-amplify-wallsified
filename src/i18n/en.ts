@@ -9,6 +9,12 @@ export const en: Dictionary = {
   ogLocale: "en_US",
   skipToContent: "Skip to content",
   cvLabel: "Resume",
+  langLabel: "Language",
+  navAriaLabel: "Main navigation",
+  openMenu: "Open menu",
+  closeMenu: "Close menu",
+  verify: "Verify credential",
+  socialLabels: { aws: "AWS Builder Center" },
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home", label: "About" },

@@ -1,0 +1,23 @@
+---
+import { getDict, type Locale, type PageKey } from "../i18n";
+
+// Page title (DESIGN.md §4): mono accent number + Fraunces H2 + a 1px line
+// rule filling the remaining width (hidden below 480px). Numbers mirror the
+// fixed nav order. As an h1 when the page has no other h1, h2 on the home page.
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  as?: "h1" | "h2";
+}
+
+const { locale, pageKey, as: Tag = "h1" } = Astro.props;
+const dict = getDict(locale);
+const navItem = dict.nav.find((item) => item.key === pageKey);
+if (!navItem) throw new Error(`No nav item for page key "${pageKey}"`);
+---
+
+<div class="flex items-center gap-4">
+  <span class="font-mono text-xl text-accent" aria-hidden="true">{navItem.number}</span>
+  <Tag class="text-[clamp(28px,4vw,40px)] leading-[1.15] tracking-[-0.015em]">{navItem.label}</Tag>
+  <span class="hidden h-px flex-1 bg-line min-[480px]:block" aria-hidden="true"></span>
+</div>

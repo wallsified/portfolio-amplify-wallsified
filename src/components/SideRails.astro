@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+import { getDict, type Locale } from "../i18n";
+
+// Side rails, ≥1080px only (DESIGN.md §4): left, vertical @wallsified with a
+// 90px line below; right, vertical social icons with the same rule. Bottom-anchored.
+interface Props {
+  locale: Locale;
+  links: { github: string; linkedin: string; aws: string; cv: string };
+}
+
+const { locale, links } = Astro.props;
+const dict = getDict(locale);
+
+const iconLinks = [
+  { href: links.github, label: "GitHub", name: "github" as const },
+  { href: links.linkedin, label: "LinkedIn", name: "linkedin" as const },
+  { href: links.aws, label: dict.socialLabels.aws, name: "cloud" as const },
+  { href: links.cv, label: dict.cvLabel, name: "file" as const },
+];
+---
+
+<div class="pointer-events-none fixed bottom-10 left-5 z-30 hidden flex-col items-center gap-4 min-[1080px]:flex">
+  <!-- Left rail -->
+  <a
+    href={links.github}
+    class="vertical-text pointer-events-auto font-mono text-xs text-text-secondary transition-colors duration-fast hover:text-accent"
+    rel="noopener"
+  >
+    @wallsified
+  </a>
+  <span class="h-[90px] w-px bg-line" aria-hidden="true"></span>
+</div>
+
+<div class="pointer-events-none fixed bottom-10 right-5 z-30 hidden flex-col items-center gap-4 min-[1080px]:flex">
+  <!-- Right rail -->
+  <ul class="pointer-events-auto flex flex-col items-center gap-4">
+    {
+      iconLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            aria-label={link.label}
+            class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+            rel="noopener"
+          >
+            <Icon name={link.name} size={20} />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <span class="h-[90px] w-px bg-line" aria-hidden="true"></span>
+</div>

@@ -1,0 +1,39 @@
+---
+import Icon from "./Icon.astro";
+import type { getSorted } from "../lib/content";
+
+// Certification row (DESIGN.md §9): same grid as Material row. Title
+// (text-primary), issuer below (text-secondary). Right: mono validity and an
+// external "verify" icon link when a credential URL exists.
+type CertificationEntry = Awaited<ReturnType<typeof getSorted<"certifications">>>[number];
+
+interface Props {
+  entry: CertificationEntry;
+  verifyLabel: string;
+}
+
+const { entry, verifyLabel } = Astro.props;
+const { title, issuer, validity, url } = entry.data;
+---
+
+<div class="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-line py-5">
+  <div class="min-w-0">
+    <p class="text-[17px] text-text-primary">{title}</p>
+    <p class="mt-0.5 text-[15px] text-text-secondary">{issuer}</p>
+  </div>
+  <div class="flex items-center gap-3 font-mono text-xs text-text-secondary">
+    <span>{validity}</span>
+    {
+      url && (
+        <a
+          href={url}
+          aria-label={`${verifyLabel}: ${title}`}
+          rel="noopener"
+          class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+        >
+          <Icon name="external" size={16} />
+        </a>
+      )
+    }
+  </div>
+</div>

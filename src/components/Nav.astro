@@ -1,0 +1,154 @@
+---
+import Icon from "./Icon.astro";
+import LangSwitch from "./LangSwitch.astro";
+import { getDict, getPath, type Locale, type PageKey } from "../i18n";
+
+// Top nav (DESIGN.md §4): 72px, transparent, backdrop blur after scroll,
+// hides on scroll-down and returns on scroll-up. Five mono links; the
+// current page is accent with aria-current. Right side: language switch,
+// then the CV outline button. Below 768px: monogram + ES|EN + menu button,
+// and the same links live in a sheet from the right (one copy in the DOM:
+// the wrapper becomes `display: contents` on desktop).
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  cvHref: string;
+}
+
+const { locale, pageKey, cvHref } = Astro.props;
+const dict = getDict(locale);
+const homeHref = getPath(locale, "home");
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-40 h-[72px] transition-[transform,background-color,backdrop-filter] duration-base ease-out-quart nav-hidden:-translate-y-full scrolled:backdrop-blur-md scrolled:bg-surface-primary/70"
+  data-nav
+>
+  <div class="mx-auto flex h-[72px] max-w-[1000px] items-center px-5 sm:px-6">
+    <!-- Monogram (mobile only; also a terminal trigger, DESIGN.md §10) -->
+    <a
+      href={homeHref}
+      class="mr-3 font-display text-xl font-medium text-text-heading md:hidden"
+      aria-label={dict.nav[0].label}
+      data-monogram
+    >
+      DP
+    </a>
+
+    <nav aria-label={dict.navAriaLabel}>
+      <!-- Wrapper: sheet panel on mobile, contents on desktop -->
+      <div
+        id="mobile-sheet"
+        class="fixed inset-y-0 right-0 z-50 flex w-[86vw] max-w-[340px] translate-x-full flex-col gap-8 bg-surface-secondary p-6 pr-[max(1.5rem,env(safe-area-inset-right))] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-24 invisible transition-transform duration-base ease-out-quart open:translate-x-0 open:visible md:contents md:visible"
+        data-sheet
+      >
+        <button
+          type="button"
+          class="absolute right-5 top-6 flex h-11 w-11 items-center justify-center text-text-secondary hover:text-accent md:hidden"
+          aria-label={dict.closeMenu}
+          data-sheet-close
+        >
+          <Icon name="close" size={22} />
+        </button>
+
+        <ul class="flex flex-col gap-6 md:flex-row md:items-center md:gap-7">
+          {
+            dict.nav.map((item) => (
+              <li>
+                <a
+                  href={getPath(locale, item.key)}
+                  aria-current={item.key === pageKey ? "page" : undefined}
+                  class:list={[
+                    "font-mono text-sm text-text-secondary transition-colors duration-fast hover:text-text-primary md:text-[13px]",
+                    item.key === pageKey && "text-accent",
+                  ]}
+                >
+                  <span aria-hidden="true">{item.number}</span> {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <a href={cvHref} class="btn-outline mt-auto w-full md:mt-0 md:w-auto">
+          {dict.cvLabel}
+        </a>
+      </div>
+    </nav>
+
+    <LangSwitch locale={locale} pageKey={pageKey} class="ml-auto" />
+
+    <button
+      type="button"
+      class="-mr-3 ml-2 flex h-11 w-11 items-center justify-center text-text-secondary hover:text-accent md:hidden"
+      aria-label={dict.openMenu}
+      aria-expanded="false"
+      aria-controls="mobile-sheet"
+      data-sheet-toggle
+    >
+      <Icon name="menu" size={22} />
+    </button>
+  </div>
+
+  <!-- Backdrop for the mobile sheet -->
+  <div
+    class="fixed inset-0 z-40 bg-surface-terminal/70 invisible transition-opacity duration-fast open:visible md:hidden"
+    data-backdrop
+  >
+  </div>
+</header>
+
+<script>
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  const sheet = document.querySelector<HTMLElement>("[data-sheet]");
+  const backdrop = document.querySelector<HTMLElement>("[data-backdrop]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-sheet-toggle]");
+  const closeBtn = document.querySelector<HTMLButtonElement>("[data-sheet-close]");
+
+  const setOpen = (open: boolean) => {
+    if (!sheet || !toggle) return;
+    sheet.toggleAttribute("data-open", open);
+    backdrop?.toggleAttribute("data-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) toggle.focus();
+  };
+
+  toggle?.addEventListener("click", () => {
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+  closeBtn?.addEventListener("click", () => setOpen(false));
+  backdrop?.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") setOpen(false);
+  });
+
+  // Hide on scroll-down, return on scroll-up; blur after scrolling (DESIGN.md §4).
+  let lastY = window.scrollY;
+  let ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (nav) {
+      nav.toggleAttribute("data-scrolled", y > 8);
+      const goingDown = y > lastY;
+      const pastHeader = y > 72;
+      if (goingDown && pastHeader && toggle?.getAttribute("aria-expanded") !== "true") {
+        nav.setAttribute("data-nav-hidden", "");
+      } else if (!goingDown || y <= 72) {
+        nav.removeAttribute("data-nav-hidden");
+      }
+    }
+    lastY = y;
+    ticking = false;
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(onScroll);
+      }
+    },
+    { passive: true },
+  );
+</script>

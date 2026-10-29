@@ -31,7 +31,12 @@
     "title": "K-Coloring of a Graph",
     "description": "Implementation of the k-coloring problem for a simple, connected graph using a SAT solver.",
     "tech": ["Haskell"],
-    "url": "https://github.com/wallsified/graph-sat-coloring"
+    "url": "https://github.com/wallsified/graph-sat-coloring",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/haskell.jpg",
+      "alt": "Haskell logo."
+    }
   },
   {
     "id": "python-portfolio",
@@ -39,6 +44,11 @@
     "title": "Python Portfolio",
     "description": "A web portfolio template created in an unorthodox way, designed for quick adjustments and rapid deployment.",
     "tech": ["Python", "Reflex", "Tailwind CSS", "Vercel"],
-    "url": "https://github.com/Sudo-FCiencias/pythonic-portfolio"
+    "url": "https://github.com/Sudo-FCiencias/pythonic-portfolio",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/portfolio.png",
+      "alt": "Illustration alluding to the creation of a personal portfolio."
+    }
   }
 ]

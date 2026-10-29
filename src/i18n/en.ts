@@ -13,13 +13,13 @@ export const en: Dictionary = {
   socialLabels: { aws: "AWS Builder Center" },
   langNames: { es: "Español", en: "English" },
   nav: [
-    { number: "01.", key: "home", label: "About Me" },
-    { number: "02.", key: "skills", label: "Skills" },
+    { number: "01.", key: "home", label: "About" },
+    { number: "02.", key: "skills", label: "Experience" },
     { number: "03.", key: "projects", label: "Projects" },
     { number: "04.", key: "communities", label: "Communities" },
     { number: "05.", key: "resources", label: "Resources" },
   ],
-  heroCta: "See projects",
+  heroCta: "Learn more about me",
   sections: {
     about: "About Me",
     education: "Education",
@@ -52,7 +52,7 @@ export const en: Dictionary = {
         "Portfolio of Daniel Paredes (@wallsified), Computer Scientist / Developer in Mexico City. Projects, communities, and resources.",
     },
     skills: {
-      title: "Skills — Daniel Paredes",
+      title: "Experience — Daniel Paredes",
       description:
         "Education, work experience, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
     },

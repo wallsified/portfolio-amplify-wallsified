@@ -73,7 +73,7 @@ for (const community of communities) {
         }
       </p>
       <div class="hero-line mt-8" style="--d: 540ms">
-        <a href={getPath(locale, "projects")} class="btn-outline">{dict.heroCta}</a>
+        <a href={getPath(locale, "skills")} class="btn-outline">{dict.heroCta}</a>
       </div>
     </div>
 
@@ -82,7 +82,7 @@ for (const community of communities) {
       <Picture
         src={getImage(profile.data.avatar)}
         formats={["avif", "webp"]}
-        widths={[300, 600]}
+        widths={[800, 800]}
         sizes="300px"
         alt={profile.data.name}
         decoding="async"

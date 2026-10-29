@@ -23,14 +23,14 @@ const host = new URL(url).hostname.replace(/^www\./, "");
 <a
   href={url}
   rel="noopener"
-  class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-4 gap-y-1 border-b border-line py-5"
+  class="group grid grid-cols-1 gap-x-4 gap-y-1 border-b border-line py-5 md:grid-cols-[auto_1fr_auto] md:items-baseline"
 >
   <span class="font-mono text-xs text-accent">{dict.materialTypes[type]}</span>
   <span class="min-w-0">
-    <span class="block truncate text-[17px] text-text-primary transition-colors duration-fast group-hover:text-accent">
+    <span class="block text-[17px] text-text-primary transition-colors duration-fast group-hover:text-accent md:truncate">
       {title}
     </span>
-    <span class="mt-0.5 block truncate text-[15px] text-text-secondary">{description}</span>
+    <span class="mt-0.5 block text-[15px] text-text-secondary md:truncate">{description}</span>
     {inSpanish && <span class="mt-1 block font-mono text-xs text-text-secondary">({dict.inSpanish})</span>}
   </span>
   <span class="flex items-center gap-2 font-mono text-xs text-text-secondary">

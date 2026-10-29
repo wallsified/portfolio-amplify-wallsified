@@ -16,7 +16,9 @@ const { entry, verifyLabel } = Astro.props;
 const { title, issuer, validity, url } = entry.data;
 ---
 
-<div class="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-line py-5">
+<div
+  class="grid grid-cols-1 gap-x-6 gap-y-2 border-b border-line py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-y-1"
+>
   <div class="min-w-0">
     <p class="text-[17px] text-text-primary">{title}</p>
     <p class="mt-0.5 text-[15px] text-text-secondary">{issuer}</p>

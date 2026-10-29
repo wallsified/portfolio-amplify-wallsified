@@ -40,7 +40,6 @@
 }
 
 /* Data-attribute states used by nav, sheet and tabs. */
-@custom-variant scrolled (&[data-scrolled]);
 @custom-variant nav-hidden (&[data-nav-hidden]);
 @custom-variant open (&[data-open]);
 @custom-variant selected (&[aria-selected="true"]);
@@ -105,6 +104,39 @@
 
   .btn-outline:hover {
     background-color: var(--color-accent-wash);
+  }
+
+  /* Floating nav pill (DESIGN.md §4): surface-primary at 70% with backdrop
+     blur, 90% once scrolled. The translucent blur lives on a pseudo-element:
+     a backdrop-filter on the bar itself would make it the containing block
+     for the fixed mobile sheet (which sits inside the bar in the DOM), which
+     on phones collapses the sheet to the bar's 64px height. */
+  .nav-pill {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .nav-pill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: color-mix(
+      in srgb,
+      var(--color-surface-primary) 70%,
+      transparent
+    );
+    backdrop-filter: blur(12px);
+    transition: background-color var(--duration-base) var(--ease-out-quart);
+  }
+
+  [data-scrolled] .nav-pill::before {
+    background: color-mix(
+      in srgb,
+      var(--color-surface-primary) 90%,
+      transparent
+    );
   }
 
   /* L2 card lift (DESIGN.md §6). Removed entirely under reduced motion. */

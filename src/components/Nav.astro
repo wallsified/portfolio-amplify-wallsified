@@ -55,7 +55,7 @@ const homeHref = getPath(locale, "home");
                   href={getPath(locale, item.key)}
                   aria-current={item.key === pageKey ? "page" : undefined}
                   class:list={[
-                    "font-mono text-sm text-text-secondary transition-colors duration-fast hover:text-text-primary md:text-[13px]",
+                    "font-mono text-sm text-text-secondary transition-colors duration-fast hover:text-accent md:text-[13px]",
                     item.key === pageKey && "text-accent",
                   ]}
                 >

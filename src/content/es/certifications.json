@@ -18,7 +18,7 @@
   {
     "id": "cambridge-c1",
     "order": 3,
-    "title": "Certificación de Dominio de Inglés, nivel C1 (Grade C, 191)",
+    "title": "Certificado de Dominio de Inglés (C1 - CAE)",
     "issuer": "Cambridge Assessment English",
     "validity": "2019, permanente",
     "url": "https://drive.google.com/file/d/1pDNjm2h3-yXO11oesCaM0wAAg5Erv5Ci/view?usp=sharing"
@@ -26,7 +26,7 @@
   {
     "id": "docker",
     "order": 4,
-    "title": "Curso Profesional de Docker (completitud)",
+    "title": "Curso Profesional de Docker",
     "issuer": "códigofacilito",
     "validity": "2025",
     "url": "https://drive.google.com/file/d/1amtRMmr5U-8PSYKZIZDFtkYgBEyyarAl/view"

@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { file } from "astro/loaders";
 
 // Schemas shared by both locales; the data lives in src/content/{es,en}/*.json.
@@ -13,11 +14,11 @@ const profileSchema = z.object({
   greeting: z.string(),
   bio: z.string(),
   avatar: z.string(),
-  email: z.string().email(),
+  email: z.email(),
   links: z.object({
-    github: z.string().url(),
-    linkedin: z.string().url(),
-    aws: z.string().url(),
+    github: z.url(),
+    linkedin: z.url(),
+    aws: z.url(),
     cv: z.string(),
   }),
 });
@@ -28,7 +29,7 @@ const projectSchema = z.object({
   title: z.string(),
   description: z.string(),
   tech: z.array(z.string()),
-  url: z.string().url(),
+  url: z.url(),
   featured: z.boolean().default(false),
   image: z
     .object({
@@ -64,7 +65,7 @@ const certificationSchema = z.object({
   title: z.string(),
   issuer: z.string(),
   validity: z.string(),
-  url: z.string().url().optional(),
+  url: z.url().optional(),
 });
 
 const communitySchema = z.object({
@@ -73,7 +74,7 @@ const communitySchema = z.object({
   name: z.string(),
   role: z.string(),
   description: z.string(),
-  url: z.string().url(),
+  url: z.url(),
   emoji: z.string(),
 });
 
@@ -83,7 +84,7 @@ const materialSchema = z.object({
   title: z.string(),
   type: z.enum(["guide", "talk", "templates"]),
   description: z.string(),
-  url: z.string().url(),
+  url: z.url(),
   inSpanish: z.boolean().default(false),
 });
 

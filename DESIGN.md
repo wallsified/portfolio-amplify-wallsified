@@ -57,7 +57,7 @@ Dark only in v1 (`color-scheme: dark`). Do not add a light theme unless asked; i
 | text-primary            | #CCD6F6                                                               | Body text, titles in lists                                             |
 | text-secondary          | #8892B0                                                               | Supporting copy, metadata (≈5.7:1 on canvas, AA)                       |
 | accent                  | #64FFDA                                                               | The only accent: numbers, links, borders, focus, active states (≈14:1) |
-| accent-wash             | rgba(100,255,218,.10)                                                 | Button hover fill, image tint, selection                               |
+| accent-wash             | rgba(100,255,218,.10)                                                 | Button hover fill, selection                                           |
 | wash-peach / sage / sky | rgba(250,235,221,.12) / rgba(219,237,219,.12) / rgba(211,229,239,.12) | Circles behind emoji badges and terminal title-bar dots only           |
 
 Rule: **one accent**. Pastels are washes, never text, borders or buttons. Cream is for headings only; body stays blue-gray.
@@ -108,7 +108,7 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 | 05  | `/materiales`           | `/en/resources`   | Material rows                                   |
 
 - Do not reorder, merge or add pages. On Experiencia, the three blocks are separated by H3 titles without numbers.
-- **Hero (on `/`):** the hero **is** the "Sobre mí" section — no separate block below it. Left column (60%): mono accent greeting, H1 name (cream, serif), tagline in text-secondary (serif), mono location line, the short paragraph (≤ 3 lines) with community names linking to their cards on `/comunidades`, and one outline CTA ("Ver proyectos" / "See projects"). Right column (40%): the existing avatar with 15% accent tint, 4px radius, tint fades on hover. Lines appear one after another over 600ms total, once on load.
+- **Hero (on `/`):** the hero **is** the "Sobre mí" section — no separate block below it, and it starts close to the floating nav (top-aligned, not vertically centered). Left column (60%): mono accent greeting, H1 name (cream, serif), tagline in text-secondary (serif), mono location line, the short paragraph (≤ 3 lines) with community names linking to their cards on `/comunidades`, and one outline CTA ("Ver proyectos" / "See projects"). Right column (40%): the existing avatar, 4px radius, **no tint or overlay** — the photo stays as-is on hover. Lines appear one after another over 600ms total, once on load.
 - **Footer contact band:** compact — it closes the page, it is not a hero. Serif H3, one sentence, outline `mailto:` button, modest vertical padding. Below 1080px the © line also carries the social + CV links (≥1080px the side rails already show them; never both).
 
 ## 6. Depth & Elevation

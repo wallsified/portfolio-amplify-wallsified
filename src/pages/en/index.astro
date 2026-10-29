@@ -32,7 +32,7 @@ for (const community of communities) {
 ---
 
 <BaseLayout locale={locale} pageKey="home" profile={profile.data}>
-  <section class="grid min-h-[88vh] items-center gap-10 md:grid-cols-[3fr_2fr] md:gap-12">
+  <section class="grid min-h-[88vh] items-start gap-10 md:grid-cols-[3fr_2fr] md:gap-12">
     <!-- Text column -->
     <div>
       <p class="hero-line font-mono text-base text-accent" style="--d: 0ms">
@@ -78,7 +78,7 @@ for (const community of communities) {
     </div>
 
     <!-- Avatar column -->
-    <div class="group hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
+    <div class="hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
       <Picture
         src={getImage(profile.data.avatar)}
         formats={["avif", "webp"]}
@@ -88,9 +88,6 @@ for (const community of communities) {
         decoding="async"
         class="aspect-square w-full rounded-sm object-cover"
       />
-      <span
-        class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-30 transition-opacity duration-base group-hover:opacity-0"
-        aria-hidden="true"></span>
     </div>
   </section>
 </BaseLayout>

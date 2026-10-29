@@ -4,9 +4,7 @@ import Icon from "./Icon.astro";
 import type { getSorted } from "../lib/content";
 import { getImage } from "../lib/images";
 
-// Project card (DESIGN.md §4): surface-secondary, 8px radius, 28px padding,
-// GitHub icon in accent, title, 3-line description, mono tech list; hover
-// translateY(-4px) via .lift. Featured projects show their image on top.
+
 type ProjectEntry = Awaited<ReturnType<typeof getSorted<"projects">>>[number];
 
 interface Props {
@@ -43,7 +41,7 @@ const { title, description, tech, url, image } = entry.data;
         href={url}
         aria-label={`${title} — GitHub`}
         rel="noopener"
-        class="-mr-2 -mt-2 flex h-11 w-11 shrink-0 items-center justify-center text-accent transition-colors duration-fast hover:text-text-primary"
+        class="-mr-2 -mt-2 flex h-11 w-11 shrink-0 items-center justify-center white bg-surface-secondary transition-colors duration-fast hover:text-accent"
       >
         <Icon name="github" size={22} />
       </a>

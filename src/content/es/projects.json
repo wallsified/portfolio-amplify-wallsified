@@ -16,7 +16,7 @@
     "id": "posadas-de-codigo",
     "order": 2,
     "title": "Posadas de Código",
-    "description": "Iniciativa para fomentar la práctica de la programación y la resolución de problemas con los retos navideños de Advent of Code.",
+    "description": "Landing page en Python del leaderboard mexicano de Advent of Code.",
     "tech": ["Python", "Reflex", "Tailwind CSS", "Vercel"],
     "url": "https://github.com/wallsified/aoc-mx-2025",
     "featured": true,

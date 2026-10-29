@@ -23,7 +23,7 @@ export const es = {
     { number: "04.", key: "communities" as PageKey, label: "Comunidades" },
     { number: "05.", key: "resources" as PageKey, label: "Materiales" },
   ],
-  heroCta: "Ver proyectos",
+  heroCta: "Conoce más sobre mi",
   sections: {
     about: "Sobre mí",
     education: "Educación",

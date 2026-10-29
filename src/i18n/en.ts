@@ -1,7 +1,3 @@
-// UI strings for the English locale (under /en/).
-// Drafted from es.ts; flagged as reviewed: false in src/config.ts until the
-// owner approves the translation. Real facts live in src/content/en/*.json.
-
 import type { Dictionary } from "./es";
 
 export const en: Dictionary = {
@@ -18,7 +14,7 @@ export const en: Dictionary = {
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home", label: "About Me" },
-    { number: "02.", key: "experience", label: "Experience" },
+    { number: "02.", key: "skills", label: "Skills" },
     { number: "03.", key: "projects", label: "Projects" },
     { number: "04.", key: "communities", label: "Communities" },
     { number: "05.", key: "resources", label: "Resources" },
@@ -32,20 +28,21 @@ export const en: Dictionary = {
   },
   intros: {
     education: "Institutions where I received my academic training.",
-    work: "Companies where I have been able to apply my knowledge and make valuable contributions.",
-    certifications: "Certifications that validate my knowledge.",
+    work: "Companies where I've applied my knowledge and made valuable contributions.",
+    certifications:
+      "Certifications I've earned to validate my skills and knowledge.",
     projects: "Some projects I've worked on using different technologies.",
     communities:
-      "Communities and user groups where I contribute by sharing and creating knowledge.",
+      "Tech communities where I contribute by sharing and creating knowledge.",
     materials:
-      "Materials I've created for the communities I'm involved in, and talks/workshops I've given.",
+      "Materials, talks & workshops I've created for the communities I'm involved in.",
   },
   educationStatus: "in progress",
   materialTypes: { guide: "guide", talk: "talk", templates: "templates" },
   inSpanish: "in Spanish",
   footer: {
-    heading: "Get in touch",
-    text: "Have a project or a question? Tell me about it and let's talk.",
+    heading: "Have a project or a question?",
+    text: "Tell me about it and let's talk.",
     cta: "Email me",
   },
   meta: {
@@ -54,8 +51,8 @@ export const en: Dictionary = {
       description:
         "Portfolio of Daniel Paredes (@wallsified), Computer Scientist / Developer in Mexico City. Projects, communities, and resources.",
     },
-    experience: {
-      title: "Experience — Daniel Paredes",
+    skills: {
+      title: "Skills — Daniel Paredes",
       description:
         "Education, work experience, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
     },

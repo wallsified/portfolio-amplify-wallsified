@@ -15,7 +15,7 @@ Personal portfolio of Daniel Paredes (@wallsified), migrating https://wallsified
 
 ## Routes (Spanish keeps today's URLs; English under `/en/`)
 
-`/` · `/experiencia` · `/proyectos` · `/comunidades` · `/materiales` ↔ `/en/` · `/en/experience` · `/en/projects` · `/en/communities` · `/en/resources`.
+`/` · `/experiencia` · `/proyectos` · `/comunidades` · `/materiales` ↔ `/en/` · `/en/skills` · `/en/projects` · `/en/communities` · `/en/resources` (redirect from the old `/en/experience`).
 Config: `i18n: { defaultLocale: "es", locales: ["es","en"], routing: { prefixDefaultLocale: false } }`. Every ES page has an EN twin, and the language switch links to the twin of the current page. If a route ever changes, add a redirect.
 
 ## i18n rules

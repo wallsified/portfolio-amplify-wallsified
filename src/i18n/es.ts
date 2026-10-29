@@ -2,7 +2,7 @@
 // Real biography and facts live in src/content/es/*.json — never here.
 
 export type PageKey =
-  "home" | "experience" | "projects" | "communities" | "resources";
+  "home" | "skills" | "projects" | "communities" | "resources";
 
 export const es = {
   lang: "es",
@@ -18,7 +18,7 @@ export const es = {
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home" as PageKey, label: "Sobre mí" },
-    { number: "02.", key: "experience" as PageKey, label: "Experiencia" },
+    { number: "02.", key: "skills" as PageKey, label: "Experiencia" },
     { number: "03.", key: "projects" as PageKey, label: "Proyectos" },
     { number: "04.", key: "communities" as PageKey, label: "Comunidades" },
     { number: "05.", key: "resources" as PageKey, label: "Materiales" },
@@ -54,7 +54,7 @@ export const es = {
       description:
         "Portafolio de Daniel Paredes (@wallsified), computólogo y desarrollador en Ciudad de México. Proyectos, comunidades y recursos.",
     },
-    experience: {
+    skills: {
       title: "Experiencia — Daniel Paredes",
       description:
         "Educación, experiencia laboral y certificaciones de Daniel Paredes: Facultad de Ciencias UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge y AWS.",

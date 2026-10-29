@@ -18,18 +18,18 @@ export function getLocaleFromPathname(pathname: string): Locale {
   return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "es";
 }
 
-// Canonical path of each page per locale (no trailing slash, / for home ES).
+// Canonical path of each page per locale
 const paths: Record<Locale, Record<PageKey, string>> = {
   es: {
     home: "/",
-    experience: "/experiencia",
+    skills: "/experiencia",
     projects: "/proyectos",
     communities: "/comunidades",
     resources: "/materiales",
   },
   en: {
     home: "/en",
-    experience: "/en/experience",
+    skills: "/en/skills",
     projects: "/en/projects",
     communities: "/en/communities",
     resources: "/en/resources",

@@ -8,6 +8,10 @@ import { config } from "./src/config";
 export default defineConfig({
   site: "https://wallsified.dev",
   output: "static",
+  // The English experience page moved to /en/skills; keep the old URL working.
+  redirects: {
+    "/en/experience": "/en/skills",
+  },
   integrations: [
     sitemap({
       // Keep English out of the sitemap until the owner approves it.

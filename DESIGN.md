@@ -102,7 +102,7 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 | #   | ES (default, no prefix) | EN                | Content                                         |
 | --- | ----------------------- | ----------------- | ----------------------------------------------- |
 | 01  | `/`                     | `/en/`            | Hero that is also Sobre mí / About              |
-| 02  | `/experiencia`          | `/en/experience`  | Educación, Experiencia laboral, Certificaciones |
+| 02  | `/experiencia`          | `/en/skills`      | Educación, Experiencia laboral, Certificaciones |
 | 03  | `/proyectos`            | `/en/projects`    | Projects (2 featured + cards)                   |
 | 04  | `/comunidades`          | `/en/communities` | Community cards                                 |
 | 05  | `/materiales`           | `/en/resources`   | Material rows                                   |

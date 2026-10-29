@@ -7,8 +7,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getDict } from "../../i18n";
 import { getSorted, getSingle } from "../../lib/content";
 
-// English twin of `/experiencia`. Drafted from the Spanish page; hidden from
-// search until the owner reviews it (see src/config.ts).
+// English twin of `/experiencia` (route `/en/skills`). Drafted from the
+// Spanish page; hidden from search until the owner reviews it (see src/config.ts).
 const locale = "en";
 const dict = getDict(locale);
 const profile = await getSingle("profile", locale);
@@ -17,8 +17,8 @@ const work = await getSorted("work", locale);
 const certifications = await getSorted("certifications", locale);
 ---
 
-<BaseLayout locale={locale} pageKey="experience" profile={profile.data}>
-  <PageTitle locale={locale} pageKey="experience" />
+<BaseLayout locale={locale} pageKey="skills" profile={profile.data}>
+  <PageTitle locale={locale} pageKey="skills" />
 
   <div class="mt-14 space-y-16 md:space-y-20">
     <!-- Education -->

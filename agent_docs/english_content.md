@@ -16,6 +16,15 @@
 - IT Engineer / Service Desk · Equilibra S.A. de C.V. · Naucalpan de Juárez, State of Mexico · “IT Department Leader.” · 2021 – 2025
 - Technology Transformation Intern · América Móvil · Miguel Hidalgo, Mexico City · “Testing and implementing new technologies in business environments.” · 2025 – 2026
 
+**Technologies I Use** (intro: “Programming languages, frameworks, and tools I use in my projects.”)
+- Programming languages: Python, Kotlin, Haskell
+- Frameworks and libraries: Reflex, Tailwind CSS
+- Databases: PostgreSQL, MariaDB
+- Containers and virtualization: Docker, VMware
+- Cloud and services: AWS, GitHub
+- Version control: Git, GitHub
+- Operating systems: Fedora, Windows, macOS
+
 **Certifications** (intro: “Certifications that validate my knowledge.”)
 - GitHub Foundations · GitHub · 2024 – 2027 · https://www.credly.com/go/Y4p4notf
 - IT Support Certificate · Google and Coursera · 2023 – 2027 · https://www.credly.com/badges/a6f886c3-b2d1-4a6c-ab0b-d3578db18227/

@@ -14,10 +14,10 @@ export const en: Dictionary = {
   openMenu: "Open menu",
   closeMenu: "Close menu",
   verify: "Verify credential",
-  socialLabels: { aws: "AWS Builder Center" },
+  socialLabels: { aws: "AWS Builder Center"},
   langNames: { es: "Español", en: "English" },
   nav: [
-    { number: "01.", key: "home", label: "About" },
+    { number: "01.", key: "home", label: "About Me" },
     { number: "02.", key: "experience", label: "Experience" },
     { number: "03.", key: "projects", label: "Projects" },
     { number: "04.", key: "communities", label: "Communities" },
@@ -25,7 +25,7 @@ export const en: Dictionary = {
   ],
   heroCta: "See projects",
   sections: {
-    about: "About me",
+    about: "About Me",
     education: "Education",
     work: "Work Experience",
     certifications: "Certifications",

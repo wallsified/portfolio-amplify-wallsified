@@ -16,6 +16,15 @@
 - Ingeniero TI / Service Desk · Equilibra S.A. de C.V. · Naucalpan de Juárez, Estado de México · "Líder del Departamento TI." · 2021 – 2025
 - Becario de Transformación Tecnológica · América Móvil · Miguel Hidalgo, Ciudad de México · "Probando e implementando nuevas tecnologías en entornos empresariales." · 2025 – 2026
 
+**Tecnologías que utilizo** (intro: "Lenguajes de programación, frameworks y herramientas que utilizo en mis proyectos.")
+- Lenguajes de programación: Python, Kotlin, Haskell
+- Frameworks y librerías: Reflex, Tailwind CSS
+- Bases de datos: PostgreSQL, MariaDB
+- Contenedores y virtualización: Docker, Vmware
+- Nube y servicios: AWS, GitHub
+- Control de Versión: Git, GitHub
+- Sistemas Operativos: Fedora, Windows, MacOS
+ 
 **Certificaciones** (intro: "Certificaciones que avalan mi conocimiento.")
 - GitHub Foundations · GitHub · 2024 – 2027 · https://www.credly.com/go/Y4p4notf
 - Certificado de Soporte de TI · Google y Coursera · 2023 – 2027 · https://www.credly.com/badges/a6f886c3-b2d1-4a6c-ab0b-d3578db18227/

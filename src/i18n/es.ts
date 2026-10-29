@@ -41,9 +41,9 @@ export const es = {
   materialTypes: { guide: "guía", talk: "charla", templates: "plantillas" },
   inSpanish: "en español",
   footer: {
-    heading: "Hablemos",
-    text: "¿Tienes un proyecto o una duda? Cuéntame y platicamos.",
-    cta: "Escríbeme",
+    heading: "¿Tienes un proyecto o una duda?",
+    text: "Cuéntame y platicamos.",
+    cta: "Escríbeme un correo",
   },
   meta: {
     home: {

@@ -8,7 +8,7 @@ export const es = {
   lang: "es",
   ogLocale: "es_MX",
   skipToContent: "Saltar al contenido",
-  cvLabel: "CV",
+  cvLabel: "Mi CV",
   langLabel: "Idioma",
   navAriaLabel: "Navegación principal",
   openMenu: "Abrir menú",

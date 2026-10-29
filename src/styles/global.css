@@ -106,14 +106,8 @@
     background-color: var(--color-accent-wash);
   }
 
-  /* Floating nav pill (DESIGN.md §4): surface-primary at 70% with backdrop
-     blur, 90% once scrolled. The translucent blur lives on a pseudo-element:
-     a backdrop-filter on the bar itself would make it the containing block
-     for the fixed mobile sheet (which sits inside the bar in the DOM), which
-     on phones collapses the sheet to the bar's 64px height. */
   .nav-pill {
     position: relative;
-    isolation: isolate;
   }
 
   .nav-pill::before {

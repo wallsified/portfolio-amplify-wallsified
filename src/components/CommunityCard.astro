@@ -1,10 +1,7 @@
 ---
 import type { getSorted } from "../lib/content";
 
-// Community card (DESIGN.md §4): surface-secondary, 1px line, 8px radius,
-// 32px padding, whole card is an <a>. 48px circle in a pastel wash holding one
-// emoji (32px); H3; two-line description; mono 12px accent label naming the
-// role. Hover: translateY(-4px) and border to accent at 40%.
+
 type CommunityEntry = Awaited<ReturnType<typeof getSorted<"communities">>>[number];
 
 interface Props {
@@ -32,6 +29,6 @@ const wash = washes[entry.data.order % washes.length] ?? "bg-wash-sage";
     ]}
     aria-hidden="true">{emoji}</span>
   <h3 class="mt-5 text-[22px] leading-snug">{name}</h3>
-  <p class="mt-2 line-clamp-2 text-[15px] leading-relaxed text-text-secondary">{description}</p>
+  <p class="mt-2 text-[15px] leading-relaxed text-text-secondary">{description}</p>
   <p class="mt-4 font-mono text-xs text-accent">{role}</p>
 </a>

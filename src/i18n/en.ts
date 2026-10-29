@@ -4,7 +4,7 @@ export const en: Dictionary = {
   lang: "en",
   ogLocale: "en_US",
   skipToContent: "Skip to content",
-  cvLabel: "Resume",
+  cvLabel: "My Resume",
   langLabel: "Language",
   navAriaLabel: "Main navigation",
   openMenu: "Open menu",

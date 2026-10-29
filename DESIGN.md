@@ -157,7 +157,7 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 **Community card**
 
-> `#112240` fill, 1px `#233554` border, 8px radius, 32px padding, whole card is an `<a>`. 48px circle `rgba(219,237,219,.12)` with one 32px emoji. H3 Fraunces 24px `#F7F6F3`. Description Inter 15px `#8892B0`, 2 lines. Label mono 12px `#64FFDA`. Hover: translateY(-4px), border `rgba(100,255,218,.4)`.
+> `#112240` fill, 1px `#233554` border, 8px radius, 32px padding, whole card is an `<a>`. 48px circle `rgba(219,237,219,.12)` with one 32px emoji. H3 Fraunces 24px `#F7F6F3`. Description Inter 15px `#8892B0`, full (never clamped). Label mono 12px `#64FFDA`. Hover: translateY(-4px), border `rgba(100,255,218,.4)`.
 
 **Material row**
 

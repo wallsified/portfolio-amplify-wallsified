@@ -13,11 +13,16 @@ const collections = {
 } as const;
 
 type ContentType = keyof typeof collections;
-type EntryOf<T extends ContentType> = CollectionEntry<(typeof collections)[T]["es"] | (typeof collections)[T]["en"]>;
+type EntryOf<T extends ContentType> = CollectionEntry<
+  (typeof collections)[T]["es"] | (typeof collections)[T]["en"]
+>;
 
 // Fetch every entry of a collection for a locale, sorted by the `order` field
 // (JSON array order is not guaranteed by the file loader).
-export async function getSorted<T extends ContentType>(type: T, locale: Locale): Promise<EntryOf<T>[]> {
+export async function getSorted<T extends ContentType>(
+  type: T,
+  locale: Locale,
+): Promise<EntryOf<T>[]> {
   const name = collections[type][locale];
   // The lookup is correct at runtime; TS cannot correlate `type` with `name`.
   const entries = (await getCollection(name)) as EntryOf<T>[];
@@ -25,10 +30,16 @@ export async function getSorted<T extends ContentType>(type: T, locale: Locale):
 }
 
 // Single-entry collections (profile).
-export async function getSingle<T extends ContentType>(type: T, locale: Locale): Promise<EntryOf<T>> {
+export async function getSingle<T extends ContentType>(
+  type: T,
+  locale: Locale,
+): Promise<EntryOf<T>> {
   const name = collections[type][locale];
   const [entry] = (await getCollection(name)) as EntryOf<T>[];
-  if (!entry) throw new Error(`Missing single-entry collection "${type}" for locale "${locale}"`);
+  if (!entry)
+    throw new Error(
+      `Missing single-entry collection "${type}" for locale "${locale}"`,
+    );
   return entry;
 }
 

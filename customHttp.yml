@@ -1,21 +1,21 @@
 customHeaders:
-  - pattern: '**/*'
+  - pattern: "**/*"
     headers:
       # Previene que el sitio sea incrustado en iframes (mitiga Clickjacking)
-      - key: 'X-Frame-Options'
-        value: 'DENY'
+      - key: "X-Frame-Options"
+        value: "DENY"
       # Evita que el navegador intente adivinar el tipo MIME (mitiga MIME-sniffing)
-      - key: 'X-Content-Type-Options'
-        value: 'nosniff'
+      - key: "X-Content-Type-Options"
+        value: "nosniff"
       # Fuerza conexiones HTTPS durante 1 año e incluye subdominios
-      - key: 'Strict-Transport-Security'
-        value: 'max-age=31536000; includeSubDomains; preload'
+      - key: "Strict-Transport-Security"
+        value: "max-age=31536000; includeSubDomains; preload"
       # Controla la información de referencia enviada en los enlaces salientes
-      - key: 'Referrer-Policy'
-        value: 'strict-origin-when-cross-origin'
+      - key: "Referrer-Policy"
+        value: "strict-origin-when-cross-origin"
       # Restringe funciones del navegador (cámara, micrófono, geolocalización)
-      - key: 'Permissions-Policy'
-        value: 'camera=(), microphone=(), geolocation=()'
+      - key: "Permissions-Policy"
+        value: "camera=(), microphone=(), geolocation=()"
       # Content Security Policy básico para acotar orígenes seguros
-      - key: 'Content-Security-Policy'
+      - key: "Content-Security-Policy"
         value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;"

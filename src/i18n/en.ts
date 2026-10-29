@@ -14,7 +14,7 @@ export const en: Dictionary = {
   openMenu: "Open menu",
   closeMenu: "Close menu",
   verify: "Verify credential",
-  socialLabels: { aws: "AWS Builder Center"},
+  socialLabels: { aws: "AWS Builder Center" },
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home", label: "About Me" },
@@ -35,8 +35,10 @@ export const en: Dictionary = {
     work: "Companies where I have been able to apply my knowledge and make valuable contributions.",
     certifications: "Certifications that validate my knowledge.",
     projects: "Some projects I've worked on using different technologies.",
-    communities: "Communities and user groups where I contribute by sharing and creating knowledge.",
-    materials: "Materials I've created for the communities I'm involved in, and talks/workshops I've given.",
+    communities:
+      "Communities and user groups where I contribute by sharing and creating knowledge.",
+    materials:
+      "Materials I've created for the communities I'm involved in, and talks/workshops I've given.",
   },
   educationStatus: "in progress",
   materialTypes: { guide: "guide", talk: "talk", templates: "templates" },
@@ -69,7 +71,8 @@ export const en: Dictionary = {
     },
     resources: {
       title: "Resources — Daniel Paredes",
-      description: "Study guides, talks, and templates created by Daniel Paredes for tech communities.",
+      description:
+        "Study guides, talks, and templates created by Daniel Paredes for tech communities.",
     },
   },
 };

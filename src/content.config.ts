@@ -91,18 +91,60 @@ const es = "./src/content/es";
 const en = "./src/content/en";
 
 export const collections = {
-  profileEs: defineCollection({ loader: file(`${es}/profile.json`), schema: profileSchema }),
-  profileEn: defineCollection({ loader: file(`${en}/profile.json`), schema: profileSchema }),
-  projectsEs: defineCollection({ loader: file(`${es}/projects.json`), schema: projectSchema }),
-  projectsEn: defineCollection({ loader: file(`${en}/projects.json`), schema: projectSchema }),
-  educationEs: defineCollection({ loader: file(`${es}/education.json`), schema: educationSchema }),
-  educationEn: defineCollection({ loader: file(`${en}/education.json`), schema: educationSchema }),
-  workEs: defineCollection({ loader: file(`${es}/work.json`), schema: workSchema }),
-  workEn: defineCollection({ loader: file(`${en}/work.json`), schema: workSchema }),
-  certificationsEs: defineCollection({ loader: file(`${es}/certifications.json`), schema: certificationSchema }),
-  certificationsEn: defineCollection({ loader: file(`${en}/certifications.json`), schema: certificationSchema }),
-  communitiesEs: defineCollection({ loader: file(`${es}/communities.json`), schema: communitySchema }),
-  communitiesEn: defineCollection({ loader: file(`${en}/communities.json`), schema: communitySchema }),
-  materialsEs: defineCollection({ loader: file(`${es}/materials.json`), schema: materialSchema }),
-  materialsEn: defineCollection({ loader: file(`${en}/materials.json`), schema: materialSchema }),
+  profileEs: defineCollection({
+    loader: file(`${es}/profile.json`),
+    schema: profileSchema,
+  }),
+  profileEn: defineCollection({
+    loader: file(`${en}/profile.json`),
+    schema: profileSchema,
+  }),
+  projectsEs: defineCollection({
+    loader: file(`${es}/projects.json`),
+    schema: projectSchema,
+  }),
+  projectsEn: defineCollection({
+    loader: file(`${en}/projects.json`),
+    schema: projectSchema,
+  }),
+  educationEs: defineCollection({
+    loader: file(`${es}/education.json`),
+    schema: educationSchema,
+  }),
+  educationEn: defineCollection({
+    loader: file(`${en}/education.json`),
+    schema: educationSchema,
+  }),
+  workEs: defineCollection({
+    loader: file(`${es}/work.json`),
+    schema: workSchema,
+  }),
+  workEn: defineCollection({
+    loader: file(`${en}/work.json`),
+    schema: workSchema,
+  }),
+  certificationsEs: defineCollection({
+    loader: file(`${es}/certifications.json`),
+    schema: certificationSchema,
+  }),
+  certificationsEn: defineCollection({
+    loader: file(`${en}/certifications.json`),
+    schema: certificationSchema,
+  }),
+  communitiesEs: defineCollection({
+    loader: file(`${es}/communities.json`),
+    schema: communitySchema,
+  }),
+  communitiesEn: defineCollection({
+    loader: file(`${en}/communities.json`),
+    schema: communitySchema,
+  }),
+  materialsEs: defineCollection({
+    loader: file(`${es}/materials.json`),
+    schema: materialSchema,
+  }),
+  materialsEn: defineCollection({
+    loader: file(`${en}/materials.json`),
+    schema: materialSchema,
+  }),
 };

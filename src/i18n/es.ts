@@ -1,7 +1,8 @@
 // UI strings for the Spanish locale (default, no prefix).
 // Real biography and facts live in src/content/es/*.json — never here.
 
-export type PageKey = "home" | "experience" | "projects" | "communities" | "resources";
+export type PageKey =
+  "home" | "experience" | "projects" | "communities" | "resources";
 
 export const es = {
   lang: "es",
@@ -34,8 +35,10 @@ export const es = {
     work: "Empresas en donde he podido aplicar mis conocimientos y crear aportes valiosos.",
     certifications: "Certificaciones que avalan mi conocimiento.",
     projects: "Algunos proyectos que he realizado con distintas tecnologías.",
-    communities: "Comunidades y grupos de usuarios donde ayudo compartiendo y creando conocimiento.",
-    materials: "Materiales que he creado para las comunidades en donde participo y charlas/talleres que he dado.",
+    communities:
+      "Comunidades y grupos de usuarios donde ayudo compartiendo y creando conocimiento.",
+    materials:
+      "Materiales que he creado para las comunidades en donde participo y charlas/talleres que he dado.",
   },
   educationStatus: "en curso",
   materialTypes: { guide: "guía", talk: "charla", templates: "plantillas" },
@@ -68,7 +71,8 @@ export const es = {
     },
     resources: {
       title: "Materiales — Daniel Paredes",
-      description: "Guías de estudio, charlas y plantillas creadas por Daniel Paredes para comunidades tecnológicas.",
+      description:
+        "Guías de estudio, charlas y plantillas creadas por Daniel Paredes para comunidades tecnológicas.",
     },
   },
 };

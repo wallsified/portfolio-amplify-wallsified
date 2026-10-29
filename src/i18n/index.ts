@@ -20,8 +20,20 @@ export function getLocaleFromPathname(pathname: string): Locale {
 
 // Canonical path of each page per locale (no trailing slash, / for home ES).
 const paths: Record<Locale, Record<PageKey, string>> = {
-  es: { home: "/", experience: "/experiencia", projects: "/proyectos", communities: "/comunidades", resources: "/materiales" },
-  en: { home: "/en", experience: "/en/experience", projects: "/en/projects", communities: "/en/communities", resources: "/en/resources" },
+  es: {
+    home: "/",
+    experience: "/experiencia",
+    projects: "/proyectos",
+    communities: "/comunidades",
+    resources: "/materiales",
+  },
+  en: {
+    home: "/en",
+    experience: "/en/experience",
+    projects: "/en/projects",
+    communities: "/en/communities",
+    resources: "/en/resources",
+  },
 };
 
 export function getPath(locale: Locale, key: PageKey): string {
@@ -29,8 +41,13 @@ export function getPath(locale: Locale, key: PageKey): string {
 }
 
 export function getPageKey(locale: Locale, pathname: string): PageKey | null {
-  const clean = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  const entry = Object.entries(paths[locale]).find(([, path]) => path === clean);
+  const clean =
+    pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+  const entry = Object.entries(paths[locale]).find(
+    ([, path]) => path === clean,
+  );
   return (entry?.[0] as PageKey | undefined) ?? null;
 }
 

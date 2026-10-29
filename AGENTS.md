@@ -54,6 +54,6 @@ Hidden terminal exactly as in `DESIGN.md` section 10. Output is written with `te
 - Domain: `wallsified.dev` (canonical, hreflang, sitemap and og:image use this domain). Hosting: AWS, set up later.
 - Contact email for the footer band: `wallsified@gmail.com`.
 - English CV: `assets/documents/Resume_DanielParedes.pdf` (Spanish CV stays `CV_DanielParedes.pdf`).
-- Featured projects (2, with image): **City Lens (API)** and **Posadas de Código**. The other two render as project cards.
+- Featured projects (first 4 projects, with image).
 - Community emoji badges: Sudo FCiencias 💻 · AWS Student Builder Group UNAM ☁️ · PythonCDMX 🐍.
 - Fonts: `@fontsource-variable` packages (dependency approved by the owner).

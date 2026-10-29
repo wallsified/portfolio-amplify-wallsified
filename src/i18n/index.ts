@@ -13,12 +13,10 @@ export function getDict(locale: Locale): Dictionary {
   return dictionaries[locale];
 }
 
-// Locale from a pathname: everything under /en/ is English, the rest is Spanish.
 export function getLocaleFromPathname(pathname: string): Locale {
   return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "es";
 }
 
-// Canonical path of each page per locale
 const paths: Record<Locale, Record<PageKey, string>> = {
   es: {
     home: "/",
@@ -49,13 +47,4 @@ export function getPageKey(locale: Locale, pathname: string): PageKey | null {
     ([, path]) => path === clean,
   );
   return (entry?.[0] as PageKey | undefined) ?? null;
-}
-
-// Path of the current page in the other language (for the language switch and hreflang).
-export function getTwinPath(pathname: string): string {
-  const locale = getLocaleFromPathname(pathname);
-  const key = getPageKey(locale, pathname);
-  if (!key) return paths[locale].home;
-  const other: Locale = locale === "es" ? "en" : "es";
-  return paths[other][key];
 }

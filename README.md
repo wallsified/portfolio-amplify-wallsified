@@ -23,5 +23,10 @@ npx astro check  # tipos y templates
 
 - `DESIGN.md` — guía de diseño (tokens, componentes, layout, terminal)
 - `agent_docs/` — contenido real por idioma y guías de referencia
-- `assets/` — imágenes, CVs y favicon originales
+- `public/` — imágenes, CVs y favicon originales
 - `src/` — código del sitio (content collections en `src/content/{es,en}/`, cadenas de UI en `src/i18n/`)
+
+## Ajustes para AWS Amplify
+
+- En `amplify.yml` encontrarás la configuración de build y despliegue.
+- En `customHttp.yml` encontrarás la configuración de redirecciones y cabeceras HTTP.

@@ -5,10 +5,6 @@ import { Picture } from "astro:assets";
 import { getSorted, getSingle } from "../lib/content";
 import { getImage } from "../lib/images";
 
-// Home (DESIGN.md §5): the hero *is* the "Sobre mí" section — bio and avatar
-// are the first thing visitors see. Left column: greeting, name, tagline,
-// location, short paragraph and CTA. Right column: avatar with a 15% accent
-// tint that fades on hover. Community names in the bio link to their cards.
 const locale = "es";
 const dict = getDict(locale);
 const profile = await getSingle("profile", locale);

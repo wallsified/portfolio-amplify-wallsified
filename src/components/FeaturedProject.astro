@@ -1,6 +1,8 @@
 ---
+import { Picture } from "astro:assets";
 import Icon from "./Icon.astro";
 import type { getSorted } from "../lib/content";
+import { getImage } from "../lib/images";
 
 // Featured project row (DESIGN.md §4): alternating image/text rows. Image has
 // an accent-wash tint (30%) that fades on hover; the description card overlaps
@@ -19,15 +21,18 @@ const { title, description, tech, url, image } = entry.data;
 <article class="relative grid items-center gap-6 md:grid-cols-2 md:gap-0">
   <!-- Image with accent-wash tint that fades on hover -->
   <div class:list={["group relative", flip && "md:order-2"]}>
-    <img
-      src={image?.src}
-      alt={image?.alt}
-      width="1200"
-      height="750"
-      loading="lazy"
-      decoding="async"
-      class="aspect-[16/10] w-full rounded-sm object-cover"
-    />
+    {image && (
+      <Picture
+        src={getImage(image.src)}
+        formats={["avif", "webp"]}
+        widths={[600, 1200]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        class="aspect-16/10 w-full rounded-sm object-cover"
+      />
+    )}
     <span
       class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-30 transition-opacity duration-base group-hover:opacity-0"
       aria-hidden="true"></span>

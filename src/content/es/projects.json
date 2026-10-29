@@ -31,7 +31,12 @@
     "title": "K-Coloraciones de una Gráfica",
     "description": "Implementación del problema de las k-coloraciones de una gráfica simple y conexa con un solucionador SAT.",
     "tech": ["Haskell"],
-    "url": "https://github.com/wallsified/graph-sat-coloring"
+    "url": "https://github.com/wallsified/graph-sat-coloring",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/haskell.jpg",
+      "alt": "Logotipo de Haskell."
+    }
   },
   {
     "id": "portafolio-pythonico",
@@ -39,6 +44,11 @@
     "title": "Portafolio Pythonico",
     "description": "Plantilla de portafolio web creada de manera poco ortodoxa, para ajustes rápidos y despliegue exprés.",
     "tech": ["Python", "Reflex", "Tailwind CSS", "Vercel"],
-    "url": "https://github.com/Sudo-FCiencias/pythonic-portfolio"
+    "url": "https://github.com/Sudo-FCiencias/pythonic-portfolio",
+    "featured": true,
+    "image": {
+      "src": "/images/projects/portfolio.png",
+      "alt": "Ilustración que hace alegoria a la creación de un portafolio personal."
+    }
   }
 ]

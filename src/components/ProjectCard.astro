@@ -1,10 +1,12 @@
 ---
+import { Picture } from "astro:assets";
 import Icon from "./Icon.astro";
 import type { getSorted } from "../lib/content";
+import { getImage } from "../lib/images";
 
 // Project card (DESIGN.md §4): surface-secondary, 8px radius, 28px padding,
-// folder icon in accent, title, 3-line description, mono tech list;
-// hover translateY(-4px) via .lift.
+// GitHub icon in accent, title, 3-line description, mono tech list; hover
+// translateY(-4px) via .lift. Featured projects show their image on top.
 type ProjectEntry = Awaited<ReturnType<typeof getSorted<"projects">>>[number];
 
 interface Props {
@@ -12,20 +14,43 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, description, tech, url } = entry.data;
+const { title, description, tech, url, image } = entry.data;
 ---
 
-<article class="lift rounded-md bg-surface-secondary p-7">
-  <div class="flex items-start justify-between gap-4">
-    <h3 class="text-[19px] leading-snug">
-      <a href={url} rel="noopener" class="transition-colors duration-fast hover:text-accent">
-        {title}
+<article class="lift flex h-full flex-col overflow-hidden rounded-md bg-surface-secondary">
+  {
+    image && (
+      <Picture
+        src={getImage(image.src)}
+        formats={["avif", "webp"]}
+        widths={[480, 960]}
+        sizes="(min-width: 768px) 480px, 100vw"
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        class="aspect-[16/10] w-full object-cover"
+      />
+    )
+  }
+  <div class="flex flex-1 flex-col p-7">
+    <div class="flex items-start justify-between gap-4">
+      <h3 class="text-[19px] leading-snug">
+        <a href={url} rel="noopener" class="transition-colors duration-fast hover:text-accent">
+          {title}
+        </a>
+      </h3>
+      <a
+        href={url}
+        aria-label={`${title} — GitHub`}
+        rel="noopener"
+        class="-mr-2 -mt-2 flex h-11 w-11 shrink-0 items-center justify-center text-accent transition-colors duration-fast hover:text-text-primary"
+      >
+        <Icon name="github" size={22} />
       </a>
-    </h3>
-    <Icon name="folder" size={24} class="shrink-0 text-accent" />
+    </div>
+    <p class="mt-3 line-clamp-3 text-[15px] leading-relaxed text-text-secondary">{description}</p>
+    <ul class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 font-mono text-[13px] text-text-secondary">
+      {tech.map((item) => <li>{item}</li>)}
+    </ul>
   </div>
-  <p class="mt-3 line-clamp-3 text-[15px] leading-relaxed text-text-secondary">{description}</p>
-  <ul class="mt-5 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[13px] text-text-secondary">
-    {tech.map((item) => <li>{item}</li>)}
-  </ul>
 </article>

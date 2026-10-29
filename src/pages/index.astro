@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getDict, getPath } from "../i18n";
+import { Picture } from "astro:assets";
 import { getSorted, getSingle } from "../lib/content";
+import { getImage } from "../lib/images";
 
 // Home (DESIGN.md §5): the hero *is* the "Sobre mí" section — bio and avatar
 // are the first thing visitors see. Left column: greeting, name, tagline,
@@ -79,11 +81,12 @@ for (const community of communities) {
 
     <!-- Avatar column -->
     <div class="group hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
-      <img
-        src={profile.data.avatar}
+      <Picture
+        src={getImage(profile.data.avatar)}
+        formats={["avif", "webp"]}
+        widths={[300, 600]}
+        sizes="300px"
         alt={profile.data.name}
-        width="480"
-        height="480"
         decoding="async"
         class="aspect-square w-full rounded-sm object-cover"
       />

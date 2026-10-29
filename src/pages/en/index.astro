@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getDict, getPath } from "../../i18n";
+import { Picture } from "astro:assets";
 import { getSorted, getSingle } from "../../lib/content";
+import { getImage } from "../../lib/images";
 
 // English twin of `/` (DESIGN.md §5). Drafted from the Spanish page; hidden
 // from search until the owner reviews it (see src/config.ts).
@@ -76,17 +78,18 @@ for (const community of communities) {
     </div>
 
     <!-- Avatar column -->
-    <div class="group hero-line relative mx-auto w-full max-w-[300px] md:mx-0" style="--d: 300ms">
-      <img
-        src={profile.data.avatar}
+    <div class="group hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
+      <Picture
+        src={getImage(profile.data.avatar)}
+        formats={["avif", "webp"]}
+        widths={[300, 600]}
+        sizes="300px"
         alt={profile.data.name}
-        width="480"
-        height="480"
         decoding="async"
         class="aspect-square w-full rounded-sm object-cover"
       />
       <span
-        class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-15 transition-opacity duration-base group-hover:opacity-0"
+        class="pointer-events-none absolute inset-0 rounded-sm bg-accent opacity-30 transition-opacity duration-base group-hover:opacity-0"
         aria-hidden="true"></span>
     </div>
   </section>

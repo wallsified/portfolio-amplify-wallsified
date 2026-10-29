@@ -43,6 +43,15 @@ export const es = {
   educationStatus: "en curso",
   materialTypes: { guide: "guía", talk: "charla", templates: "plantillas" },
   inSpanish: "en español",
+  notion: {
+    modeTitle: "Notion Mode",
+    openLabel: "Abrir Notion Mode",
+    closeLabel: "Cerrar ventana",
+    searchPlaceholder: "Buscar en esta página…",
+    noResults: "Sin resultados en esta página.",
+    navLabel: "Saltar a otra página",
+    consoleHint: "psst… pulsa la tecla `n` para abrir Notion Mode",
+  },
   footer: {
     heading: "¿Tienes un proyecto o una duda?",
     text: "Cuéntame y platicamos.",

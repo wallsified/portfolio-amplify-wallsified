@@ -6,12 +6,14 @@ import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
+import NotionMode from "../components/NotionMode.astro";
 import SideRails from "../components/SideRails.astro";
 import { getDict, getPath, type Locale, type PageKey } from "../i18n";
 import { config } from "../config";
 
 // Shared shell for every page: SEO head (canonical, hreflang, OG/Twitter,
-// JSON-LD), skip link, nav, side rails, footer and the page slot.
+// JSON-LD), skip link, nav, side rails, footer, the Notion Mode payload and
+// the page slot.
 interface Props {
   locale: Locale;
   pageKey: PageKey;
@@ -19,6 +21,9 @@ interface Props {
     name: string;
     handle: string;
     title: string;
+    location: string;
+    greeting: string;
+    bio: string;
     email: string;
     avatar: string;
     links: { github: string; linkedin: string; aws: string; cv: string };
@@ -115,5 +120,6 @@ const ogImage = new URL("/images/og.png", site);
     </main>
 
     <Footer locale={locale} email={profile.email} name={profile.name} links={profile.links} />
+    <NotionMode locale={locale} pageKey={pageKey} profile={profile} />
   </body>
 </html>

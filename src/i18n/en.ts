@@ -40,6 +40,15 @@ export const en: Dictionary = {
   educationStatus: "in progress",
   materialTypes: { guide: "guide", talk: "talk", templates: "templates" },
   inSpanish: "in Spanish",
+  notion: {
+    modeTitle: "Notion Mode",
+    openLabel: "Open Notion Mode",
+    closeLabel: "Close window",
+    searchPlaceholder: "Search this page…",
+    noResults: "No results on this page.",
+    navLabel: "Jump to another page",
+    consoleHint: "psst… press the `n` key to open Notion Mode",
+  },
   footer: {
     heading: "Have a project or a question?",
     text: "Tell me about it and let's talk.",

@@ -171,11 +171,11 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 > Two buttons "ES" and "EN", JetBrains Mono 13px, separated by a 1px `#233554` bar. Active: `#64FFDA`, `aria-current="true"`. Inactive: `#8892B0`, hover `#CCD6F6`. Each is a link to the equivalent page in the other language, with `lang` and an accessible name ("Español", "English").
 
-**Terminal**
+**Notion Mode**
 
 > Build exactly as specified in section 10.
 
-## 10. Interaction: Language Switch & Hidden Terminal
+## 10. Interaction: Language Switch & Hidden Notion Mode
 
 **Language switch**
 
@@ -183,14 +183,21 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 - On a first visit, a client script may suggest the other language from `Accept-Language` with a small dismissible hint; it never redirects automatically. The choice is remembered (wrapped in try/catch; works with storage empty).
 - Page names: ES `Sobre mí · Experiencia · Proyectos · Comunidades · Materiales`; EN `About · Experience · Projects · Communities · Resources`.
 
-**Hidden terminal (the easter egg)**
+**Hidden Notion Mode (easter egg 1)**
 
-- **Trigger:** The `t` key on desktop. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, so navigation and selection stay untouched. Visible hint as a terminal icon with the social icons; a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
-- **Load:** the terminal is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
-- **Window:** `surface-terminal`, 8px radius, JetBrains Mono 14px, `min(560px, 92vw)` × 320px, bottom-right on desktop and a bottom sheet on mobile. Title bar with three 10px dots in peach, sage and sky washes and the title `visitor@wallsified:~`. Prompt `$` in accent. Non-modal `role="dialog"` with an accessible name: the page behind stays scrollable and usable. `Esc` or the ✕ closes it and returns focus to where it was. On mobile, an on-screen input opens the keyboard and a row of tappable command chips offers `help`, `about`, `projects`.
-- **Commands** (output in the current page language, plain text only, set via `textContent`, never `innerHTML`; data comes from the same content as the pages, never duplicated):
-  `help` · `whoami` · `about` · `projects` · `communities` · `materials` · `contact` · `goto <page>` (navigates to that page in the current language) · `lang es|en` · `coffee` (small ASCII mug ☕) · `sudo hire-me` (playful reply, then scrolls to the footer contact band) · `clear` · `exit`. Unknown command: say what failed and suggest `help`.
-- Nothing is persisted or sent anywhere. With reduced motion, the window appears without animation and output prints at once instead of typing out. A page navigation closes the terminal.
+- **Trigger** The `n` key and on desktop. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, so navigation and selection stay untouched. Visible hint as a small Notion icon in the side rail; a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
+- **Load** The Notion mode is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
+- **Window** `surface-secondary`, 8px radius, Inter 18px, `min(560px, 92vw)` × 320px, bottom-right on desktop and a bottom sheet on mobile. Title bar with three 10px dots in peach, sage and sky washes and the title `Notion Mode`.
+- **Content** The Notion window shows the current page content in a single column, with cream headings, pastel washes behind emoji, and the accent color for links. The window is non-modal `role="dialog"` with an accessible name. `Esc` or the ✕ closes it and returns focus to where it was. On mobile, the window becomes a bottom sheet with an on-screen input to search the current page content and a row of tappable chips to jump to the five main pages.
+- **Accessibility** The Notion window is fully keyboard-operable, with a visible focus ring on every interactive element. The search input is auto-focused when the window opens. The content is read by screen readers in the correct order, and the window can be closed with `Esc`.
+
+**Hidden Terminal (easter egg 2)**
+
+- **Trigger** The `t` key and on desktop. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, so navigation and selection stay untouched. Visible hint as a small terminal icon in the side rail; a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
+- **Load** The terminal is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
+- **Window** `surface-terminal`, 8px radius, JetBrains Mono 14px, `min(560px, 92vw)` × 320px, bottom-right on desktop and a bottom sheet on mobile. Title bar with three 10px dots in peach, sage and sky washes and the title `Terminal`. The terminal is non-modal `role="dialog"` with an accessible name. `Esc` or the � closes it and returns focus to where it was. On mobile, the terminal becomes a bottom sheet with an on-screen input to type commands and a row of tappable chips to jump to the five main pages.
+- **Content** The terminal shows a prompt and a blinking cursor. Commands are typed in and executed with `Enter`. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks. Commands include `help`, `about`, `skills`, `projects`, `communities`, `resources`, `contact`, and `clear`. Any other input returns a "command not found" message. The terminal is a toy, not a menu; it does not change the page or the URL.
+- **Accessibility** The terminal is fully keyboard-operable, with a visible focus ring on every interactive element. The input is auto-focused when the window opens. The content is read by screen readers in the correct order, and the window can be closed with `Esc`.
 
 ## 11. Quality Floor
 

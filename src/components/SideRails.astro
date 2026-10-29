@@ -49,6 +49,17 @@ const iconLinks = [
         </li>
       ))
     }
+    <li>
+      {/* Visible hint for the hidden Notion Mode (DESIGN.md §10). */}
+      <button
+        type="button"
+        aria-label={dict.notion.openLabel}
+        data-notion-open
+        class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+      >
+        <Icon name="note" size={20} />
+      </button>
+    </li>
   </ul>
   <span class="h-22.5 w-px bg-line" aria-hidden="true"></span>
 </div>

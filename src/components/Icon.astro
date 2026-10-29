@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: "github" | "linkedin" | "cloud" | "file" | "external" | "folder" | "menu" | "close";
+  name: "github" | "linkedin" | "cloud" | "file" | "external" | "folder" | "menu" | "close" | "note";
   size?: number;
   class?: string;
 }
@@ -47,4 +47,11 @@ const filled = name === "github" || name === "linkedin";
   {name === "folder" && <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />}
   {name === "menu" && <path d="M3 6h18M3 12h18M3 18h18" />}
   {name === "close" && <path d="M18 6 6 18M6 6l12 12" />}
+  {/* Generic note glyph hinting at Notion Mode (no Notion logo copy). */}
+  {name === "note" && (
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M8 8h8M8 12h8M8 16h5" />
+    </>
+  )}
 </svg>

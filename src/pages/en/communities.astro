@@ -1,6 +1,7 @@
 ---
 import CommunityCard from "../../components/CommunityCard.astro";
 import PageTitle from "../../components/PageTitle.astro";
+import BuilderPageHead from "../../components/builder/BuilderPageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getDict } from "../../i18n";
 import { getSorted, getSingle } from "../../lib/content";
@@ -19,5 +20,10 @@ const communities = await getSorted("communities", locale);
 
   <div class="mt-14 grid gap-6 md:grid-cols-3">
     {communities.map((entry) => <CommunityCard entry={entry} />)}
+  </div>
+
+  <BuilderPageHead slot="builder" locale={locale} pageKey="communities" />
+  <div slot="builder" class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-grid>
+    {communities.map((entry) => <CommunityCard entry={entry} idPrefix="b-" />)}
   </div>
 </BaseLayout>

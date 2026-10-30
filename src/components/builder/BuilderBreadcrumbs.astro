@@ -1,0 +1,23 @@
+---
+import { getDict, getPath, type Locale, type PageKey } from "../../i18n";
+
+// Breadcrumbs below the nav on inner builder pages (reference §0.2/§0.3,
+// "Builder Center › Learn › Topics"). Home is never a crumb.
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+}
+
+const { locale, pageKey } = Astro.props;
+const dict = getDict(locale);
+const current = dict.nav.find((item) => item.key === pageKey);
+if (!current) throw new Error(`No nav item for page key "${pageKey}"`);
+---
+
+<nav aria-label={dict.builder.crumbAriaLabel} class="b-crumbs">
+  <ol>
+    <li><a href={getPath(locale, "home")}>{dict.builder.crumbRoot}</a></li>
+    <li aria-hidden="true">›</li>
+    <li><span aria-current="page">{current.label}</span></li>
+  </ol>
+</nav>

@@ -1,0 +1,60 @@
+---
+import { getDict, type Locale } from "../../i18n";
+import { getSorted } from "../../lib/content";
+import MaterialRow from "../MaterialRow.astro";
+
+// Inner builder page for /materiales (reference §0.3: catalog with a segmented
+// type filter). The filter works client-side over the shared rows; no search
+// field (no backend — fake chrome is deliberately omitted).
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const materials = await getSorted("materials", locale);
+
+const filters = [
+  { value: "all", label: dict.builder.filterAll },
+  { value: "guide", label: dict.materialTypes.guide },
+  { value: "talk", label: dict.materialTypes.talk },
+  { value: "templates", label: dict.materialTypes.templates },
+];
+---
+
+<div class="b-toggle" role="group" aria-label={dict.builder.filterAria} data-material-filter>
+  {
+    filters.map((filter, i) => (
+      <button
+        type="button"
+        aria-pressed={i === 0 ? "true" : "false"}
+        data-filter={filter.value}
+      >
+        {filter.label}
+      </button>
+    ))
+  }
+</div>
+
+<div class="mt-6" data-catalog data-filter-list>
+  {materials.map((entry) => <MaterialRow locale={locale} entry={entry} />)}
+</div>
+
+<script>
+  // Segmented type filter: toggle `hidden` on rows (reference §0.3).
+  document.querySelectorAll<HTMLElement>("[data-material-filter]").forEach((group) => {
+    const list = group.nextElementSibling;
+    if (!list) return;
+    const buttons = Array.from(group.querySelectorAll<HTMLButtonElement>("button"));
+    const rows = Array.from(list.querySelectorAll<HTMLElement>("[data-type]"));
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const value = button.dataset.filter;
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+        rows.forEach((row) => {
+          row.toggleAttribute("hidden", value !== "all" && row.dataset.type !== value);
+        });
+      });
+    });
+  });
+</script>

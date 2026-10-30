@@ -1,0 +1,50 @@
+---
+import { getDict, getPath, type Locale } from "../../i18n";
+
+// Multi-row footer of the Builder Center tree (reference §0.1: links row,
+// then a second row of legal/social links + ©).
+interface Props {
+  locale: Locale;
+  email: string;
+  name: string;
+  links: { github: string; linkedin: string; aws: string; cv: string };
+}
+
+const { locale, email, name, links } = Astro.props;
+const dict = getDict(locale);
+const year = new Date().getFullYear();
+
+const socials = [
+  { href: links.github, label: "GitHub" },
+  { href: links.linkedin, label: "LinkedIn" },
+  { href: links.aws, label: dict.socialLabels.aws },
+  { href: links.cv, label: dict.cvLabel },
+];
+---
+
+<footer class="b-footer">
+  <div class="b-footer-inner">
+    <nav aria-label={dict.navAriaLabel}>
+      <ul class="b-footer-row">
+        {
+          dict.nav.map((item) => (
+            <li>
+              <a href={getPath(locale, item.key)}>{item.label}</a>
+            </li>
+          ))
+        }
+        <li><a href={`mailto:${email}`}>{dict.footer.cta}</a></li>
+      </ul>
+    </nav>
+    <ul class="b-footer-row b-footer-legal">
+      {
+        socials.map((social) => (
+          <li>
+            <a href={social.href} rel="noopener">{social.label}</a>
+          </li>
+        ))
+      }
+      <li class="b-footer-copy">© {year} {name}</li>
+    </ul>
+  </div>
+</footer>

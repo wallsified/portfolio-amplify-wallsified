@@ -38,9 +38,10 @@ Config: `i18n: { defaultLocale: "es", locales: ["es","en"], routing: { prefixDef
 - Initial JS ≤ 30 KB gzip; the terminal loads only on its first trigger; no third-party scripts or trackers unless the owner asks.
 - WCAG AA contrast, visible focus, keyboard-operable tabs and language switch, `prefers-reduced-motion` respected, one copy of each block in the DOM.
 
-## Easter egg
+## Easter eggs
 
-Hidden terminal exactly as in `DESIGN.md` section 10. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks.
+- Builder mode exactly as in `DESIGN.md` section 10.
+- Hidden terminal exactly as in `DESIGN.md` section 10. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks.
 
 ## Working rules
 

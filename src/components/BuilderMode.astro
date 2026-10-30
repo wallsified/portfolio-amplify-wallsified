@@ -1,0 +1,150 @@
+---
+import { getDict, type Locale } from "../i18n";
+
+// Hidden Builder Mode (DESIGN.md §10, easter egg 1). The theme itself is a
+// CSS variable swap driven by `data-builder` on <html> (applied before the
+// first paint by an inline script in the head); this component ships the
+// floating exit button, the side-rail trigger and the loader overlay. All
+// strings come from the dictionaries. Nothing is stored beyond the on/off
+// flag, and it never intercepts normal clicks.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+---
+
+<button
+  type="button"
+  data-builder-exit
+  data-loader-text={dict.builder.loader}
+  data-hint={dict.builder.consoleHint}
+  hidden
+  class="fixed bottom-6 left-1/2 z-50 flex h-11 -translate-x-1/2 items-center rounded-sm border border-line bg-surface-secondary px-4 font-mono text-xs text-text-secondary transition-colors duration-fast hover:text-accent min-[1080px]:bottom-10 min-[1080px]:left-20 min-[1080px]:translate-x-0"
+>
+  {dict.builder.exitLabel}
+</button>
+
+<script>
+  // Tiny trigger: the theme is CSS, so there is no lazy window to fetch.
+  // Keep in sync with the inline head script in BaseLayout.astro.
+  const STORAGE_KEY = "wallsified:builder-mode";
+  // AWS Builder Center brand palette segments (public brand guidelines).
+  const SEGMENT_COLORS = ["#FF9900", "#00E582", "#42B4FF", "#AD5CFF", "#FF57E9"];
+  const LOADER_MS = 2500;
+
+  const root = document.documentElement;
+  const exitButton = document.querySelector<HTMLButtonElement>("[data-builder-exit]");
+  const portfolioTree = document.querySelector<HTMLElement>('[data-tree="portfolio"]');
+  const builderTree = document.querySelector<HTMLElement>('[data-tree="builder"]');
+
+  // Visibility swap of the two trees (DESIGN.md §10): CSS already hides the
+  // inactive one at first paint; `inert` keeps it out of the tab order.
+  const setTrees = (on: boolean): void => {
+    portfolioTree?.toggleAttribute("inert", on);
+    builderTree?.toggleAttribute("inert", !on);
+  };
+
+  const writeStorage = (on: boolean): void => {
+    try {
+      if (on) localStorage.setItem(STORAGE_KEY, "on");
+      else localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Storage unavailable: the mode simply won't persist.
+    }
+  };
+
+  let overlay: HTMLElement | null = null;
+  let loaderTimer: number | null = null;
+
+  const stopLoader = (): void => {
+    if (loaderTimer !== null) window.clearTimeout(loaderTimer);
+    loaderTimer = null;
+    overlay?.remove();
+    overlay = null;
+    document.body.style.overflow = "";
+  };
+
+  const startLoader = (): void => {
+    if (overlay) return;
+    const wrap = document.createElement("div");
+    wrap.className = "flex flex-col items-center gap-5 px-6 text-center";
+    const phrase = document.createElement("p");
+    phrase.className = "font-mono text-sm text-text-primary";
+    phrase.textContent = exitButton?.dataset.loaderText ?? "";
+    const bar = document.createElement("div");
+    bar.className = "builder-bar";
+    bar.setAttribute("aria-hidden", "true");
+    SEGMENT_COLORS.forEach((color, index) => {
+      const seg = document.createElement("span");
+      seg.className = "builder-seg";
+      seg.style.backgroundColor = color;
+      seg.style.animationDelay = `${(index * LOADER_MS) / SEGMENT_COLORS.length}ms`;
+      bar.append(seg);
+    });
+    wrap.append(phrase, bar);
+    overlay = document.createElement("div");
+    overlay.className = "builder-overlay";
+    overlay.setAttribute("role", "status");
+    overlay.append(wrap);
+    document.body.append(overlay);
+    document.body.style.overflow = "hidden";
+    loaderTimer = window.setTimeout(stopLoader, LOADER_MS);
+  };
+
+  // Side-rail hint buttons announce the toggle state (DESIGN.md §10).
+  const hintButtons = document.querySelectorAll<HTMLButtonElement>("[data-builder-open]");
+  const syncHints = (on: boolean): void => {
+    hintButtons.forEach((button) => button.setAttribute("aria-pressed", String(on)));
+  };
+
+  const setMode = (on: boolean): void => {
+    root.toggleAttribute("data-builder", on);
+    setTrees(on);
+    exitButton?.toggleAttribute("hidden", !on);
+    syncHints(on);
+    writeStorage(on);
+    if (on) startLoader();
+    else stopLoader(); // deactivating is instant, with no loader
+  };
+
+  // Sync the exit button, hint state and trees with the mode applied by the
+  // head script on load (the loader never plays here, only on activation).
+  const activeOnLoad = root.hasAttribute("data-builder");
+  exitButton?.toggleAttribute("hidden", !activeOnLoad);
+  syncHints(activeOnLoad);
+  setTrees(activeOnLoad);
+
+  // Trigger: the `b` key, passive, never preventDefault, never while typing
+  // in a field and never with modifiers held (DESIGN.md §10).
+  document.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key.toLowerCase() !== "b") return;
+      // One press = one toggle: ignore auto-repeat while the key is held.
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      const target = e.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      )
+        return;
+      setMode(!root.hasAttribute("data-builder"));
+    },
+    { passive: true },
+  );
+
+  // The small hint icon in the side rail (≥1080px) also toggles the mode.
+  hintButtons.forEach((button) => {
+    button.addEventListener("click", () => setMode(!root.hasAttribute("data-builder")));
+  });
+
+  exitButton?.addEventListener("click", () => setMode(false));
+
+  // A single console hint for whoever happens to be looking at devtools.
+  if (exitButton?.dataset.hint) console.log(exitButton.dataset.hint);
+</script>

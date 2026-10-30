@@ -10,6 +10,7 @@ const collections = {
   certifications: { es: "certificationsEs", en: "certificationsEn" },
   communities: { es: "communitiesEs", en: "communitiesEn" },
   materials: { es: "materialsEs", en: "materialsEn" },
+  technologies: { es: "technologiesEs", en: "technologiesEn" },
 } as const;
 
 type ContentType = keyof typeof collections;

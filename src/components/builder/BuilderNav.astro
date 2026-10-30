@@ -1,0 +1,53 @@
+---
+import Icon from "../Icon.astro";
+import LangSwitch from "../LangSwitch.astro";
+import { getDict, getPath, type Locale, type PageKey } from "../../i18n";
+
+// Sticky nav of the Builder Center tree (DESIGN.md §10, reference §0.1 and
+// §12). One single menu for every viewport: a pure-CSS checkbox drawer on
+// mobile (label shown < 768px), always-visible row on desktop — no second copy
+// of the links, no JS. Every item is a plain link to its page: no dropdowns or
+// sub-lists (owner decision: the nav navigates, it does not expand).
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  cvHref: string;
+}
+
+const { locale, pageKey, cvHref } = Astro.props;
+const dict = getDict(locale);
+
+const linkClass = (active: boolean) => `b-link${active ? " b-link-active" : ""}`;
+---
+
+<header class="b-nav">
+  <div class="b-nav-bar">
+    <a href={getPath(locale, "home")} class="b-monogram">@wallsified</a>
+
+    <input type="checkbox" id="b-menu-check" class="b-menu-check" hidden />
+    <label for="b-menu-check" class="b-menu-toggle" aria-label={dict.openMenu}>
+      <Icon name="menu" size={22} />
+    </label>
+
+    <ul class="b-menu">
+      {
+        dict.nav.map((item) => (
+          <li>
+            <a
+              href={getPath(locale, item.key)}
+              aria-current={item.key === pageKey ? "page" : undefined}
+              class={linkClass(item.key === pageKey)}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="b-nav-actions">
+      <LangSwitch locale={locale} pageKey={pageKey} />
+      <a href={cvHref} class="b-btn b-btn-ghost b-nav-cv">{dict.cvLabel}</a>
+    </div>
+  </div>
+</header>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuilderHome from "../../components/builder/BuilderHome.astro";
 import { getDict, getPath } from "../../i18n";
 import { Picture } from "astro:assets";
 import { getSorted, getSingle } from "../../lib/content";
@@ -90,4 +91,6 @@ for (const community of communities) {
       />
     </div>
   </section>
+
+  <BuilderHome slot="builder" locale={locale} />
 </BaseLayout>

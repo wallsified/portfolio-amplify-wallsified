@@ -1,0 +1,36 @@
+---
+import { getDict, type Locale, type PageKey } from "../../i18n";
+import BuilderBreadcrumbs from "./BuilderBreadcrumbs.astro";
+
+// Header of an inner builder page (reference §0.3): breadcrumbs + H1 +
+// one-line description. Reuses the real intros from the dictionaries; a page
+// can override the H1/intro via `builder.pageHeads` (owner decision: the
+// experience page carries the generic «Habilidades y Experiencias» instead of
+// the work-specific text).
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+}
+
+const { locale, pageKey } = Astro.props;
+const dict = getDict(locale);
+const navItem = dict.nav.find((item) => item.key === pageKey);
+if (!navItem) throw new Error(`No nav item for page key "${pageKey}"`);
+const heads = dict.builder.pageHeads as Partial<
+  Record<PageKey, { title: string; intro: string }>
+>;
+const override = heads[pageKey];
+const introKeys: Partial<Record<PageKey, keyof typeof dict.intros>> = {
+  skills: "work",
+  projects: "projects",
+  communities: "communities",
+  resources: "materials",
+};
+const introKey = introKeys[pageKey];
+const title = override?.title ?? navItem.label;
+const intro = override?.intro ?? (introKey ? dict.intros[introKey] : undefined);
+---
+
+<BuilderBreadcrumbs locale={locale} pageKey={pageKey} />
+<h1 class="b-h1">{title}</h1>
+{intro && <p class="b-intro">{intro}</p>}

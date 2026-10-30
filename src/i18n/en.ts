@@ -14,7 +14,7 @@ export const en: Dictionary = {
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home", label: "About" },
-    { number: "02.", key: "skills", label: "Experience" },
+    { number: "02.", key: "skills", label: "Skills & Experiences" },
     { number: "03.", key: "projects", label: "Projects" },
     { number: "04.", key: "communities", label: "Communities" },
     { number: "05.", key: "resources", label: "Resources" },
@@ -24,11 +24,14 @@ export const en: Dictionary = {
     about: "About Me",
     education: "Education",
     work: "Work Experience",
+    technologies: "Technologies I Use",
     certifications: "Certifications",
   },
   intros: {
     education: "Institutions where I received my academic training.",
     work: "Companies where I've applied my knowledge and made valuable contributions.",
+    technologies:
+      "Programming languages, frameworks, and tools I use in my projects.",
     certifications:
       "Certifications I've earned to validate my skills and knowledge.",
     projects: "Some projects I've worked on using different technologies.",
@@ -40,14 +43,32 @@ export const en: Dictionary = {
   educationStatus: "in progress",
   materialTypes: { guide: "guide", talk: "talk", templates: "templates" },
   inSpanish: "in Spanish",
-  notion: {
-    modeTitle: "Notion Mode",
-    openLabel: "Open Notion Mode",
-    closeLabel: "Close window",
-    searchPlaceholder: "Search this page…",
-    noResults: "No results on this page.",
-    navLabel: "Jump to another page",
-    consoleHint: "psst… press the `n` key to open Notion Mode",
+  builder: {
+    loader: "Builder Mode Activated. Loading...",
+    exitLabel: "Exit Builder Mode",
+    hintLabel: "Activate Builder Mode",
+    consoleHint: "psst… press the `b` key to toggle Builder Mode",
+    navAriaLabel: "Builder navigation",
+    crumbRoot: "Home",
+    crumbAriaLabel: "Breadcrumb",
+    heroCode: { keyword: "if", condition: "visitor", call: "hello" },
+    heroCta: "See projects",
+    explore: "Explore",
+    toggleAria: "Order",
+    toggleA: "Featured",
+    toggleB: "Recent",
+    viewAll: "View all →",
+    pageHeads: {
+      skills: {
+        title: "Skills & Experiences",
+        intro:
+          "The tools and technologies I use, my education, work experience and certifications.",
+      },
+    },
+    featuredChip: "Featured",
+    filterAria: "Filter by type",
+    filterAll: "All",
+    tabsAria: "Experience sections",
   },
   footer: {
     heading: "Have a project or a question?",
@@ -63,7 +84,7 @@ export const en: Dictionary = {
     skills: {
       title: "Experience — Daniel Paredes",
       description:
-        "Education, work experience, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
+        "Education, work experience, technologies, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
     },
     projects: {
       title: "Projects — Daniel Paredes",

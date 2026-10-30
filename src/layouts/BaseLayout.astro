@@ -6,14 +6,18 @@ import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-import NotionMode from "../components/NotionMode.astro";
+import BuilderMode from "../components/BuilderMode.astro";
 import SideRails from "../components/SideRails.astro";
+import BuilderNav from "../components/builder/BuilderNav.astro";
+import BuilderFooter from "../components/builder/BuilderFooter.astro";
 import { getDict, getPath, type Locale, type PageKey } from "../i18n";
 import { config } from "../config";
 
 // Shared shell for every page: SEO head (canonical, hreflang, OG/Twitter,
-// JSON-LD), skip link, nav, side rails, footer, the Notion Mode payload and
-// the page slot.
+// JSON-LD), skip link, and the two trees of the hidden Builder Mode
+// (DESIGN.md §10): the portfolio tree and the rebuilt Builder Center tree.
+// Only one is visible at a time (display swap via `data-builder`); the
+// builder tree ships hidden so the portfolio and its SEO are untouched.
 interface Props {
   locale: Locale;
   pageKey: PageKey;
@@ -21,9 +25,6 @@ interface Props {
     name: string;
     handle: string;
     title: string;
-    location: string;
-    greeting: string;
-    bio: string;
     email: string;
     avatar: string;
     links: { github: string; linkedin: string; aws: string; cv: string };
@@ -101,25 +102,54 @@ const ogImage = new URL("/images/og.png", site);
 
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+    {/* Builder Mode (DESIGN.md §10): apply the theme before the first paint
+        so navigating with the mode on never flashes the navy theme. Keep in
+        sync with STORAGE_KEY in BuilderMode.astro. */}
+    <script is:inline>
+      try {
+        if (localStorage.getItem("wallsified:builder-mode") === "on")
+          document.documentElement.setAttribute("data-builder", "");
+      } catch {}
+    </script>
   </head>
   <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-surface-secondary focus:px-4 focus:py-3 focus:font-mono focus:text-sm focus:text-accent"
-    >
-      {dict.skipToContent}
-    </a>
+    <div data-tree="portfolio">
+      <a
+        href="#main"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-surface-secondary focus:px-4 focus:py-3 focus:font-mono focus:text-sm focus:text-accent"
+      >
+        {dict.skipToContent}
+      </a>
 
-    <Nav locale={locale} pageKey={pageKey} cvHref={profile.links.cv} />
-    <SideRails locale={locale} links={profile.links} />
+      <Nav locale={locale} pageKey={pageKey} cvHref={profile.links.cv} />
+      <SideRails locale={locale} links={profile.links} />
 
-    <main id="main" class="min-h-[60vh] px-5 pt-26 pb-12 sm:px-6 min-[1080px]:pt-34 min-[1080px]:pb-16">
-      <div class="mx-auto max-w-250">
-        <slot />
-      </div>
-    </main>
+      <main id="main" class="min-h-[60vh] px-5 pt-26 pb-12 sm:px-6 min-[1080px]:pt-34 min-[1080px]:pb-16">
+        <div class="mx-auto max-w-250">
+          <slot />
+        </div>
+      </main>
 
-    <Footer locale={locale} email={profile.email} name={profile.name} links={profile.links} />
-    <NotionMode locale={locale} pageKey={pageKey} profile={profile} />
+      <Footer locale={locale} email={profile.email} name={profile.name} links={profile.links} />
+    </div>
+
+    <div data-tree="builder">
+      <a
+        href="#main-b"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-surface-secondary focus:px-4 focus:py-3 focus:font-mono focus:text-sm focus:text-accent"
+      >
+        {dict.skipToContent}
+      </a>
+
+      <BuilderNav locale={locale} pageKey={pageKey} cvHref={profile.links.cv} />
+
+      <main id="main-b" class="b-main">
+        <slot name="builder" />
+      </main>
+
+      <BuilderFooter locale={locale} email={profile.email} name={profile.name} links={profile.links} />
+    </div>
+
+    <BuilderMode locale={locale} />
   </body>
 </html>

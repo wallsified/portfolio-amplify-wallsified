@@ -1,0 +1,200 @@
+---
+import { Picture } from "astro:assets";
+import { getDict, getPath, type Locale } from "../../i18n";
+import { getSorted, getSingle } from "../../lib/content";
+import { getImage } from "../../lib/images";
+import TechnologiesList from "./TechnologiesList.astro";
+
+// Builder Center home (DESIGN.md §10, reference §0.1 + §12): hero with profile
+// photo + description first (owner priority; the code statement is a small
+// eyebrow), then an Explore area with a Destacados | Recientes toggle and
+// H2 + Ver todo modules — Proyectos is a module like the rest, no Spotlight
+// strip — plus a right rail (canonical Technologies I Use list + contact
+// promo). Everything comes from the real collections.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const profile = await getSingle("profile", locale);
+const projects = await getSorted("projects", locale);
+const work = await getSorted("work", locale);
+const communities = await getSorted("communities", locale);
+const materials = await getSorted("materials", locale);
+
+const formatDate = (start: string, end?: string) => `${start} – ${end ?? "…"}`;
+const navLabel = (key: "skills" | "projects" | "communities" | "resources") =>
+  dict.nav.find((item) => item.key === key)?.label ?? "";
+
+const chipHues = { guide: "blue", talk: "magenta", templates: "mint" } as const;
+const modules = [
+  {
+    title: navLabel("skills"),
+    href: getPath(locale, "skills"),
+    items: work.map((entry) => ({
+      order: entry.data.order,
+      featured: 0,
+      href: getPath(locale, "skills"),
+      label: `${entry.data.role} · ${entry.data.company}`,
+      meta: formatDate(entry.data.start, entry.data.end),
+      chip: undefined as string | undefined,
+      emoji: undefined as string | undefined,
+    })),
+  },
+  {
+    title: navLabel("projects"),
+    href: getPath(locale, "projects"),
+    items: projects.map((entry) => ({
+      order: entry.data.order,
+      featured: entry.data.featured ? 1 : 0,
+      href: `${getPath(locale, "projects")}#b-${entry.id}`,
+      label: entry.data.title,
+      meta: entry.data.tech.join(" · "),
+      chip: undefined as string | undefined,
+      emoji: undefined as string | undefined,
+    })),
+  },
+  {
+    title: navLabel("communities"),
+    href: getPath(locale, "communities"),
+    items: communities.map((entry) => ({
+      order: entry.data.order,
+      featured: 0,
+      href: `${getPath(locale, "communities")}#b-${entry.id}`,
+      label: entry.data.name,
+      meta: entry.data.role,
+      chip: "purple" as string | undefined,
+      emoji: entry.data.emoji,
+    })),
+  },
+  {
+    title: navLabel("resources"),
+    href: getPath(locale, "resources"),
+    items: materials.map((entry) => ({
+      order: entry.data.order,
+      featured: 0,
+      href: getPath(locale, "resources"),
+      label: entry.data.title,
+      meta: dict.materialTypes[entry.data.type],
+      chip: chipHues[entry.data.type] as string | undefined,
+      emoji: undefined as string | undefined,
+    })),
+  },
+];
+---
+
+<section class="b-hero">
+  <Picture
+    src={getImage(profile.data.avatar)}
+    formats={["avif", "webp"]}
+    widths={[288, 416]}
+    sizes="(min-width: 768px) 208px, 144px"
+    alt={profile.data.name}
+    decoding="async"
+    class="b-hero-photo"
+  />
+  <div class="b-hero-body">
+    <p class="b-code">
+      <span class="b-code-kw">{dict.builder.heroCode.keyword}</span><span class="b-code-p"
+        >{" ("}</span
+      ><span class="b-code-var">{dict.builder.heroCode.condition}</span><span class="b-code-p"
+        >{") { "}</span
+      ><span class="b-code-fn">{dict.builder.heroCode.call}</span><span class="b-code-p"
+        >{"(); }"}</span
+      >
+    </p>
+    <h1 class="b-hero-name">{profile.data.name}</h1>
+    <p class="b-hero-title">{profile.data.title}</p>
+    <p class="b-hero-bio">{profile.data.bio}</p>
+    <a href={getPath(locale, "projects")} class="b-btn">{dict.builder.heroCta}</a>
+  </div>
+</section>
+
+<div class="b-columns">
+  <div class="b-explore" data-explore>
+    <div class="b-explore-head">
+      <h2 class="b-h2">{dict.builder.explore}</h2>
+      <div class="b-toggle" role="group" aria-label={dict.builder.toggleAria} data-explore-toggle>
+        <button type="button" aria-pressed="true" data-sort="featured">{dict.builder.toggleA}</button>
+        <button type="button" aria-pressed="false" data-sort="recent">{dict.builder.toggleB}</button>
+      </div>
+    </div>
+
+    {
+      modules.map((module) => (
+        <section class="b-module">
+          <div class="b-module-head">
+            <h3 class="b-h3">{module.title}</h3>
+            <a href={module.href} class="b-view-all">
+              {dict.builder.viewAll}
+            </a>
+          </div>
+          <ul data-explore-list>
+            {module.items.map((item) => (
+              <li data-order={item.order} data-featured={item.featured}>
+                <a href={item.href} class="b-mod-item">
+                  {item.emoji && (
+                    <span class="b-mod-emoji" aria-hidden="true">
+                      {item.emoji}
+                    </span>
+                  )}
+                  <span class="b-mod-label">
+                    {item.label}
+                    {item.chip && (
+                      <span class="b-mod-chip" data-chip={item.chip}>
+                        {item.meta}
+                      </span>
+                    )}
+                  </span>
+                  <span class="b-mod-meta">{item.chip ? undefined : item.meta}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  <aside class="b-rail" aria-label={dict.sections.technologies}>
+    <section class="b-rail-card">
+      <h3 class="b-h3">{dict.sections.technologies}</h3>
+      <TechnologiesList locale={locale} />
+    </section>
+    <section class="b-rail-card b-promo">
+      <h3 class="b-h3">{dict.footer.heading}</h3>
+      <p class="b-promo-text">{dict.footer.text}</p>
+      <a href={`mailto:${profile.data.email}`} class="b-btn">{dict.footer.cta}</a>
+    </section>
+  </aside>
+</div>
+
+<script>
+  // Explore segmented toggle (reference §0.1): reorders every module at once,
+  // no reload. "featured" = curated order with featured first; "recent" =
+  // reverse collection order (no dates are invented).
+  document.querySelectorAll<HTMLElement>("[data-explore-toggle]").forEach((group) => {
+    const root = group.closest("[data-explore]");
+    if (!root) return;
+    const lists = root.querySelectorAll<HTMLElement>("[data-explore-list]");
+    const buttons = Array.from(group.querySelectorAll<HTMLButtonElement>("button"));
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.sort;
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+        lists.forEach((list) => {
+          const items = Array.from(list.children) as HTMLElement[];
+          items.sort((a, b) => {
+            const order = Number(a.dataset.order) - Number(b.dataset.order);
+            if (mode === "recent") return -order;
+            const fa = a.dataset.featured === "1" ? 0 : 1;
+            const fb = b.dataset.featured === "1" ? 0 : 1;
+            return fa - fb || order;
+          });
+          items.forEach((item) => list.append(item));
+        });
+      });
+    });
+  });
+</script>

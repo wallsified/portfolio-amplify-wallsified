@@ -1,0 +1,44 @@
+[
+  {
+    "id": "languages",
+    "order": 1,
+    "label": "Lenguajes de programación",
+    "items": ["Python", "Kotlin", "Haskell"]
+  },
+  {
+    "id": "frameworks",
+    "order": 2,
+    "label": "Frameworks y librerías",
+    "items": ["Reflex", "Tailwind CSS"]
+  },
+  {
+    "id": "databases",
+    "order": 3,
+    "label": "Bases de datos",
+    "items": ["PostgreSQL", "MariaDB"]
+  },
+  {
+    "id": "containers",
+    "order": 4,
+    "label": "Contenedores y virtualización",
+    "items": ["Docker", "Vmware"]
+  },
+  {
+    "id": "cloud",
+    "order": 5,
+    "label": "Nube y servicios",
+    "items": ["AWS", "GitHub"]
+  },
+  {
+    "id": "version-control",
+    "order": 6,
+    "label": "Control de Versión",
+    "items": ["Git", "GitHub"]
+  },
+  {
+    "id": "operating-systems",
+    "order": 7,
+    "label": "Sistemas Operativos",
+    "items": ["Fedora", "Windows", "MacOS"]
+  }
+]

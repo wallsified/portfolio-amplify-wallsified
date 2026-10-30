@@ -9,7 +9,7 @@
 - Links: GitHub https://github.com/wallsified · LinkedIn https://www.linkedin.com/in/wallsified/ · AWS Builder Center https://builder.aws.com/community/@wallsified · Resume `assets/documents/CV_DanielParedes.pdf` (keep this path)
 - Email: wallsified@gmail.com
 
-## 02 Experience
+## 02 Experience & Skills
 
 **Education** (intro: “Institutions where I received my academic training.”)
 

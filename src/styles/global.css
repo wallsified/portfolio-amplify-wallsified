@@ -401,8 +401,7 @@
   display: flex;
 }
 
-.b-link,
-.b-summary {
+.b-link {
   display: flex;
   min-height: 44px;
   align-items: center;
@@ -415,56 +414,14 @@
   cursor: pointer;
 }
 
-.b-link:hover,
-.b-summary:hover {
+.b-link:hover {
   color: var(--color-text-primary);
 }
 
-.b-link-active,
-.b-link-active + .b-group summary {
+.b-link-active {
   color: var(--color-text-heading);
   font-weight: 500;
   box-shadow: inset 0 -2px 0 var(--color-accent);
-}
-
-.b-group {
-  position: relative;
-}
-
-.b-group summary {
-  list-style: none;
-}
-
-.b-group summary::-webkit-details-marker {
-  display: none;
-}
-
-.b-group-menu {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 50;
-  min-width: 240px;
-  max-height: min(420px, 70vh);
-  overflow-y: auto;
-  padding: 8px;
-  background-color: var(--color-surface-secondary);
-  border: 1px solid var(--color-line);
-  border-radius: 8px;
-  box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-}
-
-.b-group-menu a {
-  display: block;
-  padding: 10px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--color-text-primary);
-}
-
-.b-group-menu a:hover {
-  background-color: var(--color-surface-elevated);
-  color: var(--color-accent);
 }
 
 @media (min-width: 768px) {
@@ -732,7 +689,7 @@
   color: var(--color-text-secondary);
 }
 
-/* Right rail: tech chip cloud + contact promo (reference §12). */
+/* Right rail: canonical Technologies list + contact promo (DESIGN.md §10). */
 .b-rail {
   display: grid;
   gap: 16px;
@@ -748,6 +705,20 @@
 
 .b-rail-card .b-h3 {
   margin-bottom: 12px;
+}
+
+/* Canonical Technologies list (home rail + experience tab): one group per
+   category — mono label, then the chip cloud with the 4n hue rotation. */
+.b-tech-cats {
+  display: grid;
+  gap: 16px;
+}
+
+.b-tech-label {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
 }
 
 .b-chip-cloud {

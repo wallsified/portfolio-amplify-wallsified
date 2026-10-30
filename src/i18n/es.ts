@@ -18,7 +18,11 @@ export const es = {
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home" as PageKey, label: "Sobre mí" },
-    { number: "02.", key: "skills" as PageKey, label: "Experiencia" },
+    {
+      number: "02.",
+      key: "skills" as PageKey,
+      label: "Habilidades y Experiencia",
+    },
     { number: "03.", key: "projects" as PageKey, label: "Proyectos" },
     { number: "04.", key: "communities" as PageKey, label: "Comunidades" },
     { number: "05.", key: "resources" as PageKey, label: "Materiales" },
@@ -28,11 +32,14 @@ export const es = {
     about: "Sobre mí",
     education: "Educación",
     work: "Experiencia laboral",
+    technologies: "Tecnologías que utilizo",
     certifications: "Certificaciones",
   },
   intros: {
     education: "Instituciones donde me he formado académicamente.",
     work: "Empresas en donde he podido aplicar mis conocimientos y crear aportes valiosos.",
+    technologies:
+      "Lenguajes de programación, frameworks y herramientas que utilizo en mis proyectos.",
     certifications: "Certificaciones que avalan mi conocimiento.",
     projects: "Algunos proyectos que he realizado con distintas tecnologías.",
     communities:
@@ -49,7 +56,6 @@ export const es = {
     hintLabel: "Activar Modo Builder",
     consoleHint: "psst… pulsa la tecla `b` para activar el Modo Builder",
     navAriaLabel: "Navegación Builder",
-    dropdownAriaLabel: "Secciones",
     crumbRoot: "Inicio",
     crumbAriaLabel: "Migas de pan",
     heroCode: { keyword: "if", condition: "visitor", call: "hello" },
@@ -59,12 +65,17 @@ export const es = {
     toggleA: "Destacados",
     toggleB: "Recientes",
     viewAll: "Ver todo →",
-    railSkills: "Tecnologías",
+    pageHeads: {
+      skills: {
+        title: "Habilidades y Experiencias",
+        intro:
+          "Herramientas y tecnologías que utilizo, mi formación, experiencia laboral y certificaciones.",
+      },
+    },
     featuredChip: "Destacado",
     filterAria: "Filtrar por tipo",
     filterAll: "Todos",
     tabsAria: "Secciones de experiencia",
-    modules: { skills: "Experiencia" },
   },
   footer: {
     heading: "¿Tienes un proyecto o una duda?",
@@ -80,7 +91,7 @@ export const es = {
     skills: {
       title: "Experiencia — Daniel Paredes",
       description:
-        "Educación, experiencia laboral y certificaciones de Daniel Paredes: Facultad de Ciencias UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge y AWS.",
+        "Educación, experiencia laboral, tecnologías y certificaciones de Daniel Paredes: Facultad de Ciencias UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge y AWS.",
     },
     projects: {
       title: "Proyectos — Daniel Paredes",

@@ -14,7 +14,7 @@ export const en: Dictionary = {
   langNames: { es: "Español", en: "English" },
   nav: [
     { number: "01.", key: "home", label: "About" },
-    { number: "02.", key: "skills", label: "Experience" },
+    { number: "02.", key: "skills", label: "Skills & Experiences" },
     { number: "03.", key: "projects", label: "Projects" },
     { number: "04.", key: "communities", label: "Communities" },
     { number: "05.", key: "resources", label: "Resources" },
@@ -24,11 +24,14 @@ export const en: Dictionary = {
     about: "About Me",
     education: "Education",
     work: "Work Experience",
+    technologies: "Technologies I Use",
     certifications: "Certifications",
   },
   intros: {
     education: "Institutions where I received my academic training.",
     work: "Companies where I've applied my knowledge and made valuable contributions.",
+    technologies:
+      "Programming languages, frameworks, and tools I use in my projects.",
     certifications:
       "Certifications I've earned to validate my skills and knowledge.",
     projects: "Some projects I've worked on using different technologies.",
@@ -46,7 +49,6 @@ export const en: Dictionary = {
     hintLabel: "Activate Builder Mode",
     consoleHint: "psst… press the `b` key to toggle Builder Mode",
     navAriaLabel: "Builder navigation",
-    dropdownAriaLabel: "Sections",
     crumbRoot: "Home",
     crumbAriaLabel: "Breadcrumb",
     heroCode: { keyword: "if", condition: "visitor", call: "hello" },
@@ -56,12 +58,17 @@ export const en: Dictionary = {
     toggleA: "Featured",
     toggleB: "Recent",
     viewAll: "View all →",
-    railSkills: "Skills",
+    pageHeads: {
+      skills: {
+        title: "Skills & Experiences",
+        intro:
+          "The tools and technologies I use, my education, work experience and certifications.",
+      },
+    },
     featuredChip: "Featured",
     filterAria: "Filter by type",
     filterAll: "All",
     tabsAria: "Experience sections",
-    modules: { skills: "Experience" },
   },
   footer: {
     heading: "Have a project or a question?",
@@ -77,7 +84,7 @@ export const en: Dictionary = {
     skills: {
       title: "Experience — Daniel Paredes",
       description:
-        "Education, work experience, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
+        "Education, work experience, technologies, and certifications of Daniel Paredes: Faculty of Sciences UNAM, Equilibra, América Móvil, GitHub, Google, Cambridge, and AWS.",
     },
     projects: {
       title: "Projects — Daniel Paredes",

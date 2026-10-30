@@ -1,0 +1,94 @@
+---
+import { getDict, type Locale } from "../../i18n";
+import { getSorted } from "../../lib/content";
+import CertificationRow from "../CertificationRow.astro";
+import EducationRow from "../EducationRow.astro";
+import TechnologiesList from "./TechnologiesList.astro";
+
+// Inner builder page for /experiencia (reference §0.2: breadcrumbs + tabs).
+// One section tab bar (Educación | Experiencia laboral | Tecnologías que
+// utilizo | Certificaciones) following the ARIA tabs pattern — the shared
+// [data-tablist] script in WorkTabs handles both trees; ids here are prefixed
+// `b-` to avoid collisions.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const education = await getSorted("education", locale);
+const work = await getSorted("work", locale);
+const certifications = await getSorted("certifications", locale);
+
+const sections = [
+  { key: "education" as const, label: dict.sections.education },
+  { key: "work" as const, label: dict.sections.work },
+  { key: "technologies" as const, label: dict.sections.technologies },
+  { key: "certifications" as const, label: dict.sections.certifications },
+];
+const formatDate = (start: string, end?: string) => `${start} – ${end ?? "…"}`;
+---
+
+<div class="b-tabs-wrap">
+  <div role="tablist" aria-label={dict.builder.tabsAria} data-tablist class="b-tabbar">
+    {
+      sections.map((section, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`btab-${section.key}`}
+          aria-controls={`bpanel-${section.key}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          tabindex={i === 0 ? 0 : -1}
+          data-tab
+        >
+          {section.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    sections.map((section, i) => (
+      <div
+        role="tabpanel"
+        id={`bpanel-${section.key}`}
+        aria-labelledby={`btab-${section.key}`}
+        tabindex={0}
+        hidden={i !== 0}
+        data-panel
+      >
+        {section.key === "work" ? (
+          <ul class="b-work-list">
+            {work.map((entry) => (
+              <li>
+                <p class="b-work-role">{entry.data.role}</p>
+                <p class="b-work-company">{entry.data.company}</p>
+                <p class="b-work-meta">
+                  <span>{formatDate(entry.data.start, entry.data.end)}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{entry.data.location}</span>
+                </p>
+                <p class="b-work-desc">{entry.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        ) : section.key === "education" ? (
+          <div data-catalog>
+            {education.map((entry) => (
+              <EducationRow locale={locale} entry={entry} />
+            ))}
+          </div>
+        ) : section.key === "technologies" ? (
+          <TechnologiesList locale={locale} />
+        ) : (
+          <div data-catalog>
+            {certifications.map((entry) => (
+              <CertificationRow entry={entry} verifyLabel={dict.verify} />
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>

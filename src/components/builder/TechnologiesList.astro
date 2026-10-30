@@ -1,0 +1,29 @@
+---
+import { type Locale } from "../../i18n";
+import { getSorted } from "../../lib/content";
+
+// Canonical "Tecnologías que utilizo" list (agent_docs §02, DESIGN.md §10):
+// category label + chip cloud with the syntax-hue rotation. Shared by the home
+// right rail and the experience tab — never derived from the project stacks.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const technologies = await getSorted("technologies", locale);
+---
+
+<ul class="b-tech-cats">
+  {
+    technologies.map((entry) => (
+      <li>
+        <p class="b-tech-label">{entry.data.label}</p>
+        <ul class="b-chip-cloud">
+          {entry.data.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </li>
+    ))
+  }
+</ul>

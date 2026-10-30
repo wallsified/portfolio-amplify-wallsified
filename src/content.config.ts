@@ -39,6 +39,13 @@ const projectSchema = z.object({
     .optional(),
 });
 
+const technologiesSchema = z.object({
+  id: z.string(),
+  order: z.number(),
+  label: z.string(),
+  items: z.array(z.string()),
+});
+
 const educationSchema = z.object({
   id: z.string(),
   order: z.number(),
@@ -107,6 +114,14 @@ export const collections = {
   projectsEn: defineCollection({
     loader: file(`${en}/projects.json`),
     schema: projectSchema,
+  }),
+  technologiesEs: defineCollection({
+    loader: file(`${es}/technologies.json`),
+    schema: technologiesSchema,
+  }),
+  technologiesEn: defineCollection({
+    loader: file(`${en}/technologies.json`),
+    schema: technologiesSchema,
   }),
   educationEs: defineCollection({
     loader: file(`${es}/education.json`),

@@ -19,6 +19,7 @@ const { degree, institution, location, status } = entry.data;
 ---
 
 <div
+  data-row-card
   class="grid grid-cols-1 gap-x-6 gap-y-2 border-b border-line py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-y-1"
 >
   <div class="min-w-0">
@@ -27,6 +28,6 @@ const { degree, institution, location, status } = entry.data;
   </div>
   <div class="flex items-baseline gap-4 font-mono text-xs text-text-secondary">
     <span>{location}</span>
-    {status === "in-progress" && <span class="text-accent">{dict.educationStatus}</span>}
+    {status === "in-progress" && <span class="text-accent" data-chip>{dict.educationStatus}</span>}
   </div>
 </div>

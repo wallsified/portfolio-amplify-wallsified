@@ -50,14 +50,15 @@ const iconLinks = [
       ))
     }
     <li>
-      {/* Visible hint for the hidden Notion Mode (DESIGN.md §10). */}
+      {/* Visible hint for the hidden Builder Mode (DESIGN.md §10). */}
       <button
         type="button"
-        aria-label={dict.notion.openLabel}
-        data-notion-open
+        aria-label={dict.builder.hintLabel}
+        aria-pressed="false"
+        data-builder-open
         class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
       >
-        <Icon name="note" size={20} />
+        <Icon name="tool" size={20} />
       </button>
     </li>
   </ul>

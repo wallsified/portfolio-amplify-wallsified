@@ -39,6 +39,847 @@
   --ease-out-quart: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+/* Hidden Builder Mode (DESIGN.md §10, easter egg 1): redefine the same
+   variables so every utility and base rule re-themes with zero component
+   changes. AWS Builder Center brand palette; the main palette above is
+   never touched. Applied by an inline head script before the first paint. */
+:root[data-builder] {
+  --color-surface-primary: #161d26;
+  --color-surface-secondary: #1d2733;
+  --color-surface-elevated: #263140;
+  --color-surface-terminal: #0b111a;
+  --color-line: #2c3849;
+
+  --color-text-heading: #ffffff;
+  --color-text-primary: #e6eaf0;
+  --color-text-secondary: #a7b0be;
+
+  --color-accent: #ff9900;
+  --color-accent-wash: rgba(255, 153, 0, 0.1);
+
+  /* The builder look is sans: no serif in the disguise. */
+  --font-display: "Inter Variable", system-ui, sans-serif;
+
+  /* Syntax-highlighting hues (DESIGN.md §10): the loader-bar colors, reused
+     for chips. Amber above stays the single dominant accent. */
+  --hue-mint: #00e582;
+  --hue-blue: #42b4ff;
+  --hue-purple: #ad5cff;
+  --hue-magenta: #ff57e9;
+}
+
+/* ===== Builder Mode — dual-tree restructure (DESIGN.md §10, reference §0) =====
+   Each page ships a rebuilt Builder Center tree alongside the portfolio tree.
+   The same `data-builder` flag that swaps the tokens swaps the visible tree;
+   without JS the builder tree ships hidden, so the portfolio and its SEO are
+   untouched. All rules below are unlayered on purpose: they must beat the
+   utility layer and the base component classes. */
+
+/* Tree swap: builder hidden by default; only one tree visible at a time. */
+[data-tree="builder"] {
+  display: none;
+}
+
+:root[data-builder] [data-tree="portfolio"] {
+  display: none;
+}
+
+:root[data-builder] [data-tree="builder"] {
+  /* Footer pinned to the viewport bottom (DESIGN.md §10): a flex column that
+     fills the screen; `main` grows to absorb the slack. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* The skip link must never become a flex item (it is fixed only while
+   focused, clipped otherwise). */
+[data-tree="builder"] > a {
+  position: fixed;
+}
+
+/* --- Shared hooks on content components reused inside the builder tree --- */
+
+/* Mono pill chips (type, role, status). Hue comes from --chip-hue. */
+[data-tree="builder"] [data-chip] {
+  --chip-hue: var(--color-accent);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--chip-hue);
+  background-color: color-mix(in srgb, var(--chip-hue) 12%, transparent);
+}
+
+[data-tree="builder"] [data-chip="blue"] {
+  --chip-hue: var(--hue-blue);
+}
+
+[data-tree="builder"] [data-chip="mint"] {
+  --chip-hue: var(--hue-mint);
+}
+
+[data-tree="builder"] [data-chip="purple"] {
+  --chip-hue: var(--hue-purple);
+}
+
+[data-tree="builder"] [data-chip="magenta"] {
+  --chip-hue: var(--hue-magenta);
+}
+
+/* Flat lists render as a catalog of bordered cards. */
+[data-tree="builder"] [data-catalog] {
+  display: grid;
+  gap: 12px;
+}
+
+[data-tree="builder"] [data-row-card] {
+  padding: 16px 20px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-secondary);
+}
+
+[data-tree="builder"] a[data-row-card]:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+/* Card grids and cards (flat, 1px border, tighter padding). */
+[data-tree="builder"] [data-grid] {
+  gap: 16px;
+}
+
+[data-tree="builder"] [data-card] {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* Community card: the <a> itself is the padded card. Project card: the
+   media stays edge-to-edge and only the content div is padded. */
+[data-tree="builder"] a[data-card] {
+  padding: 20px;
+}
+
+[data-tree="builder"] [data-card] > div {
+  padding: 20px;
+}
+
+/* Featured chip: hidden in the portfolio tree, a pill badge in builder cards. */
+[data-featured-chip] {
+  display: none;
+}
+
+[data-tree="builder"] [data-featured-chip] {
+  display: inline-block;
+  align-self: start;
+  margin-top: 2px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+/* Tech chips rotate the syntax hues across siblings. */
+[data-tree="builder"] [data-card] [data-tech] li {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--chip-hue);
+  background-color: color-mix(in srgb, var(--chip-hue) 12%, transparent);
+}
+
+[data-tree="builder"] [data-card] [data-tech] li:nth-child(4n + 1) {
+  --chip-hue: var(--hue-mint);
+}
+
+[data-tree="builder"] [data-card] [data-tech] li:nth-child(4n + 2) {
+  --chip-hue: var(--hue-blue);
+}
+
+[data-tree="builder"] [data-card] [data-tech] li:nth-child(4n + 3) {
+  --chip-hue: var(--hue-purple);
+}
+
+[data-tree="builder"] [data-card] [data-tech] li:nth-child(4n) {
+  --chip-hue: var(--hue-magenta);
+}
+
+/* Section tab bar (reference §0.2): bold label + 2px amber underline. */
+[data-tree="builder"] [data-tablist] {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-line);
+}
+
+[data-tree="builder"] [data-tablist] [data-tab] {
+  flex-shrink: 0;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: color var(--duration-fast) var(--ease-out-quart);
+}
+
+[data-tree="builder"] [data-tablist] [data-tab]:hover {
+  color: var(--color-text-primary);
+}
+
+[data-tree="builder"] [data-tablist] [data-tab][aria-selected="true"] {
+  color: var(--color-text-heading);
+  font-weight: 500;
+  border-bottom-color: var(--color-accent);
+}
+
+/* --- Builder tree chrome --- */
+
+.b-main {
+  flex: 1 0 auto; /* absorbs the slack so the footer sits at the viewport bottom */
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 24px 16px 72px;
+}
+
+@media (min-width: 768px) {
+  .b-main {
+    padding-inline: 24px;
+  }
+}
+
+/* Headings follow the reference hierarchy (700 / 700 / 600), not the serif 500. */
+.b-h1 {
+  font-size: clamp(32px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 8px;
+}
+
+.b-h2 {
+  font-size: clamp(24px, 3vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.b-h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.b-intro {
+  max-width: 72ch;
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+}
+
+/* Buttons (reference §4): primary solid amber w/ Gray 850 text; ghost outline. */
+.b-btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: #161d26;
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  transition:
+    background-color var(--duration-fast) var(--ease-out-quart),
+    border-color var(--duration-fast) var(--ease-out-quart);
+}
+
+.b-btn:hover {
+  background-color: color-mix(in srgb, var(--color-accent) 82%, #fff);
+  border-color: color-mix(in srgb, var(--color-accent) 82%, #fff);
+}
+
+.b-btn-ghost {
+  color: var(--color-text-primary);
+  background-color: transparent;
+  border-color: var(--color-line);
+}
+
+.b-btn-ghost:hover {
+  color: var(--color-accent);
+  background-color: transparent;
+  border-color: var(--color-accent);
+}
+
+/* Sticky nav (reference §0.1): solid Gray 850 bar, grouped menu, actions right. */
+.b-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--color-surface-primary);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.b-nav-bar {
+  position: relative;
+  display: flex;
+  max-width: 1280px;
+  min-height: 64px;
+  align-items: center;
+  gap: 8px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+.b-monogram {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-heading);
+}
+
+.b-monogram:hover {
+  color: var(--color-accent);
+}
+
+.b-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Mobile drawer: pure CSS (checkbox), one copy of the links for both views. */
+.b-menu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.b-menu-check:checked ~ .b-menu {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 12px 16px 16px;
+  background-color: var(--color-surface-secondary);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.b-menu-toggle {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.b-menu-toggle:hover {
+  color: var(--color-accent);
+}
+
+.b-nav-actions {
+  margin-left: 0;
+}
+
+.b-menu li {
+  display: flex;
+}
+
+.b-link,
+.b-summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.b-link:hover,
+.b-summary:hover {
+  color: var(--color-text-primary);
+}
+
+.b-link-active,
+.b-link-active + .b-group summary {
+  color: var(--color-text-heading);
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+.b-group {
+  position: relative;
+}
+
+.b-group summary {
+  list-style: none;
+}
+
+.b-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.b-group-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 50;
+  min-width: 240px;
+  max-height: min(420px, 70vh);
+  overflow-y: auto;
+  padding: 8px;
+  background-color: var(--color-surface-secondary);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+}
+
+.b-group-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.b-group-menu a:hover {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .b-menu-toggle {
+    display: none;
+  }
+
+  /* Same selector as the checked rule (equal specificity, later in source). */
+  .b-menu,
+  .b-menu-check:checked ~ .b-menu {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    gap: 2px;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+
+  .b-menu,
+  .b-nav-actions {
+    margin-left: 0;
+  }
+
+  .b-menu + .b-nav-actions {
+    margin-left: auto;
+  }
+}
+
+/* Breadcrumbs (reference §0.2/§0.3): mono 13px, `Home › Page`. */
+.b-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.b-crumbs a:hover {
+  color: var(--color-accent);
+}
+
+.b-crumbs [aria-current="page"] {
+  color: var(--color-text-primary);
+}
+
+/* Hero (owner priority: photo + description lead; the code statement stays
+   as a small eyebrow homage above the real name, title and bio). */
+.b-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.b-hero-photo {
+  width: 144px;
+  height: 144px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+}
+
+.b-hero-body {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.b-code {
+  font-family: var(--font-mono);
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+}
+
+.b-code-kw {
+  color: var(--hue-magenta);
+}
+
+.b-code-var {
+  color: var(--hue-blue);
+}
+
+.b-code-fn {
+  color: var(--hue-purple);
+}
+
+.b-code-p {
+  color: var(--color-text-primary);
+}
+
+.b-hero-name {
+  font-size: clamp(34px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.b-hero-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-accent);
+}
+
+.b-hero-bio {
+  max-width: 64ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .b-hero {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 56px 0 48px;
+  }
+
+  .b-hero-photo {
+    width: 208px;
+    height: 208px;
+  }
+}
+
+/* Modules (reference §0.1): H2 + View all, separated by 1px rules. */
+.b-module {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.b-module:last-child {
+  border-bottom: none;
+}
+
+.b-module-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+
+.b-view-all {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent);
+}
+
+.b-view-all:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Explore + right rail (reference §0.1, Pattern A). */
+.b-columns {
+  display: grid;
+  gap: 32px;
+  padding-top: 8px;
+}
+
+@media (min-width: 1025px) {
+  .b-columns {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 40px;
+  }
+}
+
+.b-explore-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+/* Segmented toggle (reference §0.1). */
+.b-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.b-toggle button {
+  min-height: 44px;
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border-left: 1px solid var(--color-line);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out-quart),
+    background-color var(--duration-fast) var(--ease-out-quart);
+}
+
+.b-toggle button:first-child {
+  border-left: none;
+}
+
+.b-toggle button:hover {
+  color: var(--color-text-primary);
+}
+
+.b-toggle button[aria-pressed="true"] {
+  color: var(--color-accent);
+  font-weight: 500;
+  background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+}
+
+/* Explore module rows. */
+[data-explore-list] {
+  display: grid;
+}
+
+[data-explore-list] li + li .b-mod-item {
+  border-top: 1px solid var(--color-line);
+}
+
+.b-mod-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 8px;
+  border-radius: 8px;
+  transition: background-color var(--duration-fast) var(--ease-out-quart);
+}
+
+.b-mod-item:hover {
+  background-color: var(--color-surface-elevated);
+}
+
+.b-mod-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.b-mod-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.b-mod-item:hover .b-mod-label {
+  color: var(--color-accent);
+}
+
+.b-mod-meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* Right rail: tech chip cloud + contact promo (reference §12). */
+.b-rail {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.b-rail-card {
+  padding: 20px;
+  background-color: var(--color-surface-secondary);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+}
+
+.b-rail-card .b-h3 {
+  margin-bottom: 12px;
+}
+
+.b-chip-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.b-chip-cloud li {
+  --chip-hue: var(--hue-blue);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--chip-hue);
+  background-color: color-mix(in srgb, var(--chip-hue) 12%, transparent);
+}
+
+.b-chip-cloud li:nth-child(4n + 1) {
+  --chip-hue: var(--hue-blue);
+}
+
+.b-chip-cloud li:nth-child(4n + 2) {
+  --chip-hue: var(--hue-purple);
+}
+
+.b-chip-cloud li:nth-child(4n + 3) {
+  --chip-hue: var(--hue-mint);
+}
+
+.b-chip-cloud li:nth-child(4n) {
+  --chip-hue: var(--hue-magenta);
+}
+
+.b-promo-text {
+  margin: 8px 0 16px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+/* Work list (experience panel): flat records, mono metadata. */
+.b-work-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.b-work-list li:first-child {
+  padding-top: 0;
+}
+
+.b-work-list li:last-child {
+  border-bottom: none;
+}
+
+.b-work-role {
+  font-size: 17px;
+  color: var(--color-text-primary);
+}
+
+.b-work-company {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-accent);
+}
+
+.b-work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.b-work-desc {
+  max-width: 62ch;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* Multi-row footer (reference §0.1). */
+.b-footer {
+  background-color: var(--color-surface-secondary);
+  border-top: 1px solid var(--color-line);
+}
+
+.b-footer-inner {
+  display: grid;
+  gap: 24px;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 32px 16px;
+}
+
+@media (min-width: 768px) {
+  .b-footer-inner {
+    padding-inline: 24px;
+  }
+}
+
+.b-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.b-footer-row a {
+  color: var(--color-text-secondary);
+}
+
+.b-footer-row a:hover {
+  color: var(--color-accent);
+}
+
+.b-footer-legal {
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.b-footer-copy {
+  margin-left: auto;
+  color: var(--color-text-secondary);
+}
+
 /* Data-attribute states used by nav, sheet and tabs. */
 @custom-variant nav-hidden (&[data-nav-hidden]);
 @custom-variant open (&[data-open]);
@@ -65,7 +906,7 @@
   }
 
   /* Author display utilities would otherwise beat the UA rule for [hidden]
-     (e.g. filtered Notion window rows use display:flex). */
+     (e.g. elements with display:flex toggled via the hidden attribute). */
   [hidden] {
     display: none !important;
   }
@@ -192,61 +1033,47 @@
     text-orientation: mixed;
   }
 
-  /* Hidden Notion Mode window (DESIGN.md §10): non-modal, surface-secondary,
-     bottom-right on desktop and a bottom sheet on mobile. No shadow: L3's
-     deep shadow belongs to the terminal alone (DESIGN.md §6). */
-  @keyframes notion-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes notion-fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .notion-window {
+  /* Builder Mode loader overlay (DESIGN.md §10, easter egg 1). The bar's
+     five segments are colored inline (amber, mint, blue, purple, magenta)
+     and fill in sequence over ~2.5s; static under reduced motion. */
+  .builder-overlay {
     position: fixed;
-    z-index: 60;
+    inset: 0;
+    z-index: 70;
+    display: grid;
+    place-items: center;
+    background-color: var(--color-surface-primary);
+  }
+
+  .builder-bar {
     display: flex;
-    flex-direction: column;
-    background-color: var(--color-surface-secondary);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    animation: notion-in var(--duration-base) var(--ease-out-quart) both;
+    gap: 4px;
+    width: min(280px, 70vw);
+    height: 4px;
   }
 
-  @media (max-width: 767.98px) {
-    .notion-window {
-      inset: auto 0 0 0;
-      width: 100%;
-      max-height: 75dvh;
-    }
+  .builder-seg {
+    flex: 1;
+    border-radius: 2px;
+    background-color: var(--color-line);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: builder-fill var(--duration-base) var(--ease-out-quart) forwards;
   }
 
-  @media (min-width: 768px) {
-    .notion-window {
-      right: 1.5rem;
-      bottom: 1.5rem;
-      width: min(560px, 92vw);
-      height: 320px;
-      border-radius: var(--radius-md);
+  @keyframes builder-fill {
+    to {
+      opacity: 1;
+      transform: scaleX(1);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .notion-window {
-      animation-name: notion-fade;
+    .builder-seg {
+      opacity: 1;
+      transform: none;
+      animation: none;
     }
   }
 }

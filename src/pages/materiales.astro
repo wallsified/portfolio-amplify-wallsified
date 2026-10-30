@@ -1,6 +1,8 @@
 ---
 import MaterialRow from "../components/MaterialRow.astro";
 import PageTitle from "../components/PageTitle.astro";
+import BuilderMaterials from "../components/builder/BuilderMaterials.astro";
+import BuilderPageHead from "../components/builder/BuilderPageHead.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getDict } from "../i18n";
 import { getSorted, getSingle } from "../lib/content";
@@ -18,4 +20,7 @@ const materials = await getSorted("materials", locale);
   <div class="mt-10">
     {materials.map((entry) => <MaterialRow locale={locale} entry={entry} />)}
   </div>
+
+  <BuilderPageHead slot="builder" locale={locale} pageKey="resources" />
+  <BuilderMaterials slot="builder" locale={locale} />
 </BaseLayout>

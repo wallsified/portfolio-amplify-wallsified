@@ -1,6 +1,6 @@
 ---
 name: Daniel Paredes Portfolio — Navy Teal on Warm Paper
-description: Dark developer portfolio, five routes, bilingual (ES/EN). Brittany Chiang's rigid resume structure and navy/teal palette, softened with Notion's editorial serif, warm cream headings and pastel washes. One hidden terminal easter egg.
+description: Dark developer portfolio, five routes, bilingual (ES/EN). Brittany Chiang's rigid resume structure and navy/teal palette, softened with Notion's editorial serif, warm cream headings and pastel washes. Two hidden easter eggs: Builder Mode and a hidden terminal.
 status: draft (DESIGN.md spec is alpha; validate tokens with the official CLI before relying on them)
 colors:
   surface-primary: "#0A192F"
@@ -33,14 +33,14 @@ motion:
 
 # Daniel Paredes Portfolio — DESIGN.md
 
-**Provenance:** structure derived from the _Brittany Chiang_ DESIGN.md (avaliable at `agent_docs/references/Brittany-Chiang-DESIGN.md`), warmth derived from the _Notion_ DESIGN.md (available at `agent_docs/references/Notion-DESIGN.md`). These are design _principles_ to borrow, not assets: never copy either site's text, images, logos or illustrations.
+**Provenance:** structure derived from the _Brittany Chiang_ DESIGN.md (avaliable at `agent_docs/references/Brittany-Chiang-DESIGN.md`), warmth derived from the _Notion_ DESIGN.md (available at `agent_docs/references/Notion-DESIGN.md`). These are design _principles_ to borrow, not assets: never copy either site's text, images, logos or illustrations. For the Builder Mode, see `agent_docs/references/AWS Builder Center - DESIGN.md`.
 **Subject:** Daniel Paredes (@wallsified), "Computólogo / Desarrollador", Ciudad de México. All real copy lives in `agent_docs/spanish_content.md`; never invent biography, employers, dates or metrics.
 
 ## 1. Visual Theme & Atmosphere
 
 A well-dressed resume that feels like a notebook you keep at night. The skeleton is strict and sober (Brittany): fixed page order, narrow reading column, numbered pages, one teal accent on a deep navy canvas. The warmth comes from three Notion borrowings only: a **serif display face**, **warm cream headings** instead of cold blue-white, and **pastel washes** behind the few emoji. Calm, confident, human; the voice is first person, plain and generous (the site's mission is making technical knowledge accessible).
 
-Spend the boldness in two places and keep everything else quiet: the **hero typography** (large serif name) and the **hidden terminal** (section 10). No gradients, no illustrations, no decorative motion.
+Spend the boldness in two places and keep everything else quiet: the **hero typography** (large serif name) and the **hidden easter eggs** — Builder Mode and the terminal (section 10). No gradients, no illustrations, no decorative motion.
 
 Dark only in v1 (`color-scheme: dark`). Do not add a light theme unless asked; if added later, teal `#64FFDA` fails on cream and needs a darker variant.
 
@@ -171,11 +171,11 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 > Two buttons "ES" and "EN", JetBrains Mono 13px, separated by a 1px `#233554` bar. Active: `#64FFDA`, `aria-current="true"`. Inactive: `#8892B0`, hover `#CCD6F6`. Each is a link to the equivalent page in the other language, with `lang` and an accessible name ("Español", "English").
 
-**Notion Mode**
+**Builder Mode**
 
 > Build exactly as specified in section 10.
 
-## 10. Interaction: Language Switch & Hidden Notion Mode
+## 10. Interaction: Language Switch & Hidden Builder Mode
 
 **Language switch**
 
@@ -183,13 +183,15 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 - On a first visit, a client script may suggest the other language from `Accept-Language` with a small dismissible hint; it never redirects automatically. The choice is remembered (wrapped in try/catch; works with storage empty).
 - Page names: ES `Sobre mí · Experiencia · Proyectos · Comunidades · Materiales`; EN `About · Experience · Projects · Communities · Resources`.
 
-**Hidden Notion Mode (easter egg 1)**
+**Hidden Builder Mode (easter egg 1)**
 
-- **Trigger** The `n` key and on desktop. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, so navigation and selection stay untouched. Visible hint as a small Notion icon in the side rail; a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
-- **Load** The Notion mode is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
-- **Window** `surface-secondary`, 8px radius, Inter 18px, `min(560px, 92vw)` × 320px, bottom-right on desktop and a bottom sheet on mobile. Title bar with three 10px dots in peach, sage and sky washes and the title `Notion Mode`.
-- **Content** The Notion window shows the current page content in a single column, with cream headings, pastel washes behind emoji, and the accent color for links. The window is non-modal `role="dialog"` with an accessible name. `Esc` or the ✕ closes it and returns focus to where it was. On mobile, the window becomes a bottom sheet with an on-screen input to search the current page content and a row of tappable chips to jump to the five main pages.
-- **Accessibility** The Notion window is fully keyboard-operable, with a visible focus ring on every interactive element. The search input is auto-focused when the window opens. The content is read by screen readers in the correct order, and the window can be closed with `Esc`.
+- **Trigger** The `b` key, on any viewport. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, and never fire while typing in a field or with modifiers held, so navigation and selection stay untouched. Visible hint as a small generic tool icon in the side rail (never an AWS logo); a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
+- **Loader** On activation a full-screen overlay on the canvas shows the phrase in JetBrains Mono — "Modo Builder activado. Cargando..." / "Builder Mode Activated. Loading..." — above a five-segment progress bar (amber, mint, blue, purple and magenta revealed in sequence, no gradients). `role="status"` announces the phrase, page scroll is locked, and it lasts ~2.5s. Under `prefers-reduced-motion` the bar is static but the timer still runs. The loader plays only on activation, never on page load.
+- **Persistence** The choice is remembered (localStorage, namespaced key, wrapped in try/catch; works with storage empty). A tiny inline script in `<head>` applies `data-builder` before the first paint, so navigating with the mode on never flashes the navy theme. Deactivating is instant, with no loader.
+- **Exit** While active, a small floating button — "Salir del Modo Builder" / "Exit Builder Mode" — sits bottom-center on mobile and next to the left rail on desktop; the `b` key also toggles the mode off. Everything stays keyboard-operable with a visible focus ring, and contrast holds AA in both themes.
+- **Structure: a restructure, not a reskin (DESIGN.md §0 of the reference)** Each page ships a second, fully rebuilt Builder Center tree (`data-tree="builder"`) following `agent_docs/references/AWS Builder Center - DESIGN.md` §0 and §12, alongside the portfolio tree (`data-tree="portfolio"`). Only one tree is ever visible: a `display:none` swap driven by the same `data-builder` flag; the builder tree is hidden by default in the served HTML, so the portfolio and its SEO are untouched without JS. Tokens swap as before (the builder tree reads the same variables). Loader, persistence, exit and trigger are unchanged. Backend chrome (search, sign-in, settings, polls) is deliberately omitted; every string comes from the dictionaries; ids are prefixed per tree to avoid collisions.
+- **Builder home (per §0.1)**: sticky top nav — monogram · `Sobre mí` · `Experiencia ▾` (anchors to its three sections) · `Proyectos ▾` (project anchors) · `Comunidades ▾` (community anchors) · `Materiales` · `ES | EN` — built with native `<details>` dropdowns (no hover-only affordances, keyboard operable). A **hero that puts the person first** (owner decision): the profile photo (circle, 144px mobile / 208px desktop) beside a column where the monospace code statement `if (visitor) { hello(); }` is now a small eyebrow with syntax-colored tokens (magenta keyword, blue condition, purple call — the homage stays, but it no longer dominates), followed by the H1 = real name, the real title, the full bio from `profile` and one solid amber CTA ("Ver proyectos"). **No Spotlight strip**: projects get no special treatment — they are a fourth module of **Explore**, exactly like the other sections (row = title + real tech as meta). An **Explore** area with a `Destacados | Recientes` segmented toggle that reorders every module at once without a reload (destacados = curated `order` with `featured` first, recientes = reverse collection order — no invented dates) and modules `H2 + Ver todo →` for Experiencia, Proyectos, Comunidades and Materiales, separated by 1px rules and 48px of space. A **right rail** (≥1025px, stacked below on mobile): `#tech` hashtag chip cloud gathered from the real project stacks (spans, no fake topic URLs) plus a promo-style contact card (footer copy + mailto button). A **multi-row footer**: nav links row, then socials + © row — pinned to the bottom of the viewport on every builder page (the builder tree is a flex column with `min-height: 100dvh` and `main` grows to absorb the slack, so the footer never hugs the content).
+- **Builder inner pages (per §0.2/§0.3)**: breadcrumbs (`Inicio › {page}`, mono 13px) + H1 + one-line intro, then tabs or filters over content reused from the collections: Experiencia = a section tab bar (Educación | Experiencia laboral | Certificaciones) following the ARIA tabs pattern; Proyectos = card grid; Comunidades = card grid; Materiales = catalog with a segmented type filter (Todos | guía | charla | plantillas) that filters client-side. Cards, chips and rows reuse the shared content components with a per-tree id prefix.
 
 **Hidden Terminal (easter egg 2)**
 

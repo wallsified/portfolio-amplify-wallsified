@@ -2,6 +2,7 @@
 
 import PageTitle from "../../components/PageTitle.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import BuilderPageHead from "../../components/builder/BuilderPageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getDict } from "../../i18n";
 import { getSorted, getSingle } from "../../lib/content";
@@ -20,6 +21,11 @@ const projects = await getSorted("projects", locale);
   <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.projects}</p>
 
   <div class="mt-14 grid gap-6 md:grid-cols-2">
-    {projects.map((entry) => <ProjectCard entry={entry} />)}
+    {projects.map((entry) => <ProjectCard locale={locale} entry={entry} />)}
+  </div>
+
+  <BuilderPageHead slot="builder" locale={locale} pageKey="projects" />
+  <div slot="builder" class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-grid>
+    {projects.map((entry) => <ProjectCard locale={locale} entry={entry} idPrefix="b-" />)}
   </div>
 </BaseLayout>

@@ -3,6 +3,8 @@ import CertificationRow from "../../components/CertificationRow.astro";
 import EducationRow from "../../components/EducationRow.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import WorkTabs from "../../components/WorkTabs.astro";
+import BuilderExperience from "../../components/builder/BuilderExperience.astro";
+import BuilderPageHead from "../../components/builder/BuilderPageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getDict } from "../../i18n";
 import { getSorted, getSingle } from "../../lib/content";
@@ -48,4 +50,7 @@ const certifications = await getSorted("certifications", locale);
       </div>
     </section>
   </div>
+
+  <BuilderPageHead slot="builder" locale={locale} pageKey="skills" />
+  <BuilderExperience slot="builder" locale={locale} />
 </BaseLayout>

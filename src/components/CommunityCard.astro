@@ -6,9 +6,11 @@ type CommunityEntry = Awaited<ReturnType<typeof getSorted<"communities">>>[numbe
 
 interface Props {
   entry: CommunityEntry;
+  /** Prefix for the card id inside the builder tree (avoids duplicate ids). */
+  idPrefix?: string;
 }
 
-const { entry } = Astro.props;
+const { entry, idPrefix = "" } = Astro.props;
 const { name, role, description, url, emoji } = entry.data;
 
 // Pastel wash rotation for the emoji circles (peach, sage, sky).
@@ -19,8 +21,9 @@ const wash = washes[entry.data.order % washes.length] ?? "bg-wash-sage";
 <a
   href={url}
   rel="noopener"
+  data-card
   class="lift flex flex-col rounded-md border border-line bg-surface-secondary p-8 hover:border-accent/40"
-  id={entry.id}
+  id={`${idPrefix}${entry.id}`}
 >
   <span
     class:list={[
@@ -30,5 +33,5 @@ const wash = washes[entry.data.order % washes.length] ?? "bg-wash-sage";
     aria-hidden="true">{emoji}</span>
   <h3 class="mt-5 text-[22px] leading-snug">{name}</h3>
   <p class="mt-2 text-[15px] leading-relaxed text-text-secondary">{description}</p>
-  <p class="mt-4 font-mono text-xs text-accent">{role}</p>
+  <p class="mt-4 font-mono text-xs text-accent" data-chip="purple">{role}</p>
 </a>

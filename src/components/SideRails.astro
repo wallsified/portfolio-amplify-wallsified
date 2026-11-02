@@ -73,6 +73,17 @@ const iconLinks = [
         <Icon name="terminal" size={20} />
       </button>
     </li>
+    <li>
+      {/* Visible hint for the hidden Duck Rain (DESIGN.md §10, easter egg 3). */}
+      <button
+        type="button"
+        aria-label={dict.ducks.hintLabel}
+        data-duck-open
+        class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+      >
+        <Icon name="duck" size={20} />
+      </button>
+    </li>
   </ul>
   <span class="h-22.5 w-px bg-line" aria-hidden="true"></span>
 </div>

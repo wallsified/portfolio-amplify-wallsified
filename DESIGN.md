@@ -1,6 +1,6 @@
 ---
 name: Daniel Paredes Portfolio — Navy Teal on Warm Paper
-description: Dark developer portfolio, five routes, bilingual (ES/EN). Brittany Chiang's rigid resume structure and navy/teal palette, softened with Notion's editorial serif, warm cream headings and pastel washes. Two hidden easter eggs: Builder Mode and a hidden terminal.
+description: Dark developer portfolio, five routes, bilingual (ES/EN). Brittany Chiang's rigid resume structure and navy/teal palette, softened with Notion's editorial serif, warm cream headings and pastel washes. Three hidden easter eggs: Builder Mode, a hidden terminal and a duck rain.
 status: draft (DESIGN.md spec is alpha; validate tokens with the official CLI before relying on them)
 colors:
   surface-primary: "#0A192F"
@@ -16,6 +16,7 @@ colors:
   wash-peach: "rgba(250,235,221,0.12)"
   wash-sage: "rgba(219,237,219,0.12)"
   wash-sky: "rgba(211,229,239,0.12)"
+  duck: "#FFD23F"
 typography:
   display: { family: "Fraunces", fallback: "Georgia, serif", weight: 500 }
   body: { family: "Inter", fallback: "system-ui, sans-serif", weight: 400 }
@@ -40,7 +41,7 @@ motion:
 
 A well-dressed resume that feels like a notebook you keep at night. The skeleton is strict and sober (Brittany): fixed page order, narrow reading column, numbered pages, one teal accent on a deep navy canvas. The warmth comes from three Notion borrowings only: a **serif display face**, **warm cream headings** instead of cold blue-white, and **pastel washes** behind the few emoji. Calm, confident, human; the voice is first person, plain and generous (the site's mission is making technical knowledge accessible).
 
-Spend the boldness in two places and keep everything else quiet: the **hero typography** (large serif name) and the **hidden easter eggs** — Builder Mode and the terminal (section 10). No gradients, no illustrations, no decorative motion.
+Spend the boldness in two places and keep everything else quiet: the **hero typography** (large serif name) and the **hidden easter eggs** — Builder Mode, the terminal and the duck rain (section 10). No gradients, no illustrations, no decorative motion.
 
 Dark only in v1 (`color-scheme: dark`). Do not add a light theme unless asked; if added later, teal `#64FFDA` fails on cream and needs a darker variant.
 
@@ -59,8 +60,9 @@ Dark only in v1 (`color-scheme: dark`). Do not add a light theme unless asked; i
 | accent                  | #64FFDA                                                               | The only accent: numbers, links, borders, focus, active states (≈14:1) |
 | accent-wash             | rgba(100,255,218,.10)                                                 | Button hover fill, selection                                           |
 | wash-peach / sage / sky | rgba(250,235,221,.12) / rgba(219,237,219,.12) / rgba(211,229,239,.12) | Circles behind emoji badges and terminal title-bar dots only           |
+| duck                    | #FFD23F                                                               | Rubber ducks of the hidden Duck Rain only (§10, easter egg 3)          |
 
-Rule: **one accent**. Pastels are washes, never text, borders or buttons. Cream is for headings only; body stays blue-gray.
+Rule: **one accent**. Pastels are washes, never text, borders or buttons. Cream is for headings only; body stays blue-gray. The duck yellow is the second owner-approved exception (after the washes): it appears only inside the Duck Rain overlay, never in the interface.
 
 ## 3. Typography Rules
 
@@ -201,6 +203,14 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 - **Window** `surface-terminal`, 8px radius, JetBrains Mono 14px, a full-bleed band across the bottom of the viewport covering its lower third (`max(100dvh/3, 320px)`; owner decision, it replaced the old `min(560px, 92vw)` × 320px bottom-right box), and a taller bottom sheet on mobile (`min(420px, 70dvh)`). Top border 1px `rgba(100,255,218,.20)`; the L3 shadow is mirrored upward (`0 -30px 60px -20px rgba(2,12,27,0.9)`) so the band still casts it. Title bar with three 10px dots in peach, sage and sky washes and the title `Terminal`. The terminal is non-modal `role="dialog"` with an accessible name. `Esc` or the � closes it and returns focus to where it was. On mobile, the terminal becomes a bottom sheet with an on-screen input to type commands and a row of tappable chips to jump to the five main pages.
 - **Content** The terminal shows a prompt and a blinking cursor. Commands are typed in and executed with `Enter`. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks. Commands include `help`, `about`, `skills`, `projects`, `communities`, `resources`, `contact`, and `clear`. Any other input returns a "command not found" message. The terminal is a toy, not a menu; it does not change the page or the URL.
 - **Accessibility** The terminal is fully keyboard-operable, with a visible focus ring on every interactive element. The input is auto-focused when the window opens. The content is read by screen readers in the correct order, and the window can be closed with `Esc`.
+
+**Hidden Duck Rain (easter egg 3)**
+
+- **Trigger** The `d` key on desktop, plus a visible hint as a small rubber-duck icon in the side rail (≥1080px). Count with a passive listener; never `preventDefault`, never fire while typing in a field or with modifiers held, ignore auto-repeat (one press = one rain), so navigation and selection stay untouched. A single `console.log` in devtools may hint at it. Available on every page through the shared layout. No mobile trigger (owner decision: the monogram is taken by the terminal).
+- **Load** The rain is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
+- **Rain** An `aria-hidden` fixed overlay (`pointer-events: none`, below the terminal band at z-45) with ~40 ducks on desktop and ~20 on mobile, each with random position, size, delay, duration and spin. Ducks only fall and fade over ~6s, animated with `transform` only, and the overlay removes itself; a second trigger during a rain is ignored. They never intercept a normal click, and nothing is stored or sent. No sound.
+- **Render** A classic yellow rubber-duck SVG silhouette (`duck` token, #FFD23F, owner-approved in §2) built with DOM APIs; the same shape is the side-rail hint glyph.
+- **Reduced motion** Under `prefers-reduced-motion` the ducks do not fall: they appear as a static scatter with opacity fades of 150ms in and out (DESIGN.md §7).
 
 ## 11. Quality Floor
 

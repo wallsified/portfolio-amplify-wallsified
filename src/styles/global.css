@@ -23,6 +23,10 @@
   --color-wash-sage: rgba(219, 237, 219, 0.12);
   --color-wash-sky: rgba(211, 229, 239, 0.12);
 
+  /* Easter egg only: the rubber ducks of the Duck Rain (DESIGN.md §10).
+     Owner-approved exception to the one-accent rule, like the pastels. */
+  --color-duck: #ffd23f;
+
   /* Typography */
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-body: "Inter Variable", system-ui, sans-serif;
@@ -1220,5 +1224,68 @@
     .term-chips {
       display: none;
     }
+  }
+
+  /* Hidden Duck Rain (DESIGN.md §10, easter egg 3). The DOM is built by the
+     lazy module src/lib/duckRain.ts on first trigger: an inert overlay below
+     the terminal band (z-45 < z-60), never intercepting clicks (pointer-events:
+     none) and never announced (aria-hidden). Ducks only fall and fade. */
+
+  .duck-rain {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .duck {
+    position: absolute;
+    top: 0;
+    left: var(--duck-x);
+    width: var(--duck-size);
+    height: var(--duck-size);
+    /* Transform-only keyframes keep the fall on the compositor. */
+    animation: duck-fall var(--duck-dur) linear var(--duck-delay) forwards;
+    will-change: transform;
+  }
+
+  @keyframes duck-fall {
+    from {
+      transform: translate3d(0, -15vh, 0) rotate(var(--duck-rot));
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    to {
+      transform: translate3d(0, 112vh, 0)
+        rotate(calc(var(--duck-rot) + var(--duck-spin)));
+      opacity: 0;
+    }
+  }
+
+  /* Reduced motion (DESIGN.md §7): no falling, a static scatter with
+     opacity fades of --duration-fast (150ms) in and out. These are
+     transitions, not animations: the global reduced-motion rule in
+     @layer base forces animation-delay to 0ms !important on every element
+     (and, being an earlier layer, wins), which would collapse the staggered
+     fade into a single 150ms flash. It does not touch transition-delay.
+     JS adds .is-in on the next frame and .is-out ~2.6s later. */
+  .duck-rain--static .duck {
+    top: var(--duck-y);
+    opacity: 0;
+    animation: none;
+    transition: opacity var(--duration-fast) ease-out var(--duck-in);
+    will-change: auto;
+  }
+
+  .duck-rain--static.is-in .duck {
+    opacity: 1;
+  }
+
+  .duck-rain--static.is-out .duck {
+    opacity: 0;
+    transition: opacity var(--duration-fast) ease-in var(--duck-out);
   }
 }

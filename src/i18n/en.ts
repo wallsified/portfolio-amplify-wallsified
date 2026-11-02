@@ -91,6 +91,10 @@ export const en: Dictionary = {
     tryHelp: "Type `help` to see the available commands.",
     chipsLabel: "Jump to a page",
   },
+  ducks: {
+    hintLabel: "Duck rain",
+    consoleHint: "psst… press the `d` key for a duck rain",
+  },
   footer: {
     heading: "Have a project or a question?",
     text: "Tell me about it and let's talk.",

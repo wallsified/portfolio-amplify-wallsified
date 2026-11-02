@@ -98,6 +98,10 @@ export const es = {
     tryHelp: "Escribe `help` para ver los comandos disponibles.",
     chipsLabel: "Ir a una página",
   },
+  ducks: {
+    hintLabel: "Lluvia de patos",
+    consoleHint: "psst… pulsa la tecla `d` para una lluvia de patos",
+  },
   footer: {
     heading: "¿Tienes un proyecto o una duda?",
     text: "Cuéntame y platicamos.",

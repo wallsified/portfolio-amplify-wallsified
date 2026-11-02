@@ -61,6 +61,18 @@ const iconLinks = [
         <Icon name="tool" size={20} />
       </button>
     </li>
+    <li>
+      {/* Visible hint for the hidden Terminal (DESIGN.md §10, easter egg 2). */}
+      <button
+        type="button"
+        aria-label={dict.terminal.hintLabel}
+        aria-haspopup="dialog"
+        data-terminal-open
+        class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+      >
+        <Icon name="terminal" size={20} />
+      </button>
+    </li>
   </ul>
   <span class="h-22.5 w-px bg-line" aria-hidden="true"></span>
 </div>

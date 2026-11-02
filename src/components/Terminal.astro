@@ -1,0 +1,148 @@
+---
+import { getDict, getPath, type Locale } from "../i18n";
+import { getSorted, getSingle } from "../lib/content";
+import type { TerminalPayload } from "../lib/terminal";
+
+// Hidden Terminal (DESIGN.md §10, easter egg 2). This component only ships
+// the trigger listeners (the `t` key, the side-rail hint and the mobile
+// monogram), the single console hint and the payload: the window itself is a
+// lazy module (src/lib/terminal.ts) fetched on first trigger, so the terminal
+// adds nothing to the initial JS, LCP or INP. The payload is inert JSON, not
+// visible content; all strings come from the dictionaries and every fact from
+// the collections. Output is written with textContent, nothing is stored or
+// sent, and the terminal never changes the page or the URL.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+
+const [profile, technologies, projects, communities, materials] =
+  await Promise.all([
+    getSingle("profile", locale),
+    getSorted("technologies", locale),
+    getSorted("projects", locale),
+    getSorted("communities", locale),
+    getSorted("materials", locale),
+  ]);
+
+const payload: TerminalPayload & { consoleHint: string } = {
+  prompt: `${profile.data.handle}:~$`,
+  strings: dict.terminal,
+  about: {
+    name: profile.data.name,
+    title: profile.data.title,
+    location: profile.data.location,
+    bio: profile.data.bio,
+  },
+  skills: technologies.map((entry) => ({
+    label: entry.data.label,
+    items: entry.data.items,
+  })),
+  projects: projects.map(
+    (entry) => `${entry.data.title} — ${entry.data.tech.join(", ")}`,
+  ),
+  communities: communities.map(
+    (entry) => `${entry.data.emoji} ${entry.data.name} — ${entry.data.role}`,
+  ),
+  resources: materials.map(
+    (entry) => `${entry.data.title} (${dict.materialTypes[entry.data.type]})`,
+  ),
+  contact: [
+    profile.data.email,
+    `GitHub: ${profile.data.links.github}`,
+    `LinkedIn: ${profile.data.links.linkedin}`,
+    `${dict.socialLabels.aws}: ${profile.data.links.aws}`,
+  ],
+  chips: dict.nav.map((item) => ({
+    label: item.label,
+    href: getPath(locale, item.key),
+  })),
+  consoleHint: dict.terminal.consoleHint,
+};
+
+// `set:html` with the JSON-escaped payload: never let a stray `<` end the tag.
+const payloadJson = JSON.stringify(payload).replaceAll("<", "\\u003c");
+---
+
+<script
+  type="application/json"
+  data-terminal-payload
+  data-hint={dict.terminal.consoleHint}
+  set:html={payloadJson}
+/>
+
+<script>
+  // Tiny trigger, in sync with BuilderMode.astro: passive `t` key, never
+  // preventDefault, never while typing in a field or with modifiers held.
+  // The first trigger dynamic-imports the window module (code-split by Vite).
+  const payloadScript = document.querySelector<HTMLScriptElement>(
+    "script[data-terminal-payload]",
+  );
+  const openers = document.querySelectorAll<HTMLElement>("[data-terminal-open]");
+
+  let loading: Promise<typeof import("../lib/terminal")> | null = null;
+
+  const getPayload = () => {
+    if (!payloadScript?.textContent) return null;
+    try {
+      return JSON.parse(payloadScript.textContent);
+    } catch {
+      return null;
+    }
+  };
+
+  const ensureLoaded = () => {
+    if (!loading) loading = import("../lib/terminal");
+    return loading;
+  };
+
+  const open = () => {
+    const payload = getPayload();
+    if (!payload) return;
+    ensureLoaded().then((module) => module.openTerminal(payload));
+  };
+
+  // Side-rail hint button (≥1080px): toggle. Monogram link (mobile): opens
+  // the terminal instead of navigating — the owner's decision; the home page
+  // stays reachable through the menu sheet. preventDefault only on that click.
+  openers.forEach((opener) => {
+    opener.addEventListener("click", (event) => {
+      const payload = getPayload();
+      if (!payload) return;
+      const isLink = opener instanceof HTMLAnchorElement;
+      if (isLink) event.preventDefault();
+      ensureLoaded().then((module) => {
+        if (isLink) module.openTerminal(payload);
+        else module.toggleTerminal(payload);
+        // We may have just closed the window: keep focus on the trigger.
+        if (module.isTerminalOpen()) return;
+        opener.focus();
+      });
+    });
+  });
+
+  document.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key.toLowerCase() !== "t") return;
+      // One press = one open: ignore auto-repeat while the key is held.
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      const target = e.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      )
+        return;
+      open();
+    },
+    { passive: true },
+  );
+
+  // A single console hint for whoever happens to be looking at devtools.
+  if (payloadScript?.dataset.hint) console.log(payloadScript.dataset.hint);
+</script>

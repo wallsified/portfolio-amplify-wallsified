@@ -116,7 +116,7 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 - L0 page `#0A192F`. L1 card `#112240` + 1px `line`.
 - L2 hover: translateY(-4px) + `0 20px 30px -15px rgba(2,12,27,0.7)`.
-- L3 terminal window: `surface-terminal`, 1px `rgba(100,255,218,.20)` border, `0 30px 60px -20px rgba(2,12,27,0.9)`. The only deep shadow on the site.
+- L3 terminal window: `surface-terminal`, 1px `rgba(100,255,218,.20)` border, `0 30px 60px -20px rgba(2,12,27,0.9)` (mirrored to `-30px` vertically now that the window is a bottom band). The only deep shadow on the site.
 - No glows, no gradients, no glassmorphism except the nav blur.
 
 ## 7. Do's and Don'ts
@@ -198,7 +198,7 @@ No ALL CAPS labels, no tracked-out eyebrows. Mono labels stay lowercase or sente
 
 - **Trigger** The `t` key and on desktop. Count with a passive listener; never `preventDefault`, never count clicks on links, buttons, inputs or text, so navigation and selection stay untouched. Visible hint as a small terminal icon in the side rail; a single `console.log` in devtools may hint at it. Available on every page through the shared layout.
 - **Load** The terminal is a lazy-loaded module fetched on first trigger, so it adds nothing to initial load, LCP or INP.
-- **Window** `surface-terminal`, 8px radius, JetBrains Mono 14px, `min(560px, 92vw)` × 320px, bottom-right on desktop and a bottom sheet on mobile. Title bar with three 10px dots in peach, sage and sky washes and the title `Terminal`. The terminal is non-modal `role="dialog"` with an accessible name. `Esc` or the � closes it and returns focus to where it was. On mobile, the terminal becomes a bottom sheet with an on-screen input to type commands and a row of tappable chips to jump to the five main pages.
+- **Window** `surface-terminal`, 8px radius, JetBrains Mono 14px, a full-bleed band across the bottom of the viewport covering its lower third (`max(100dvh/3, 320px)`; owner decision, it replaced the old `min(560px, 92vw)` × 320px bottom-right box), and a taller bottom sheet on mobile (`min(420px, 70dvh)`). Top border 1px `rgba(100,255,218,.20)`; the L3 shadow is mirrored upward (`0 -30px 60px -20px rgba(2,12,27,0.9)`) so the band still casts it. Title bar with three 10px dots in peach, sage and sky washes and the title `Terminal`. The terminal is non-modal `role="dialog"` with an accessible name. `Esc` or the � closes it and returns focus to where it was. On mobile, the terminal becomes a bottom sheet with an on-screen input to type commands and a row of tappable chips to jump to the five main pages.
 - **Content** The terminal shows a prompt and a blinking cursor. Commands are typed in and executed with `Enter`. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks. Commands include `help`, `about`, `skills`, `projects`, `communities`, `resources`, `contact`, and `clear`. Any other input returns a "command not found" message. The terminal is a toy, not a menu; it does not change the page or the URL.
 - **Accessibility** The terminal is fully keyboard-operable, with a visible focus ring on every interactive element. The input is auto-focused when the window opens. The content is read by screen readers in the correct order, and the window can be closed with `Esc`.
 

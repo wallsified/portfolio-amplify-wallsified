@@ -6,7 +6,9 @@ import type { getSorted } from "../lib/content";
 // divider. Title (text-primary) with issuer or institution below
 // (text-secondary); right side mono dates and, for certifications, an external
 // "verify" icon link. Records, not cards.
-type EducationEntry = Awaited<ReturnType<typeof getSorted<"education">>>[number];
+type EducationEntry = Awaited<
+  ReturnType<typeof getSorted<"education">>
+>[number];
 
 interface Props {
   locale: Locale;
@@ -28,6 +30,10 @@ const { degree, institution, location, status } = entry.data;
   </div>
   <div class="flex items-baseline gap-4 font-mono text-xs text-text-secondary">
     <span>{location}</span>
-    {status === "in-progress" && <span class="text-accent" data-chip>{dict.educationStatus}</span>}
+    {status === "in-progress" && (
+      <span class="text-accent" data-chip>
+        {dict.educationStatus}
+      </span>
+    )}
   </div>
 </div>

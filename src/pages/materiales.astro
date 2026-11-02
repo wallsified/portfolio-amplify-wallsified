@@ -18,7 +18,9 @@ const materials = await getSorted("materials", locale);
   <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.materials}</p>
 
   <div class="mt-10">
-    {materials.map((entry) => <MaterialRow locale={locale} entry={entry} />)}
+    {materials.map((entry) => (
+      <MaterialRow locale={locale} entry={entry} />
+    ))}
   </div>
 
   <BuilderPageHead slot="builder" locale={locale} pageKey="resources" />

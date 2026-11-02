@@ -1,8 +1,9 @@
 ---
 import type { getSorted } from "../lib/content";
 
-
-type CommunityEntry = Awaited<ReturnType<typeof getSorted<"communities">>>[number];
+type CommunityEntry = Awaited<
+  ReturnType<typeof getSorted<"communities">>
+>[number];
 
 interface Props {
   entry: CommunityEntry;
@@ -30,8 +31,15 @@ const wash = washes[entry.data.order % washes.length] ?? "bg-wash-sage";
       "grid h-12 w-12 place-items-center rounded-full text-[32px] leading-none",
       wash,
     ]}
-    aria-hidden="true">{emoji}</span>
+    aria-hidden="true"
+  >
+    {emoji}
+  </span>
   <h3 class="mt-5 text-[22px] leading-snug">{name}</h3>
-  <p class="mt-2 text-[15px] leading-relaxed text-text-secondary">{description}</p>
-  <p class="mt-4 font-mono text-xs text-accent" data-chip="purple">{role}</p>
+  <p class="mt-2 text-[15px] leading-relaxed text-text-secondary">
+    {description}
+  </p>
+  <p class="mt-4 font-mono text-xs text-accent" data-chip="purple">
+    {role}
+  </p>
 </a>

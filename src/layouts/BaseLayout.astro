@@ -40,7 +40,8 @@ const meta = dict.meta[pageKey];
 const site = Astro.site; // https://wallsified.dev
 // The static build emits directory URLs (`/experiencia/`), so canonical and
 // hreflang use the same trailing-slash form the sitemap generates.
-const withSlash = (path: string) => (path === "/" || path.endsWith("/") ? path : `${path}/`);
+const withSlash = (path: string) =>
+  path === "/" || path.endsWith("/") ? path : `${path}/`;
 const canonicalPath = withSlash(getPath(locale, pageKey));
 const canonical = new URL(canonicalPath, site);
 
@@ -80,7 +81,9 @@ const ogImage = new URL("/images/og.png", site);
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />
     {/* English stays out of search until the owner approves it. */}
-    {locale === "en" && !config.englishReviewed && <meta name="robots" content="noindex" />}
+    {locale === "en" && !config.englishReviewed && (
+      <meta name="robots" content="noindex" />
+    )}
     <link rel="canonical" href={canonical.href} />
     <link rel="alternate" hreflang="es" href={esUrl.href} />
     <link rel="alternate" hreflang="en" href={enUrl.href} />
@@ -94,7 +97,10 @@ const ogImage = new URL("/images/og.png", site);
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content={dict.ogLocale} />
-    <meta property="og:locale:alternate" content={getDict(otherLocale).ogLocale} />
+    <meta
+      property="og:locale:alternate"
+      content={getDict(otherLocale).ogLocale}
+    />
     <meta property="og:site_name" content={profile.name} />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -126,13 +132,21 @@ const ogImage = new URL("/images/og.png", site);
       <Nav locale={locale} pageKey={pageKey} cvHref={profile.links.cv} />
       <SideRails locale={locale} links={profile.links} />
 
-      <main id="main" class="min-h-[60vh] px-5 pt-26 pb-12 sm:px-6 min-[1080px]:pt-34 min-[1080px]:pb-16">
+      <main
+        id="main"
+        class="min-h-[60vh] px-5 pt-26 pb-12 sm:px-6 min-[1080px]:pt-34 min-[1080px]:pb-16"
+      >
         <div class="mx-auto max-w-250">
           <slot />
         </div>
       </main>
 
-      <Footer locale={locale} email={profile.email} name={profile.name} links={profile.links} />
+      <Footer
+        locale={locale}
+        email={profile.email}
+        name={profile.name}
+        links={profile.links}
+      />
     </div>
 
     <div data-tree="builder">
@@ -149,7 +163,12 @@ const ogImage = new URL("/images/og.png", site);
         <slot name="builder" />
       </main>
 
-      <BuilderFooter locale={locale} email={profile.email} name={profile.name} links={profile.links} />
+      <BuilderFooter
+        locale={locale}
+        email={profile.email}
+        name={profile.name}
+        links={profile.links}
+      />
     </div>
 
     <BuilderMode locale={locale} />

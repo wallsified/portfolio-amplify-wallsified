@@ -26,25 +26,27 @@ const socials = [
   <div class="b-footer-inner">
     <nav aria-label={dict.navAriaLabel}>
       <ul class="b-footer-row">
-        {
-          dict.nav.map((item) => (
-            <li>
-              <a href={getPath(locale, item.key)}>{item.label}</a>
-            </li>
-          ))
-        }
-        <li><a href={`mailto:${email}`}>{dict.footer.cta}</a></li>
+        {dict.nav.map((item) => (
+          <li>
+            <a href={getPath(locale, item.key)}>{item.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href={`mailto:${email}`}>{dict.footer.cta}</a>
+        </li>
       </ul>
     </nav>
     <ul class="b-footer-row b-footer-legal">
-      {
-        socials.map((social) => (
-          <li>
-            <a href={social.href} rel="noopener">{social.label}</a>
-          </li>
-        ))
-      }
-      <li class="b-footer-copy">© {year} {name}</li>
+      {socials.map((social) => (
+        <li>
+          <a href={social.href} rel="noopener">
+            {social.label}
+          </a>
+        </li>
+      ))}
+      <li class="b-footer-copy">
+        © {year} {name}
+      </li>
     </ul>
   </div>
 </footer>

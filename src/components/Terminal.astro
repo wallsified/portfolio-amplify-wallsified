@@ -72,7 +72,6 @@ const payloadJson = JSON.stringify(payload).replaceAll("<", "\\u003c");
   data-hint={dict.terminal.consoleHint}
   set:html={payloadJson}
 />
-
 <script>
   // Tiny trigger, in sync with BuilderMode.astro: passive `t` key, never
   // preventDefault, never while typing in a field or with modifiers held.
@@ -80,7 +79,9 @@ const payloadJson = JSON.stringify(payload).replaceAll("<", "\\u003c");
   const payloadScript = document.querySelector<HTMLScriptElement>(
     "script[data-terminal-payload]",
   );
-  const openers = document.querySelectorAll<HTMLElement>("[data-terminal-open]");
+  const openers = document.querySelectorAll<HTMLElement>(
+    "[data-terminal-open]",
+  );
 
   let loading: Promise<typeof import("../lib/terminal")> | null = null;
 
@@ -128,7 +129,8 @@ const payloadJson = JSON.stringify(payload).replaceAll("<", "\\u003c");
     (e) => {
       if (e.key.toLowerCase() !== "t") return;
       // One press = one open: ignore auto-repeat while the key is held.
-      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing)
+        return;
       const target = e.target;
       if (
         target instanceof HTMLElement &&

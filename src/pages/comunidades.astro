@@ -18,11 +18,19 @@ const communities = await getSorted("communities", locale);
   <p class="mt-4 max-w-[62ch] text-text-secondary">{dict.intros.communities}</p>
 
   <div class="mt-14 grid gap-6 md:grid-cols-3">
-    {communities.map((entry) => <CommunityCard entry={entry} />)}
+    {communities.map((entry) => (
+      <CommunityCard entry={entry} />
+    ))}
   </div>
 
   <BuilderPageHead slot="builder" locale={locale} pageKey="communities" />
-  <div slot="builder" class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-grid>
-    {communities.map((entry) => <CommunityCard entry={entry} idPrefix="b-" />)}
+  <div
+    slot="builder"
+    class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+    data-grid
+  >
+    {communities.map((entry) => (
+      <CommunityCard entry={entry} idPrefix="b-" />
+    ))}
   </div>
 </BaseLayout>

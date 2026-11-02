@@ -19,7 +19,11 @@ const active = "text-accent";
 const inactive = "text-text-secondary hover:text-text-primary";
 ---
 
-<div class:list={["flex h-11 items-center", className]} role="group" aria-label={dict.langLabel}>
+<div
+  class:list={["flex h-11 items-center", className]}
+  role="group"
+  aria-label={dict.langLabel}
+>
   <a
     href={esHref}
     lang="es"
@@ -27,7 +31,9 @@ const inactive = "text-text-secondary hover:text-text-primary";
     aria-label="Español"
     aria-current={isEs ? "true" : undefined}
     class:list={[linkBase, isEs ? active : inactive]}
-  >ES</a>
+  >
+    ES
+  </a>
   <span class="h-4 w-px bg-line" aria-hidden="true"></span>
   <a
     href={enHref}
@@ -36,5 +42,7 @@ const inactive = "text-text-secondary hover:text-text-primary";
     aria-label="English"
     aria-current={!isEs ? "true" : undefined}
     class:list={[linkBase, !isEs ? active : inactive]}
-  >EN</a>
+  >
+    EN
+  </a>
 </div>

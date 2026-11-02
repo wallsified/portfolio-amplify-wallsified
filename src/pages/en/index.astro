@@ -25,7 +25,10 @@ for (const community of communities) {
     }
     const [before, ...rest] = part.text.split(community.data.name);
     if (before) next.push({ text: before });
-    next.push({ text: community.data.name, href: `${getPath(locale, "communities")}#${community.id}` });
+    next.push({
+      text: community.data.name,
+      href: `${getPath(locale, "communities")}#${community.id}`,
+    });
     if (rest.length > 0) next.push({ text: rest.join(community.data.name) });
   }
   parts = next;
@@ -51,35 +54,41 @@ for (const community of communities) {
       >
         {profile.data.title}
       </p>
-      <p class="hero-line mt-5 font-mono text-sm text-text-secondary" style="--d: 360ms">
+      <p
+        class="hero-line mt-5 font-mono text-sm text-text-secondary"
+        style="--d: 360ms"
+      >
         {profile.data.location}
       </p>
       <p
         class="hero-line mt-6 max-w-[54ch] text-[17px] leading-[1.8] text-text-secondary"
         style="--d: 420ms"
       >
-        {
-          parts.map((part) =>
-            part.href ? (
-              <a
-                href={part.href}
-                class="text-text-primary underline decoration-line underline-offset-4 transition-colors duration-fast hover:text-accent"
-              >
-                {part.text}
-              </a>
-            ) : (
-              part.text
-            ),
-          )
-        }
+        {parts.map((part) =>
+          part.href ? (
+            <a
+              href={part.href}
+              class="text-text-primary underline decoration-line underline-offset-4 transition-colors duration-fast hover:text-accent"
+            >
+              {part.text}
+            </a>
+          ) : (
+            part.text
+          ),
+        )}
       </p>
       <div class="hero-line mt-8" style="--d: 540ms">
-        <a href={getPath(locale, "skills")} class="btn-outline">{dict.heroCta}</a>
+        <a href={getPath(locale, "skills")} class="btn-outline">
+          {dict.heroCta}
+        </a>
       </div>
     </div>
 
     <!-- Avatar column -->
-    <div class="hero-line relative mx-auto w-full max-w-75 md:mx-0" style="--d: 300ms">
+    <div
+      class="hero-line relative mx-auto w-full max-w-75 md:mx-0"
+      style="--d: 300ms"
+    >
       <Picture
         src={getImage(profile.data.avatar)}
         formats={["avif", "webp"]}

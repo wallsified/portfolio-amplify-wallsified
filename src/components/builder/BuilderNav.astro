@@ -17,12 +17,15 @@ interface Props {
 const { locale, pageKey, cvHref } = Astro.props;
 const dict = getDict(locale);
 
-const linkClass = (active: boolean) => `b-link${active ? " b-link-active" : ""}`;
+const linkClass = (active: boolean) =>
+  `b-link${active ? " b-link-active" : ""}`;
 ---
 
 <header class="b-nav">
   <div class="b-nav-bar">
-    <a href={getPath(locale, "home")} class="b-monogram">@wallsified</a>
+    <a href={getPath(locale, "home")} class="b-monogram">
+      @wallsified
+    </a>
 
     <input type="checkbox" id="b-menu-check" class="b-menu-check" hidden />
     <label for="b-menu-check" class="b-menu-toggle" aria-label={dict.openMenu}>
@@ -30,24 +33,24 @@ const linkClass = (active: boolean) => `b-link${active ? " b-link-active" : ""}`
     </label>
 
     <ul class="b-menu">
-      {
-        dict.nav.map((item) => (
-          <li>
-            <a
-              href={getPath(locale, item.key)}
-              aria-current={item.key === pageKey ? "page" : undefined}
-              class={linkClass(item.key === pageKey)}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
+      {dict.nav.map((item) => (
+        <li>
+          <a
+            href={getPath(locale, item.key)}
+            aria-current={item.key === pageKey ? "page" : undefined}
+            class={linkClass(item.key === pageKey)}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
     </ul>
 
     <div class="b-nav-actions">
       <LangSwitch locale={locale} pageKey={pageKey} />
-      <a href={cvHref} class="b-btn b-btn-ghost b-nav-cv">{dict.cvLabel}</a>
+      <a href={cvHref} class="b-btn b-btn-ghost b-nav-cv">
+        {dict.cvLabel}
+      </a>
     </div>
   </div>
 </header>

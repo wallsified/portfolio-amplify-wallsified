@@ -31,13 +31,25 @@ const dict = getDict(locale);
   // Keep in sync with the inline head script in BaseLayout.astro.
   const STORAGE_KEY = "wallsified:builder-mode";
   // AWS Builder Center brand palette segments (public brand guidelines).
-  const SEGMENT_COLORS = ["#FF9900", "#00E582", "#42B4FF", "#AD5CFF", "#FF57E9"];
+  const SEGMENT_COLORS = [
+    "#FF9900",
+    "#00E582",
+    "#42B4FF",
+    "#AD5CFF",
+    "#FF57E9",
+  ];
   const LOADER_MS = 2500;
 
   const root = document.documentElement;
-  const exitButton = document.querySelector<HTMLButtonElement>("[data-builder-exit]");
-  const portfolioTree = document.querySelector<HTMLElement>('[data-tree="portfolio"]');
-  const builderTree = document.querySelector<HTMLElement>('[data-tree="builder"]');
+  const exitButton = document.querySelector<HTMLButtonElement>(
+    "[data-builder-exit]",
+  );
+  const portfolioTree = document.querySelector<HTMLElement>(
+    '[data-tree="portfolio"]',
+  );
+  const builderTree = document.querySelector<HTMLElement>(
+    '[data-tree="builder"]',
+  );
 
   // Visibility swap of the two trees (DESIGN.md §10): CSS already hides the
   // inactive one at first paint; `inert` keeps it out of the tab order.
@@ -94,9 +106,13 @@ const dict = getDict(locale);
   };
 
   // Side-rail hint buttons announce the toggle state (DESIGN.md §10).
-  const hintButtons = document.querySelectorAll<HTMLButtonElement>("[data-builder-open]");
+  const hintButtons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-builder-open]",
+  );
   const syncHints = (on: boolean): void => {
-    hintButtons.forEach((button) => button.setAttribute("aria-pressed", String(on)));
+    hintButtons.forEach((button) =>
+      button.setAttribute("aria-pressed", String(on)),
+    );
   };
 
   const setMode = (on: boolean): void => {
@@ -123,7 +139,8 @@ const dict = getDict(locale);
     (e) => {
       if (e.key.toLowerCase() !== "b") return;
       // One press = one toggle: ignore auto-repeat while the key is held.
-      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing)
+        return;
       const target = e.target;
       if (
         target instanceof HTMLElement &&
@@ -140,7 +157,9 @@ const dict = getDict(locale);
 
   // The small hint icon in the side rail (≥1080px) also toggles the mode.
   hintButtons.forEach((button) => {
-    button.addEventListener("click", () => setMode(!root.hasAttribute("data-builder")));
+    button.addEventListener("click", () =>
+      setMode(!root.hasAttribute("data-builder")),
+    );
   });
 
   exitButton?.addEventListener("click", () => setMode(false));

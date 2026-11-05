@@ -42,6 +42,7 @@ Config: `i18n: { defaultLocale: "es", locales: ["es","en"], routing: { prefixDef
 
 - Builder mode exactly as in `DESIGN.md` section 10.
 - Hidden terminal exactly as in `DESIGN.md` section 10. Output is written with `textContent`, never `innerHTML`; nothing is stored or sent; it never intercepts normal clicks.
+- Duck rain exactly as in `DESIGN.md` section 10.
 
 ## Working rules
 

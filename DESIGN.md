@@ -1,7 +1,6 @@
 ---
 name: Daniel Paredes Portfolio — Navy Teal on Warm Paper
 description: Dark developer portfolio, five routes, bilingual (ES/EN). Brittany Chiang's rigid resume structure and navy/teal palette, softened with Notion's editorial serif, warm cream headings and pastel washes. Three hidden easter eggs: Builder Mode, a hidden terminal and a duck rain.
-status: draft (DESIGN.md spec is alpha; validate tokens with the official CLI before relying on them)
 colors:
   surface-primary: "#0A192F"
   surface-secondary: "#112240"
@@ -34,7 +33,7 @@ motion:
 
 # Daniel Paredes Portfolio — DESIGN.md
 
-**Provenance:** structure derived from the _Brittany Chiang_ DESIGN.md (avaliable at `agent_docs/references/Brittany-Chiang-DESIGN.md`), warmth derived from the _Notion_ DESIGN.md (available at `agent_docs/references/Notion-DESIGN.md`). These are design _principles_ to borrow, not assets: never copy either site's text, images, logos or illustrations. For the Builder Mode, see `agent_docs/references/AWS Builder Center - DESIGN.md`.
+**Provenance:** structure derived from the _Brittany Chiang_ DESIGN.md (avaliable at `https://github.com/MarcBender-git/awesome-design/blob/main/design-md/brittany-chiang/DESIGN.md`), warmth derived from the _Notion_ DESIGN.md (available at `https://github.com/MarcBender-git/awesome-design/blob/main/design-md/notion/DESIGN.md`). These are design _principles_ to borrow, not assets: never copy either site's text, images, logos or illustrations. For the Builder Mode, see `agent_docs/AWS Builder Center - DESIGN.md`.
 **Subject:** Daniel Paredes (@wallsified), "Computólogo / Desarrollador", Ciudad de México. All real copy lives in `agent_docs/spanish_content.md`; never invent biography, employers, dates or metrics.
 
 ## 1. Visual Theme & Atmosphere

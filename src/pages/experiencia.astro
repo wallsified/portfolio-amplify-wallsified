@@ -27,16 +27,22 @@ const certifications = await getSorted("certifications", locale);
   <div class="mt-14 space-y-16 md:space-y-20">
     <!-- Educación -->
     <section aria-labelledby="education-title">
-      <h3 id="education-title" class="text-[24px]">{dict.sections.education}</h3>
+      <h3 id="education-title" class="text-[24px]">
+        {dict.sections.education}
+      </h3>
       <p class="mt-2 text-text-secondary">{dict.intros.education}</p>
       <div class="mt-6">
-        {education.map((entry) => <EducationRow locale={locale} entry={entry} />)}
+        {education.map((entry) => (
+          <EducationRow locale={locale} entry={entry} />
+        ))}
       </div>
     </section>
 
     <!-- Experiencia laboral -->
     <section aria-labelledby="work-title">
-      <h3 id="work-title" class="text-[24px]">{dict.sections.work}</h3>
+      <h3 id="work-title" class="text-[24px]">
+        {dict.sections.work}
+      </h3>
       <p class="mt-2 text-text-secondary">{dict.intros.work}</p>
       <div class="mt-6">
         <WorkTabs locale={locale} entries={work} />
@@ -45,30 +51,36 @@ const certifications = await getSorted("certifications", locale);
 
     <!-- Tecnologías que utilizo -->
     <section aria-labelledby="technologies-title">
-      <h3 id="technologies-title" class="text-[24px]">{dict.sections.technologies}</h3>
+      <h3 id="technologies-title" class="text-[24px]">
+        {dict.sections.technologies}
+      </h3>
       <p class="mt-2 text-text-secondary">{dict.intros.technologies}</p>
       <div class="mt-6">
         <ul>
-          {
-            technologies.map((entry) => (
-              <li class="flex flex-col gap-1 border-b border-line py-4 md:flex-row md:items-baseline md:gap-6">
-                <span class="font-mono text-sm text-text-secondary md:w-64 md:shrink-0">
-                  {entry.data.label}
-                </span>
-                <span class="text-text-primary">{entry.data.items.join(" · ")}</span>
-              </li>
-            ))
-          }
+          {technologies.map((entry) => (
+            <li class="flex flex-col gap-1 border-b border-line py-4 md:flex-row md:items-baseline md:gap-6">
+              <span class="font-mono text-sm text-text-secondary md:w-64 md:shrink-0">
+                {entry.data.label}
+              </span>
+              <span class="text-text-primary">
+                {entry.data.items.join(" · ")}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
 
     <!-- Certificaciones -->
     <section aria-labelledby="certifications-title">
-      <h3 id="certifications-title" class="text-[24px]">{dict.sections.certifications}</h3>
+      <h3 id="certifications-title" class="text-[24px]">
+        {dict.sections.certifications}
+      </h3>
       <p class="mt-2 text-text-secondary">{dict.intros.certifications}</p>
       <div class="mt-6">
-        {certifications.map((entry) => <CertificationRow entry={entry} verifyLabel={dict.verify} />)}
+        {certifications.map((entry) => (
+          <CertificationRow entry={entry} verifyLabel={dict.verify} />
+        ))}
       </div>
     </section>
   </div>

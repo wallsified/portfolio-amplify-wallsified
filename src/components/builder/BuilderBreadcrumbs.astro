@@ -16,8 +16,12 @@ if (!current) throw new Error(`No nav item for page key "${pageKey}"`);
 
 <nav aria-label={dict.builder.crumbAriaLabel} class="b-crumbs">
   <ol>
-    <li><a href={getPath(locale, "home")}>{dict.builder.crumbRoot}</a></li>
+    <li>
+      <a href={getPath(locale, "home")}>{dict.builder.crumbRoot}</a>
+    </li>
     <li aria-hidden="true">›</li>
-    <li><span aria-current="page">{current.label}</span></li>
+    <li>
+      <span aria-current="page">{current.label}</span>
+    </li>
   </ol>
 </nav>

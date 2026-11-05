@@ -22,3 +22,6 @@ customHeaders:
       # Content Security Policy básico para acotar orígenes seguros
       - key: "Content-Security-Policy"
         value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;"
+      # Previene ataques de Cross-Site Scripting (XSS) en navegadores antiguos  
+      - key: "X-XSS-Protection"
+        value: "1; mode=block"

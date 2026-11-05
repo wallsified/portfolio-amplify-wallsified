@@ -22,39 +22,55 @@ const filters = [
 ];
 ---
 
-<div class="b-toggle" role="group" aria-label={dict.builder.filterAria} data-material-filter>
-  {
-    filters.map((filter, i) => (
-      <button
-        type="button"
-        aria-pressed={i === 0 ? "true" : "false"}
-        data-filter={filter.value}
-      >
-        {filter.label}
-      </button>
-    ))
-  }
+<div
+  class="b-toggle"
+  role="group"
+  aria-label={dict.builder.filterAria}
+  data-material-filter
+>
+  {filters.map((filter, i) => (
+    <button
+      type="button"
+      aria-pressed={i === 0 ? "true" : "false"}
+      data-filter={filter.value}
+    >
+      {filter.label}
+    </button>
+  ))}
 </div>
 
 <div class="mt-6" data-catalog data-filter-list>
-  {materials.map((entry) => <MaterialRow locale={locale} entry={entry} />)}
+  {materials.map((entry) => (
+    <MaterialRow locale={locale} entry={entry} />
+  ))}
 </div>
 
 <script>
   // Segmented type filter: toggle `hidden` on rows (reference §0.3).
-  document.querySelectorAll<HTMLElement>("[data-material-filter]").forEach((group) => {
-    const list = group.nextElementSibling;
-    if (!list) return;
-    const buttons = Array.from(group.querySelectorAll<HTMLButtonElement>("button"));
-    const rows = Array.from(list.querySelectorAll<HTMLElement>("[data-type]"));
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const value = button.dataset.filter;
-        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
-        rows.forEach((row) => {
-          row.toggleAttribute("hidden", value !== "all" && row.dataset.type !== value);
+  document
+    .querySelectorAll<HTMLElement>("[data-material-filter]")
+    .forEach((group) => {
+      const list = group.nextElementSibling;
+      if (!list) return;
+      const buttons = Array.from(
+        group.querySelectorAll<HTMLButtonElement>("button"),
+      );
+      const rows = Array.from(
+        list.querySelectorAll<HTMLElement>("[data-type]"),
+      );
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const value = button.dataset.filter;
+          buttons.forEach((b) =>
+            b.setAttribute("aria-pressed", String(b === button)),
+          );
+          rows.forEach((row) => {
+            row.toggleAttribute(
+              "hidden",
+              value !== "all" && row.dataset.type !== value,
+            );
+          });
         });
       });
     });
-  });
 </script>

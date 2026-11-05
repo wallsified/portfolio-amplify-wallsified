@@ -1,0 +1,62 @@
+---
+import { getDict, type Locale } from "../i18n";
+
+// Hidden Duck Rain (DESIGN.md §10, easter egg 3). This component only ships
+// the trigger listeners (the `d` key and the side-rail hint) plus the single
+// console hint: the rain itself is a lazy module (src/lib/duckRain.ts)
+// fetched on first trigger, so the ducks add nothing to the initial JS, LCP
+// or INP. The overlay is aria-hidden and pointer-events: none — it never
+// intercepts normal clicks — and nothing is stored or sent.
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+---
+
+<div data-duck-hint={dict.ducks.consoleHint} hidden></div>
+
+<script>
+  // Tiny trigger, in sync with Terminal.astro: passive `d` key, never
+  // preventDefault, never while typing in a field or with modifiers held.
+  // The first trigger dynamic-imports the rain module (code-split by Vite).
+  const hint = document.querySelector<HTMLElement>("[data-duck-hint]");
+  const openers = document.querySelectorAll<HTMLElement>("[data-duck-open]");
+
+  let loading: Promise<typeof import("../lib/duckRain")> | null = null;
+
+  const rain = () => {
+    if (!loading) loading = import("../lib/duckRain");
+    loading.then((module) => module.startDuckRain());
+  };
+
+  // Side-rail hint button (≥1080px).
+  openers.forEach((opener) => {
+    opener.addEventListener("click", rain);
+  });
+
+  document.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key.toLowerCase() !== "d") return;
+      // One press = one rain: ignore auto-repeat while the key is held.
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.isComposing)
+        return;
+      const target = e.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      )
+        return;
+      rain();
+    },
+    { passive: true },
+  );
+
+  // A single console hint for whoever happens to be looking at devtools.
+  if (hint?.dataset.duckHint) console.log(hint.dataset.duckHint);
+</script>

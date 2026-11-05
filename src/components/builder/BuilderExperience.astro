@@ -30,65 +30,66 @@ const formatDate = (start: string, end?: string) => `${start} – ${end ?? "…"
 ---
 
 <div class="b-tabs-wrap">
-  <div role="tablist" aria-label={dict.builder.tabsAria} data-tablist class="b-tabbar">
-    {
-      sections.map((section, i) => (
-        <button
-          type="button"
-          role="tab"
-          id={`btab-${section.key}`}
-          aria-controls={`bpanel-${section.key}`}
-          aria-selected={i === 0 ? "true" : "false"}
-          tabindex={i === 0 ? 0 : -1}
-          data-tab
-        >
-          {section.label}
-        </button>
-      ))
-    }
+  <div
+    role="tablist"
+    aria-label={dict.builder.tabsAria}
+    data-tablist
+    class="b-tabbar"
+  >
+    {sections.map((section, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`btab-${section.key}`}
+        aria-controls={`bpanel-${section.key}`}
+        aria-selected={i === 0 ? "true" : "false"}
+        tabindex={i === 0 ? 0 : -1}
+        data-tab
+      >
+        {section.label}
+      </button>
+    ))}
   </div>
 
-  {
-    sections.map((section, i) => (
-      <div
-        role="tabpanel"
-        id={`bpanel-${section.key}`}
-        aria-labelledby={`btab-${section.key}`}
-        tabindex={0}
-        hidden={i !== 0}
-        data-panel
-      >
-        {section.key === "work" ? (
-          <ul class="b-work-list">
-            {work.map((entry) => (
-              <li>
-                <p class="b-work-role">{entry.data.role}</p>
-                <p class="b-work-company">{entry.data.company}</p>
-                <p class="b-work-meta">
-                  <span>{formatDate(entry.data.start, entry.data.end)}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{entry.data.location}</span>
-                </p>
-                <p class="b-work-desc">{entry.data.description}</p>
-              </li>
-            ))}
-          </ul>
-        ) : section.key === "education" ? (
-          <div data-catalog>
-            {education.map((entry) => (
-              <EducationRow locale={locale} entry={entry} />
-            ))}
-          </div>
-        ) : section.key === "technologies" ? (
-          <TechnologiesList locale={locale} />
-        ) : (
-          <div data-catalog>
-            {certifications.map((entry) => (
-              <CertificationRow entry={entry} verifyLabel={dict.verify} />
-            ))}
-          </div>
-        )}
-      </div>
-    ))
-  }
+  {sections.map((section, i) => (
+    <div
+      role="tabpanel"
+      id={`bpanel-${section.key}`}
+      aria-labelledby={`btab-${section.key}`}
+      tabindex={0}
+      hidden={i !== 0}
+      data-panel
+    >
+      {section.key === "work" ? (
+        <ul class="b-work-list">
+          {work.map((entry) => (
+            <li>
+              <p class="b-work-role">{entry.data.role}</p>
+              <p class="b-work-company">{entry.data.company}</p>
+              <p class="b-work-meta">
+                <span>{formatDate(entry.data.start, entry.data.end)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{entry.data.location}</span>
+              </p>
+              <p class="b-work-desc">{entry.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      ) : section.key === "education" ? (
+        <div data-catalog>
+          {education.map((entry) => (
+            <EducationRow locale={locale} entry={entry} />
+          ))}
+        </div>
+      ) : section.key === "technologies" ? (
+        <TechnologiesList locale={locale} />
+      ) : (
+        <div data-catalog>
+          {certifications.map((entry) => (
+            <CertificationRow entry={entry} verifyLabel={dict.verify} />
+          ))}
+        </div>
+      )}
+    </div>
+  ))}
 </div>

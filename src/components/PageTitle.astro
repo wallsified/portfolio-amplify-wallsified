@@ -14,7 +14,14 @@ if (!navItem) throw new Error(`No nav item for page key "${pageKey}"`);
 ---
 
 <div class="flex items-center gap-4">
-  <span class="font-mono text-xl text-accent" aria-hidden="true">{navItem.number}</span>
-  <Tag class="text-[clamp(28px,4vw,40px)] leading-[1.15] tracking-[-0.015em]">{navItem.label}</Tag>
-  <span class="hidden h-px flex-1 bg-line min-[480px]:block" aria-hidden="true"></span>
+  <span class="font-mono text-xl text-accent" aria-hidden="true">
+    {navItem.number}
+  </span>
+  <Tag class="text-[clamp(28px,4vw,40px)] leading-[1.15] tracking-[-0.015em]">
+    {navItem.label}
+  </Tag>
+  <span
+    class="hidden h-px flex-1 bg-line min-[480px]:block"
+    aria-hidden="true"
+  ></span>
 </div>

@@ -5,7 +5,9 @@ import type { getSorted } from "../lib/content";
 // Certification row (DESIGN.md §9): same grid as Material row. Title
 // (text-primary), issuer below (text-secondary). Right: mono validity and an
 // external "verify" icon link when a credential URL exists.
-type CertificationEntry = Awaited<ReturnType<typeof getSorted<"certifications">>>[number];
+type CertificationEntry = Awaited<
+  ReturnType<typeof getSorted<"certifications">>
+>[number];
 
 interface Props {
   entry: CertificationEntry;
@@ -26,17 +28,15 @@ const { title, issuer, validity, url } = entry.data;
   </div>
   <div class="flex items-center gap-3 font-mono text-xs text-text-secondary">
     <span>{validity}</span>
-    {
-      url && (
-        <a
-          href={url}
-          aria-label={`${verifyLabel}: ${title}`}
-          rel="noopener"
-          class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
-        >
-          <Icon name="external" size={16} />
-        </a>
-      )
-    }
+    {url && (
+      <a
+        href={url}
+        aria-label={`${verifyLabel}: ${title}`}
+        rel="noopener"
+        class="flex h-11 w-11 items-center justify-center text-text-secondary transition-colors duration-fast hover:text-accent"
+      >
+        <Icon name="external" size={16} />
+      </a>
+    )}
   </div>
 </div>
